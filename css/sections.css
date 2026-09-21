@@ -627,22 +627,7 @@ filter: drop-shadow(0px 12px 12.9px rgba(0, 0, 0, 0.18));
   min-height: 699px;
 }
 .talent-card__media { position: relative; overflow: hidden; }
-.talent-card__media img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; will-change: transform; }
-.talent-card__caption {
-  position: absolute;
-  top: 73px; left: 33px;
-  letter-spacing: 0.19em;
-  color: #fff;
-  z-index: 2;
-}
-.talent-card__caption::after {
-  content: '';
-  display: block;
-  width: 227px;
-  height: 1px;
-  background: #fff;
-  margin-top: 8px;
-}
+.talent-card__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .talent-card__body {
   padding: clamp(60px, 6.5vw, 124px) clamp(30px, 4vw, 64px) clamp(60px, 6.5vw, 124px) clamp(30px, 3.1vw, 60px);
   display: flex;

@@ -241,8 +241,6 @@
   .masonry.is-collapsed { max-height: 1400px; }
   .post__media, .post__media--xl { height: 360px; }
   .talent-card__media { height: 320px; }
-  .talent-card__caption { top: 28px; left: 20px; }
-  .talent-card__caption::after { width: 140px; }
   .logo-grid { grid-template-columns: repeat(2, 1fr); gap: 0 8px; }
   .logo { height: 110px; padding: 16px; }
   .logo img { max-width: 100%; width: min(var(--w, 140px), 100%); }
