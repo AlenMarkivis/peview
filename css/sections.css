@@ -288,12 +288,12 @@ html.no-js .intro__text .split-word { opacity: 1; }
 }
 /* Sized so the base disc matches the ring artwork exactly (both 750/1080 of
    the ring PNG), otherwise the white disc reads as a halo behind the ring. */
-.phil-orb__orian-base { left: 8.337%; top: 15.451%; width: 83.14%; height: 81.82%; }
+.phil-orb__orian-base { left: 4.171%; top: 11.996%; width: 91.454%; height: 90.002%; }
 /* The ring no longer spins on its own. The animation stays attached but
    paused, so hovering resumes it and leaving pauses it exactly where it is —
    restarting it on hover instead would snap the ring back to 0deg on exit. */
 .phil-orb__orian-ring {
-  left: -1.4346%; top: -1.1672%; width: 102.606%; height: 102.602%;
+  left: -6.578%; top: -6.284%; width: 112.867%; height: 112.862%;
   animation: orianSpin 36s linear infinite;
   animation-play-state: paused;
 }

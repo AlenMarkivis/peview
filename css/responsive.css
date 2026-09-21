@@ -277,3 +277,173 @@
   .hero { height: 1165px; }
   .impact { height: 902px; }
 }
+
+/* =========================================================
+   MOBILE — Figma "mobile-homepage" (node 111:1645)
+   Authored at 320 wide with 24px gutters and a 272 content
+   column. Values below are the design's own px values; this
+   block sits last so it wins over the generic 1024/768/480
+   rules above.
+   ========================================================= */
+@media (max-width: 768px) {
+  :root {
+    --gutter: 24px;
+    --fs-hero: 48px;
+    --fs-h2: 36px;
+    --fs-h3: 28px;
+    --fs-card-title: 24px;
+    --fs-eyebrow: 14px;
+  }
+
+  /* ---- Type scale ---- */
+  .h2, .h2--tight { line-height: 1; }
+  .eyebrow {
+    font-size: var(--fs-eyebrow);
+    line-height: 1.5;
+    letter-spacing: 0.33em;
+  }
+  .eyebrow--sm { font-size: var(--fs-eyebrow); }
+  .lead,
+  .philosophy__lead { font-size: 17px; line-height: 1.6; }
+  .section-head { gap: 20px; }
+
+  /* ---- Hero: 48px at the 320 artboard = 15vw, tracked -1.8px ---- */
+  .hero-banner .inner-row h1.heading,
+  .hero-banner .inner-row .text-wrp {
+    font-size: clamp(40px, 15vw, 60px);
+    line-height: 0.9;
+    letter-spacing: -0.0375em;
+  }
+  .hero-banner.hero { min-height: calc(455px + var(--hero-curve, 0px)); }
+
+  /* ---- Nav: the design's mobile bar is a 300x40 pill holding only the
+     logo and the burger; the Contact CTA moves into the drawer. ---- */
+  .site-header { padding-top: 12px; }
+  .nav-wrap { width: calc(100% - 20px); }
+  .nav { height: 40px; padding: 0 20px; }
+  .nav__logo img { width: 80px; }
+  .nav__cta { display: none; }
+  .nav__burger { width: 24px; height: 24px; }
+  .nav__burger span { left: 4px; right: 4px; top: 6px; }
+  .nav__burger span:nth-child(2) { top: 11px; }
+  .nav__burger span:nth-child(3) { top: 16px; }
+  .site-header.drawer-open .nav__cta { display: inline-flex; margin-top: 16px; }
+  .site-header.drawer-open .nav__burger { top: 10px; right: 16px; }
+
+  /* ---- Intro ---- */
+  .intro__text { font-size: 19px; line-height: 1.4; }
+  .intro__tagline { font-size: 19px; line-height: 1.4; }
+
+  /* ---- Philosophy: three stacked cards, copy left-aligned ----
+     Each orb becomes a 10px-radius card on the design's vertical
+     #f3f3f5 wash, 36px/20px padding, 40px apart. */
+  .philosophy__stage { gap: 40px; }
+  .phil-orb {
+    align-items: stretch;
+    max-width: none;
+    padding: 36px 20px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(243,243,245,0) 0%, #f3f3f5 100%);
+  }
+  .phil-orb__frame,
+  .phil-orb--hi-ai .phil-orb__frame,
+  .phil-orb--xfactors .phil-orb__frame,
+  .phil-orb--orian .phil-orb__frame {
+    width: min(204px, 64vw);
+    align-self: center;
+    margin-bottom: 32px;
+  }
+  .phil-orb__info,
+  .phil-orb--hi-ai .phil-orb__info,
+  .phil-orb--xfactors .phil-orb__info,
+  .phil-orb--orian .phil-orb__info {
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+  }
+  .phil-orb__title { font-size: 20px; font-weight: 600; line-height: 1.4; }
+  .phil-orb__desc { font-size: 17px; line-height: 1.6; }
+  .phil-orb__btn {
+    margin-top: 20px;           /* design: 40px below the copy block */
+    height: 40px;
+    padding: 0 24px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+  }
+
+  /* Industries mobile lives in industries.css, which loads after this file. */
+
+  /* ---- Competencies: horizontal scroller, next card peeking ---- */
+  .comp-row {
+    display: flex;
+    grid-template-columns: none;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* full-bleed track so the row can run past the gutters */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+  .comp-row::-webkit-scrollbar { display: none; }
+  .comp-card { flex: 0 0 191px; scroll-snap-align: start; }
+  .comp-card a { height: 306px; padding-top: 28px; }
+  .comp-card a > img,
+  .comp-card a:hover > img { height: 200px; }
+  .comp-card__title { font-size: 21px; }
+
+  /* ---- Why leaders ---- */
+  .why__stack { height: 600px; }
+  .feel-card { min-height: 0; padding: 20px; }
+  .feel-card h3 { font-size: 24px; line-height: 1; }
+  .feel-card p { font-size: 17px; line-height: 1.6; }
+
+  /* ---- How can we help ---- */
+  .help-grid { grid-template-columns: 1fr; gap: 16px; }
+  .help-card { padding: 24px; min-height: 0; }
+  .help-card h3 { font-size: 24px; font-weight: 600; line-height: 1.06; margin-bottom: 12px; }
+  .help-card p { font-size: 17px; line-height: 1.6; }
+
+  /* ---- Insights ---- */
+  .masonry { grid-template-columns: 1fr; }
+  .masonry__col { gap: 40px; }
+  .post__media,
+  .post__media--xl,
+  .post__media--tall,
+  .post__media--short { height: auto; aspect-ratio: 272 / 315; }
+  .post__title { font-size: 28px; line-height: 1; }
+  .post__excerpt { font-size: 17px; line-height: 1.5; }
+  .post__date { font-size: 17px; line-height: 1.8; }
+  .filter__label { font-size: 14px; letter-spacing: 0.33em; }
+
+  /* ---- Careers: media runs full-bleed, only the copy is inset 24px ---- */
+  .talent-card { padding: 0; }
+  .talent-card__media { height: 273px; }
+  .talent-card__body { padding: 24px; }
+  .talent-card__body .h2 { font-size: 36px; line-height: 1; }
+  .talent-card__body .lead { font-size: 17px; line-height: 1.6; }
+
+  /* ---- Education band ---- */
+  .impact { height: auto; min-height: 503px; }
+  .impact__title { font-size: 36px; line-height: 0.78; }
+  .impact__content { text-align: center; align-items: center; }
+
+  /* ---- Footer: one column, not two ---- */
+  .footer__cols {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+  .footer__col h4 { font-size: 20px; line-height: 1.2; margin-bottom: 12px; }
+  .footer__col li a { font-size: 17px; line-height: 1.8; }
+  .footer__legal { font-size: 17px; line-height: 1.8; }
+  .footer__logo { width: 173px; }
+}
+
+@media (max-width: 480px) {
+  /* the 480 block above splits the footer back into two columns */
+  .footer__cols { grid-template-columns: 1fr; gap: 40px; }
+  .footer__col--wide { grid-column: auto; }
+  .comp-row { grid-template-columns: none; }
+}

@@ -274,3 +274,40 @@
 @media (prefers-reduced-motion:reduce){
   .industries-section *{ transition-duration:.01ms !important; }
 }
+
+/* ============================================================
+   PHONE — Figma "mobile-homepage" (node 111:1645)
+   The design drops the snap strip: six full-width cards,
+   272x290 at the 320 artboard, 10px radius, 16px apart.
+   ============================================================ */
+@media (max-width:768px){
+  .industries-section{ padding-top:56px; }
+  .industries-section__head{ margin-bottom:30px; }
+
+  .ind-accordion{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    overflow:visible;
+    scroll-snap-type:none;
+    padding:0 var(--gutter);
+    cursor:default;
+  }
+  .ind-accordion__item{
+    flex:0 0 auto;
+    width:100%;
+    max-width:none;
+    scroll-snap-align:none;
+  }
+  .ind-accordion__link{
+    height:auto;
+    aspect-ratio:272 / 290;
+    border-radius:10px;
+  }
+  .ind-accordion__label{
+    left:20px; right:20px; bottom:24px;
+    font-size:20px;
+    line-height:1.2;
+  }
+  .ind-accordion__arrow{ opacity:1; transform:none; width:32px; height:32px; top:14px; right:14px; }
+}
