@@ -290,16 +290,26 @@
       vids.forEach(function (v) { io.observe(v); });
     }
 
+    // Matches the opacity transition on .phil-orb__media; the clip keeps running
+    // until the still has fully faded back in so the swap never snaps.
+    var FADE_MS = 450;
+
     vids.forEach(function (v) {
       var orb = v.closest('.phil-orb');
       if (!orb) return;
+      var timer = null;
       var play = function () {
+        if (timer) { clearTimeout(timer); timer = null; }
         var p = v.play();
         if (p && p.catch) { p.catch(function () {}); }
       };
       var rewind = function () {
-        v.pause();
-        try { v.currentTime = 0; } catch (e) {}
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(function () {
+          timer = null;
+          v.pause();
+          try { v.currentTime = 0; } catch (e) {}
+        }, FADE_MS);
       };
       orb.addEventListener('mouseenter', play);
       orb.addEventListener('focusin', play);
