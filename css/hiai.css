@@ -1,0 +1,389 @@
+/* =========================================================
+   Xoriant — HI/AI (Human Ingenuity powered by AI) page
+   Depends on base.css (tokens), header.css, footer.css
+   Design frame is 1920 wide; vw values below are (px / 19.2).
+   ========================================================= */
+
+/* ---------- Sticky-hero mechanics (same pattern as the home page) ---------- */
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: clamp(600px, 49.3vw, 946px);
+  min-height: 560px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #2a5f52 0%, #123b32 100%);
+  color: #fff;
+}
+.page-below {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+/* Shallow 85px curve (Figma 1:3253) — no drop shadow, the design has none. */
+.page-below__curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: -1px;
+  height: clamp(70px, 10.4vw, 200px);
+  pointer-events: none;
+}
+.page-below__curve svg { width: 100%; height: 100%; display: block; }
+.hero__title .split-line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+
+/* Shared white curve overlays used between full-bleed sections */
+.edge {
+  position: absolute;
+  left: 0; right: 0;
+  height: clamp(28px, 4.43vw, 85px);
+  pointer-events: none;
+  z-index: 3;
+}
+.edge svg { width: 100%; height: 100%; display: block; }
+.edge--top { top: -1px; }
+.edge--bottom { bottom: -1px; }
+
+/* ---------- HERO ---------- */
+.hero--hiai .hero__bg { position: absolute; inset: 0; overflow: hidden; }
+.hero--hiai .hero__fern {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  will-change: transform;
+}
+.hero--hiai .hero__tint {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,32,26,0.45) 0%, rgba(10,32,26,0.08) 32%, rgba(10,32,26,0.08) 70%, rgba(10,32,26,0.22) 100%);
+}
+.hero--hiai .hero__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(16px, 1.6vw, 32px);
+  padding: clamp(60px, 6vw, 110px) var(--gutter) 0;
+}
+.hero--hiai .hero__title {
+  color: #fff;
+  font-size: clamp(44px, 5.2vw, 100px);
+  line-height: 1;
+  text-shadow: 0 2px 30px rgba(0,0,0,0.25);
+}
+.hero--hiai .hero__eyebrow {
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(14px, 1.25vw, 24px);
+  letter-spacing: 0.33em;
+  text-transform: uppercase;
+  line-height: 1.36;
+}
+
+/* ---------- Shared display heading ---------- */
+.hiai-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* ---------- SECTION: Applied intro ---------- */
+.applied {
+  padding: clamp(50px, 4.2vw, 80px) 0 clamp(70px, 6.5vw, 125px);
+  text-align: center;
+}
+.applied__eyebrow {
+  margin-top: clamp(30px, 3.6vw, 70px);
+  font-weight: 700;
+  font-size: clamp(13px, 1.04vw, 20px);
+  letter-spacing: 0.33em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+}
+.applied__body {
+  margin: clamp(40px, 5vw, 96px) auto 0;
+  max-width: 1272px;
+  font-weight: 300;
+  font-size: clamp(18px, 1.67vw, 32px);
+  line-height: 2;
+  color: var(--grey);
+}
+
+/* ---------- SECTION: Key aspects (cards) ---------- */
+.aspects {
+  background: linear-gradient(180deg, #f6f6f7 0%, #f2f2f4 100%);
+  padding: clamp(60px, 5.6vw, 108px) 0 clamp(90px, 9vw, 175px);
+}
+.aspects .hiai-h2 { margin-bottom: clamp(44px, 5.2vw, 100px); }
+.aspects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 455px));
+  justify-content: center;
+  gap: clamp(18px, 1.3vw, 26px);
+}
+.aspect-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: clamp(520px, 34vw, 654px);
+  box-shadow: 0 28px 60px -34px rgba(20,30,25,0.30), 0 2px 6px rgba(20,30,25,0.04);
+  display: flex;
+  flex-direction: column;
+}
+.aspect-card__media {
+  aspect-ratio: 455 / 276;
+  overflow: hidden;
+}
+.aspect-card__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+.aspect-card:hover .aspect-card__media img { transform: scale(1.05); }
+.aspect-card__body {
+  padding: clamp(40px, 3.65vw, 70px) clamp(28px, 2.9vw, 56px) clamp(36px, 3vw, 56px);
+}
+.aspect-card__title {
+  text-align: center;
+  font-weight: 700;
+  font-size: clamp(22px, 1.46vw, 28px);
+  line-height: 1;
+  margin: 0 auto clamp(26px, 2.1vw, 40px);
+}
+.aspect-card__text {
+  font-size: 17px;
+  line-height: 1.5;
+  color: #1d1f1d;
+  text-align: center;
+}
+
+/* ---------- SECTION: HI & AI (yin-yang) ---------- */
+.hiai {
+  padding: clamp(80px, 7vw, 135px) 0 clamp(60px, 4.7vw, 90px);
+  text-align: center;
+}
+.hiai .hiai-h2 { margin-bottom: clamp(20px, 4.8vw, 92px); }
+.hiai__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 696px) 1fr;
+  align-items: center;
+  gap: 0;
+  max-width: 1437px;
+  margin-inline: auto;
+  padding: 0 clamp(16px, 2vw, 40px);
+}
+/* Grey gradient panel behind the lower half of the composition (Figma 1:3273) */
+.hiai__stage::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 22%;
+  bottom: 0;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(243,243,245,0) 0%, rgba(243,243,245,1) 100%);
+  z-index: 0;
+}
+.hiai__col { position: relative; z-index: 1; text-align: center; padding-bottom: clamp(20px, 2.5vw, 48px); }
+.hiai__letter {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(64px, 6.9vw, 132px);
+  line-height: 0.95;
+}
+.hiai__letter--hi { color: #316c3b; }
+.hiai__letter--ai { color: var(--ai); }
+.hiai__label {
+  font-size: clamp(20px, 1.67vw, 32px);
+  line-height: 1;
+  margin-top: 8px;
+}
+.hiai__label--hi { color: var(--hi); }
+.hiai__label--ai { color: var(--ai); }
+.hiai__eq {
+  font-weight: 700;
+  font-size: clamp(20px, 1.46vw, 28px);
+  line-height: 1.19;
+  color: #000;
+  margin-top: clamp(40px, 5.2vw, 100px);
+}
+.hiai__caption {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 300px;
+  margin: 4px auto 0;
+}
+.hiai__yy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 696px;
+  margin-inline: auto;
+  will-change: transform;
+}
+.hiai__cta { margin-top: clamp(40px, 4.2vw, 80px); }
+
+/* ---------- SECTION: Quote over beach ---------- */
+.quote {
+  position: relative;
+  height: clamp(560px, 54.6vw, 1049px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 var(--gutter) clamp(70px, 6.8vw, 131px);
+}
+.quote__bg { position: absolute; inset: 0; overflow: hidden; }
+.quote__bg img {
+  width: 100%; height: 112%;
+  margin-top: -6%;
+  object-fit: cover;
+  object-position: center 30%;
+  will-change: transform;
+}
+.quote__card {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-radius: 10px;
+  width: min(1434px, 100%);
+  padding: clamp(40px, 3.9vw, 75px) clamp(28px, 4.9vw, 94px) clamp(38px, 3.6vw, 70px);
+  margin: 0;
+  text-align: center;
+  box-shadow: 0 40px 80px -40px rgba(0,0,0,0.35);
+}
+.quote__text {
+  font-weight: 300;
+  font-size: clamp(18px, 1.67vw, 32px);
+  line-height: 2;
+  color: var(--grey);
+}
+.quote__by {
+  margin-top: clamp(10px, 0.6vw, 12px);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.36;
+  letter-spacing: 0.33em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ---------- SECTION: The Xoriant Way (flywheel) ---------- */
+.way {
+  padding: clamp(60px, 4.7vw, 90px) 0 clamp(70px, 6.2vw, 120px);
+  text-align: center;
+}
+.way__body {
+  margin: clamp(28px, 3vw, 58px) auto 0;
+  max-width: 776px;
+  font-size: clamp(16px, 1.11vw, 21.4px);
+  line-height: 2;
+  color: #000;
+}
+.way__flywheel {
+  width: min(614px, 92%);
+  margin: clamp(40px, 3.6vw, 70px) auto clamp(50px, 4.7vw, 90px);
+}
+.way__note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 2.1vw, 40px);
+  max-width: 1400px;
+  min-height: clamp(150px, 10.2vw, 196px);
+  margin-inline: auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0 clamp(24px, 3vw, 60px);
+  text-align: left;
+  box-shadow: 0 30px 60px -30px rgba(20,30,25,0.22), 0 2px 8px rgba(20,30,25,0.04);
+}
+.way__note-img { width: clamp(90px, 6.6vw, 127px); flex: 0 0 auto; }
+.way__note-img img { width: 100%; height: auto; }
+.way__note-copy { max-width: 400px; }
+.way__note-title {
+  font-weight: 700;
+  font-size: clamp(18px, 1.11vw, 21.4px);
+  line-height: 2;
+}
+.way__note-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--green);
+  font-weight: 400;
+  font-size: clamp(16px, 1.04vw, 20px);
+  line-height: 1.2;
+  max-width: 300px;
+}
+.way__note-link:hover { text-decoration: underline; }
+
+/* ---------- SECTION: CTA ---------- */
+.cta-hiai {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: clamp(90px, 7.6vw, 146px) 0 0;
+  background: linear-gradient(180deg, #dcedf8 0%, #e9f4fb 60%, #f1f8fb 100%);
+}
+.cta-hiai__inner { position: relative; z-index: 2; max-width: 1052px; margin: 0 auto; padding: 0 var(--gutter); }
+.cta-hiai .hiai-h2 { color: #090909; }
+.cta-hiai__body {
+  margin: clamp(24px, 3vw, 58px) auto 0;
+  max-width: 1052px;
+  font-size: clamp(18px, 1.56vw, 30px);
+  line-height: 2;
+  color: #1d1f1f;
+}
+.cta-hiai__btn { margin-top: clamp(30px, 3vw, 58px); }
+.cta-hiai__hills {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(30px, 3vw, 58px);
+  height: clamp(220px, 24vw, 460px);
+  overflow: hidden;
+}
+/* The stock photo is sky-heavy: anchor to the bottom and enlarge so the green
+   hills fill the band like the Figma video frame. */
+.cta-hiai__hills img {
+  position: absolute;
+  left: -20%;
+  bottom: -4%;
+  width: 140%;
+  max-width: none;
+  height: auto;
+  will-change: transform;
+  /* fade the photo's sky into the section's blue so the horizon sits naturally */
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 28%);
+          mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 28%);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .aspects__grid { grid-template-columns: minmax(0, 455px); }
+  .hiai__stage { grid-template-columns: 1fr; }
+  .hiai__stage::before { top: 0; }
+  .hiai__yy { order: -1; max-width: 420px; margin-bottom: 20px; }
+  .hiai__col--hi { order: 1; }
+  .hiai__col--ai { order: 2; }
+  .hiai__eq { margin-top: 24px; }
+  .hiai__caption { max-width: 420px; }
+  .quote { align-items: center; padding-bottom: 0; }
+  section#intro {
+    padding-top: 50px;
+}
+}
+@media (max-width: 600px) {
+  .way__note { flex-direction: column; text-align: center; padding: 28px 20px; }
+  .way__note-copy { text-align: center; }
+  .aspect-card__title { max-width: none; }
+}

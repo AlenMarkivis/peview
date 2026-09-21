@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xoriant — Human Ingenuity powered by AI</title>
+  <meta name="description" content="From Artificial Intelligence to Applied Intelligence — a human-centered approach where Human Ingenuity and AI work together to move from Insight to Impact.">
+
+  <!-- Fonts: DM Sans (Google) + Gambarino (Fontshare) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap" rel="stylesheet">
+
+  <!-- Styles (split by concern) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/hiai.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body>
+
+  <!-- Page blur overlay used by the mega menu -->
+  <div class="page-dim" aria-hidden="true"></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="site-header">
+    <div class="nav-wrap">
+      <nav class="nav glass" aria-label="Primary">
+        <a class="nav__logo" href="../index.html" aria-label="Xoriant — New Horizons">
+          <img src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="137" height="47">
+        </a>
+
+        <ul class="nav__menu">
+          <li class="nav__item">
+            <a class="nav__toggle is-active" href="hi-ai.html" aria-label="Human Ingenuity / Artificial Intelligence">
+              <span>HI</span>
+              <img src="assets/icons/hi-ai-toggle.png" alt="" width="30" height="30">
+              <span>AI</span>
+            </a>
+          </li>
+          <li class="nav__item has-menu" data-menu="industries">
+            <a class="nav__link" href="../index.html#industries">Industries</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="competencies">
+            <a class="nav__link" href="../index.html#competencies">Competencies</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="about">
+            <a class="nav__link" href="../index.html#philosophy">About</a>
+          </li>
+        </ul>
+
+        <div class="nav__right">
+          <a class="nav__link has-menu" data-menu="insights" href="../index.html#insights">Insights</a>
+          <a class="nav__link" href="../index.html#careers">Careers</a>
+          <a class="nav__cta" href="../index.html#contact">Contact</a>
+          <button class="nav__burger" type="button" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- ===== Mega menu panels ===== -->
+      <div class="mega" id="mega" aria-hidden="true">
+        <div class="mega__inner container">
+          <!-- Industries -->
+          <section class="mega__panel" data-panel="industries">
+            <div class="mega__intro">
+              <h3>Industries</h3>
+              <p>Turning ideas into solutions that keep delivering real‑world value in a fast‑changing world.</p>
+            </div>
+            <ul class="mega__tiles">
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-financial.png" alt="Financial Services"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-technology.png" alt="Technology"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-consumer.png" alt="Consumer"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-industrials.png" alt="Industrials"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-healthcare.png" alt="Healthcare"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-other.png" alt="Other"></a></li>
+            </ul>
+          </section>
+
+          <!-- Competencies -->
+          <section class="mega__panel" data-panel="competencies">
+            <div class="mega__intro">
+              <h3>Competencies</h3>
+              <p>Discover how our left and right brain training, amplified by specialized skills sets create synergy.</p>
+            </div>
+            <ul class="mega__tiles mega__tiles--7">
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Engineering</span><img src="assets/images/menu/menu-comp-engineering.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Cloud &amp; Security</span><img src="assets/images/menu/menu-comp-cloud.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Quality</span><img src="assets/images/menu/menu-comp-quality.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Data</span><img src="assets/images/menu/menu-comp-data.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>AI</span><img src="assets/images/menu/menu-comp-ai.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Consulting</span><img src="assets/images/menu/menu-comp-consulting.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Salesforce</span><img src="assets/images/menu/menu-comp-salesforce.png" alt=""></a></li>
+            </ul>
+          </section>
+
+          <!-- Insights -->
+          <section class="mega__panel" data-panel="insights">
+            <div class="mega__intro">
+              <h3>Insights</h3>
+              <p>Ideas, stories, and expert views — shaped by AI and engineering — driving measurable business outcomes.</p>
+            </div>
+            <ul class="mega__tiles">
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-success.png" alt="Success Stories"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-blog.png" alt="Blog"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-infographics.png" alt="Infographics"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-webinar.png" alt="Webinar &amp; Podcast"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-brochures.png" alt="Brochures"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-whitepapers.png" alt="White Papers"></a></li>
+            </ul>
+          </section>
+
+          <!-- About -->
+          <section class="mega__panel" data-panel="about">
+            <div class="mega__intro">
+              <h3>About</h3>
+              <p>Discover the impact of our HI/AI‑powered competencies on what you New Horizon.</p>
+            </div>
+            <ul class="mega__tiles mega__tiles--5">
+              <li><a href="../index.html#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Our Story</span><img src="assets/images/menu/menu-about-story.png" alt="" class="cover"></a></li>
+              <li><a href="hi-ai.html" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Human Powered AI</span><img src="assets/images/yin-yang.png" alt="" class="contain"></a></li>
+              <li><a href="../index.html#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>House of X-Factors</span><img src="assets/images/brain-flowers.png" alt="" class="contain"></a></li>
+              <li><a href="../index.html#partners" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Partner Ecosystem</span><img src="assets/images/menu/menu-about-partner.png" alt="" class="contain"></a></li>
+              <li><a href="../index.html#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Values</span><img src="assets/images/menu/menu-about-values.png" alt="" class="contain"></a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero hero--hiai" id="hero">
+      <div class="hero__bg">
+        <img class="hero__fern" src="assets/images/hiai-hero.jpg" alt="" fetchpriority="high">
+        <div class="hero__tint"></div>
+      </div>
+
+      <div class="hero__content">
+        <h1 class="hero__title display">
+          <span class="split-line"><span class="split-inner">Human Ingenuity</span></span>
+          <span class="split-line"><span class="split-inner">powered by AI</span></span>
+        </h1>
+        <p class="hero__eyebrow">New Horizons</p>
+      </div>
+    </section>
+
+    <!-- ===== Everything below the hero scrolls up over the sticky hero ===== -->
+    <div class="page-below">
+      <div class="page-below__curve" aria-hidden="true">
+        <svg viewBox="0 0 1920 400" preserveAspectRatio="none">
+          <path d="M0,400 L0,260 Q960,-180 1920,260 L1920,400 Z" fill="#ffffff"/>
+        </svg>
+      </div>
+
+      <!-- ================= APPLIED INTELLIGENCE ================= -->
+      <section class="applied section" id="applied">
+        <div class="container">
+          <h2 class="hiai-h2 applied__head" data-split="chars">From Artificial Intelligence<br>to <span class="accent">Applied</span> Intelligence</h2>
+          <p class="applied__eyebrow reveal">Reframing your relationship with intelligence</p>
+          <p class="applied__body reveal">Applied Intelligence is a, human-centered approach to Artificial Intelligence (AI).
+It uses technology to enhance human cognitive capabilities, decision-making, and productivity rather than replacing them. Humans provide context, judgment, and final authority, where AI acts as a collaborative partnership handling data analysis and pattern recognition (left brain serving the right brain).</p>
+        </div>
+      </section>
+
+      <!-- ================= KEY ASPECTS ================= -->
+      <section class="aspects" id="aspects">
+        <div class="container">
+          <h2 class="hiai-h2 aspects__head" data-split="chars">Key Aspects of<br>Applied Intelligence</h2>
+          <div class="aspects__grid">
+            <article class="aspect-card reveal-up">
+              <div class="aspect-card__media"><img src="assets/images/hiai-card-human.jpg" alt="Human centric approach"></div>
+              <div class="aspect-card__body">
+                <h3 class="aspect-card__title">Human Centric Approach</h3>
+                <p class="aspect-card__text">Humans remain central and in control, with the AI providing support, insights, and recommendations, fueling ingenuity.</p>
+              </div>
+            </article>
+            <article class="aspect-card reveal-up">
+              <div class="aspect-card__media"><img src="assets/images/hiai-card-purpose.jpg" alt="Purpose"></div>
+              <div class="aspect-card__body">
+                <h3 class="aspect-card__title">Purpose</h3>
+                <p class="aspect-card__text">The goal is to improve problem definition, decision‑making and performance, building synergetic systems, creating new horizons.</p>
+              </div>
+            </article>
+            <article class="aspect-card reveal-up">
+              <div class="aspect-card__media"><img src="assets/images/hiai-card-applied.jpg" alt="Applied"></div>
+              <div class="aspect-card__body">
+                <h3 class="aspect-card__title">Applied</h3>
+                <p class="aspect-card__text">Used in high‑stakes settings where AI and human judgment work together, from medical diagnostics and financial decisions to trusted, personalized customer experiences.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HUMAN INGENUITY & APPLIED INTELLIGENCE ================= -->
+      <section class="hiai" id="hi-ai">
+        <div class="container">
+          <h2 class="hiai-h2 hiai__head" data-split="chars">Human Ingenuity &amp;<br>Applied Intelligence</h2>
+          <div class="hiai__stage">
+            <div class="hiai__col hiai__col--hi">
+              <div class="hiai__letter hiai__letter--hi display">HI</div>
+              <div class="hiai__label hiai__label--hi">Human<br>Ingenuity</div>
+              <div class="hiai__eq">HI = IQ + EQ + CQ</div>
+              <p class="hiai__caption">Deciding what should be done.</p>
+            </div>
+
+            <img class="hiai__yy" src="assets/images/hiai-yinyang.png" alt="Yin‑yang of nature (Human Ingenuity) and circuitry (Applied Intelligence)">
+
+            <div class="hiai__col hiai__col--ai">
+              <div class="hiai__letter hiai__letter--ai display">AI</div>
+              <div class="hiai__label hiai__label--ai">Applied<br>Intelligence</div>
+              <div class="hiai__eq">AI = DQ + AQ + PQ</div>
+              <p class="hiai__caption">Helping us see more, do more, and test more as we do it.</p>
+            </div>
+          </div>
+          <div class="hiai__cta">
+            <a href="#way" class="btn">Learn more <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= QUOTE ================= -->
+      <section class="quote" id="quote">
+        <div class="quote__bg"><img src="assets/images/hiai-beach.jpg" alt=""></div>
+        <div class="edge edge--top" aria-hidden="true"><svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,0 L1920,0 L1920,85 Q960,5 0,85 Z" fill="#ffffff"/></svg></div>
+        <div class="edge edge--bottom" aria-hidden="true"><svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z" fill="#ffffff"/></svg></div>
+        <blockquote class="quote__card">
+          <p class="quote__text">“The intuitive mind is a sacred gift and the rational mind is a faithful servant. We have created a society that honors the servant and has forgotten the gift.”</p>
+          <footer class="quote__by">Albert Einstein</footer>
+        </blockquote>
+      </section>
+
+      <!-- ================= THE XORIANT WAY ================= -->
+      <section class="way" id="way">
+        <div class="container">
+          <h2 class="hiai-h2 way__head" data-split="chars">The <span class="accent">Xoriant</span> Way</h2>
+          <p class="way__body reveal">A dynamic HI/AI‑powered flywheel where we Understand, Envision, Engineer, Operationalize and continually Evolve solutions so they keep creating real‑world value in a fast‑changing world.</p>
+          <img class="way__flywheel" src="assets/images/hiai-flywheel.png" alt="From Insight to Impact flywheel: Understand, Envision, Engineer, Operationalize, Evolve">
+          <div class="way__note reveal">
+            <div class="way__note-img"><img src="assets/images/hiai-brain.png" alt=""></div>
+            <div class="way__note-copy">
+              <p class="way__note-title">Whole brain people make it happen.</p>
+              <a href="#hi-ai" class="way__note-link">Explore how we power Human Ingenuity with AI (HI/AI) &gt;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CTA ================= -->
+      <section class="cta-hiai" id="contact">
+        <div class="edge edge--top" aria-hidden="true"><svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,0 L1920,0 L1920,85 Q960,5 0,85 Z" fill="#ffffff"/></svg></div>
+        <div class="cta-hiai__inner">
+          <h2 class="hiai-h2 cta-hiai__head" data-split="chars">Ready to <span class="accent">Move</span> from<br>Insight to Impact?</h2>
+          <p class="cta-hiai__body reveal">We’ve shared how we Understand, Envision, Engineer, Operationalize and Evolve, now we’d like to hear where you are in your own journey.</p>
+          <div class="cta-hiai__btn reveal">
+            <a href="#contact" class="btn">Start a conversation about your New Horizon <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+        <div class="cta-hiai__hills"><img src="assets/images/cta-landscape.jpg" alt=""></div>
+        <div class="edge edge--bottom" aria-hidden="true"><svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z" fill="#ffffff"/></svg></div>
+      </section>
+
+    </div><!-- /.page-below -->
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <a href="../index.html" class="footer__logo"><img src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="212" height="73"></a>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Industries</h4>
+          <ul><li><a href="../index.html#industries">Financial Services</a></li><li><a href="../index.html#industries">Technology</a></li><li><a href="../index.html#industries">Consumer</a></li><li><a href="../index.html#industries">Industrials</a></li><li><a href="../index.html#industries">Healthcare</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>Competencies</h4>
+          <ul><li><a href="../index.html#competencies">Engineering</a></li><li><a href="../index.html#competencies">Cloud &amp; Security</a></li><li><a href="../index.html#competencies">Quality</a></li><li><a href="../index.html#competencies">Data &amp; AI</a></li><li><a href="../index.html#competencies">Customer Experience</a></li><li><a href="../index.html#competencies">Supply Chain</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>About</h4>
+          <ul><li><a href="../index.html#philosophy">Our Story</a></li><li><a href="hi-ai.html">Human Powered AI</a></li><li><a href="../index.html#philosophy">House of X-Factors</a></li><li><a href="../index.html#partners">Partner Ecosystem</a></li><li><a href="../index.html#philosophy">Values</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <ul><li><a href="../index.html#careers">Careers</a></li><li><a href="../index.html#insights">Insights</a></li><li><a href="#contact">Contact</a></li><li><a href="../index.html">Locations</a></li></ul>
+        </div>
+        <div class="footer__col footer__col--wide">
+          <h4>Explore new horizons</h4>
+          <a href="#" class="btn btn--soft">Subscribe to our newsletter <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <ul class="social">
+            <li><a href="#" aria-label="LinkedIn"><img src="assets/icons/social-linkedin.png" alt=""></a></li>
+            <li><a href="#" aria-label="Instagram"><img src="assets/icons/social-instagram.png" alt=""></a></li>
+            <li><a href="#" aria-label="Facebook"><img src="assets/icons/social-facebook.png" alt=""></a></li>
+            <li><a href="#" aria-label="X"><img src="assets/icons/social-twitter.png" alt=""></a></li>
+            <li><a href="#" aria-label="YouTube"><img src="assets/icons/social-youtube.png" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <div class="footer__bar-inner">
+        <ul class="certs">
+          <li><img src="assets/icons/cert-iso.png" alt="ISO certified"></li>
+          <li><img src="assets/icons/cert-psi.png" alt="PSI"></li>
+          <li><img src="assets/icons/cert-soc.png" alt="SOC"></li>
+          <li><img src="assets/icons/cert-cdp.png" alt="CDP"></li>
+        </ul>
+        <p class="footer__legal">Terms of Use | Cookie Policy | Privacy Policy | Edit Cookies | Sitemap | Ethics | Brand Policy © 2026 - All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= FLOATING UI ================= -->
+  <div class="ask" id="ask">
+    <button class="ask__pill glass-light" type="button" aria-expanded="false" aria-controls="ask-form">
+      <span class="ask__label">ask me</span>
+    </button>
+    <form class="ask__form glass-light" id="ask-form" action="#" role="search">
+      <span class="ask__spark" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#1d1f1f" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5c.6 3.6 2.9 5.9 6.5 6.5-3.6.6-5.9 2.9-6.5 6.5-.6-3.6-2.9-5.9-6.5-6.5C5.1 7.4 7.4 5.1 8 1.5Z"/><path d="M13 1v3M11.5 2.5h3M3 11v1.5M2.25 11.75h1.5"/></svg>
+      </span>
+      <span class="ask__divider"></span>
+      <input type="search" name="q" placeholder="Find case studies in Fintech..." aria-label="Ask Xoriant">
+      <button class="ask__submit" type="submit" aria-label="Search">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8h7M8 4.5 11.5 8 8 11.5"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/split-text.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/hiai.js"></script>
+</body>
+</html>

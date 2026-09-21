@@ -1,0 +1,276 @@
+/* ============================================================
+   INDUSTRIES — expanding card accordion
+   Figma: node 229:1694 (section) / 229:1266 (interactive component)
+
+   SPEC (desktop, 1440 content width)
+   - row .............. 1440 x 480, gap 16, cards radius 10
+   - default .......... 5 equal cards (275 each)
+   - hover ............ hovered card 400px, the other four 244px each
+                        (400 + 4*244 + 4*16 gap = 1440)
+   - arrow badge ...... 40x40, radius 3, top/right 20 — visible only
+                        on the expanded card
+   - label ............ DM Sans Bold 28 / 100% / #FAFAFA, CENTRED,
+                        80px from the bottom, 40px side padding
+   - scrim ............ bottom 51% of the card, transparent -> rgba(0,0,0,.7)
+   - on expand ........ the scrim drops to 25% so the open card brightens
+                        (Figma variant 2 / "vv": scrim h158 y-50 op .25)
+                        — the image itself does NOT scale, the wider card
+                        simply reveals more of it
+   - white arc ........ sits on top of the card row, shadow 0 -17 21.3
+                        rgba(0,0,0,.08)
+
+   Everything is namespaced under .industries-section, so this file can be
+   dropped into the existing site without collisions.
+   ============================================================ */
+
+.industries-section{
+  --ind-max:1440px;        /* content width */
+  --ind-gap:16px;          /* gap between cards */
+  --ind-h:480px;           /* card height */
+  --ind-radius:10px;
+  --ind-ink:#1D1F1F;
+  --ind-label:#FAFAFA;
+  --ind-badge:#F6F6F6;
+  --ind-ease:cubic-bezier(.22,.61,.36,1);
+  --ind-dur:.55s;          /* expand / collapse duration */
+
+  position:relative;
+  background:#fff;
+  padding:143px 0 0;
+  overflow:hidden;
+  font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+
+.industries-section__inner{
+  max-width:var(--ind-max);
+  margin-inline:auto;
+  padding-inline:24px;
+}
+
+/* ---------- heading ------------------------------------------------- */
+.industries-section__head{ text-align:center; margin-bottom:112px; }
+
+.industries-section__title{
+  margin:0;
+  font-family:"Gambarino",Georgia,"Times New Roman",serif;
+  font-weight:400;
+  font-size:clamp(44px,5.2vw,75px);
+  line-height:.78;
+  color:var(--ind-ink);
+}
+
+.industries-section__eyebrow{
+  margin:24px 0 0;
+  font-size:clamp(12px,1.18vw,17px);
+  font-weight:700;
+  line-height:1.36;
+  letter-spacing:.33em;                  /* Figma: 33% */
+  text-transform:uppercase;
+  color:var(--ind-ink);
+}
+
+/* ---------- the row -------------------------------------------------- */
+.ind-accordion{
+  display:flex;
+  gap:var(--ind-gap);
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.ind-accordion__item{
+  flex:1 1 0;
+  min-width:0;
+  transition:flex-grow var(--ind-dur) var(--ind-ease);
+}
+
+.ind-accordion__link{
+  position:relative;
+  display:block;
+  height:var(--ind-h);
+  border-radius:var(--ind-radius);
+  overflow:hidden;
+  background:#CCC;
+  text-decoration:none;
+  isolation:isolate;
+}
+
+.ind-accordion__img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:var(--focal,center);   /* per-card focal point, set inline */
+}
+
+/* bottom scrim — Figma: 244 of 480 = 51%.
+   Fades to 25% while the card is expanded (see the rules further down). */
+.ind-accordion__link::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:51%;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.7) 100%);
+  pointer-events:none;
+  transition:opacity var(--ind-dur) var(--ind-ease);
+}
+
+.ind-accordion__label{
+  position:absolute;
+  left:40px; right:40px; bottom:80px;
+  z-index:2;
+  text-align:center;                     /* Figma: label is centred */
+  font-size:clamp(20px,1.95vw,28px);
+  font-weight:700;
+  line-height:1;
+  color:var(--ind-label);
+}
+
+/* arrow badge — hidden until the card is expanded */
+.ind-accordion__arrow{
+  position:absolute;
+  top:20px; right:20px;
+  z-index:2;
+  width:40px; height:40px;
+  opacity:0;
+  transform:translate(-6px,6px) scale(.9);
+  transition:opacity .35s var(--ind-ease), transform .35s var(--ind-ease);
+}
+.ind-accordion__arrow svg{ display:block; width:100%; height:100%; }
+
+/* ---------- expanded state -------------------------------------------
+   Desktop is pure CSS hover. .is-open is added by industries.js on touch.
+   The flex-grow numbers are the Figma variant widths.
+
+   !! SPECIFICITY WARNING !!
+   The "one card is open" selector must never be LESS specific than the
+   "all cards shrink" selector, or the row-level rule wins on the open card
+   too and nothing moves. Keep the selector pairs as written.
+   ---------------------------------------------------------------------- */
+@media (hover:hover) and (pointer:fine){
+  .ind-accordion:hover .ind-accordion__item{ flex-grow:244; }        /* 0,3,0 */
+  .ind-accordion:hover .ind-accordion__item:hover{ flex-grow:400; }  /* 0,4,0 */
+}
+
+.ind-accordion.has-open .ind-accordion__item{ flex-grow:244; }               /* 0,3,0 */
+.ind-accordion.has-open .ind-accordion__item.is-open{ flex-grow:400; }       /* 0,4,0 */
+
+/* keyboard focus keeps the card open */
+.ind-accordion .ind-accordion__item:focus-within,
+.ind-accordion.has-open .ind-accordion__item:focus-within{ flex-grow:400; }  /* 0,4,0 */
+.ind-accordion__link:focus-visible{ outline:2px solid #fff; outline-offset:-4px; }
+
+.ind-accordion__item:hover .ind-accordion__arrow,
+.ind-accordion__item:focus-within .ind-accordion__arrow,
+.ind-accordion__item.is-open .ind-accordion__arrow{
+  opacity:1;
+  transform:translate(0,0) scale(1);
+}
+
+/* the expanded card brightens — scrim down to 25% */
+.ind-accordion__item:hover .ind-accordion__link::after,
+.ind-accordion__item:focus-within .ind-accordion__link::after,
+.ind-accordion__item.is-open .ind-accordion__link::after{ opacity:.25; }
+
+/* ---------- white arc at the bottom of the section -------------------- */
+.industries-section__arc{
+  position:relative;
+  z-index:3;
+  display:block;
+  width:100%;
+  height:57px;
+  margin-top:-38px;          /* the arc overlaps the card row */
+  pointer-events:none;
+}
+
+@media(min-width:1800px){
+.industries-section__arc{
+
+  margin-top:-46px;          /* the arc overlaps the card row */
+}
+
+}
+.industries-section__arc svg{ display:block; width:100%; height:100%; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* laptop */
+@media (max-width:1280px){
+  .industries-section{ --ind-h:420px; padding-top:110px; }
+  .industries-section__head{ margin-bottom:80px; }
+  .ind-accordion__label{ left:28px; right:28px; bottom:60px; }
+}
+
+/* small laptop / large tablet */
+@media (max-width:1024px){
+  .industries-section{ --ind-h:380px; --ind-gap:12px; padding-top:88px; }
+  .industries-section__head{ margin-bottom:56px; }
+  .ind-accordion__label{ left:22px; right:22px; bottom:44px; }
+  .ind-accordion__arrow{ width:34px; height:34px; top:16px; right:16px; }
+}
+
+/* TOUCH / NARROW — the accordion becomes a snap-scrolling strip.
+   Every card shows its label, so nothing depends on hover.
+
+   Breakpoint is 1024, not 899: the hover accordion divides the row into five,
+   so at tablet widths each card fell to ~160px — unreadable behind a 28px
+   label. The 900-1024 band also matched neither the old max-width:899 nor
+   (hover:none), so a tablet-sized window kept the desktop accordion and had no
+   way to scroll at all. Desktop (>=1025px with a real pointer) is untouched. */
+@media (max-width:1024px), (hover:none){
+  .industries-section{ --ind-h:400px; padding-top:72px; }
+  .industries-section__inner{ padding-inline:0; }
+  .industries-section__head{ padding-inline:24px; margin-bottom:48px; }
+
+  .ind-accordion{
+    gap:12px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:0 24px 8px;
+  }
+  .ind-accordion::-webkit-scrollbar{ display:none; }
+
+  .ind-accordion__item{
+    flex:0 0 68%;
+    max-width:300px;
+    scroll-snap-align:center;
+  }
+
+  /* neutralise the expand maths on touch — these must match the 0,4,0
+     specificity of the rules above, hence the long selectors */
+  .ind-accordion.has-open .ind-accordion__item,
+  .ind-accordion.has-open .ind-accordion__item.is-open,
+  .ind-accordion .ind-accordion__item:focus-within,
+  .ind-accordion.has-open .ind-accordion__item:focus-within{ flex-grow:0; }
+
+  /* Mouse/pen drag-to-scroll (js/industries.js). Touch scrolls natively and
+     never reaches that code, so none of this interferes with a real swipe. */
+  .ind-accordion{ cursor:grab; }
+  .ind-accordion.is-dragging{
+    cursor:grabbing;
+    scroll-behavior:auto;          /* a drag must track the pointer exactly */
+    user-select:none;
+  }
+  /* the browser's own image drag would otherwise steal the gesture */
+  .ind-accordion__img{ -webkit-user-drag:none; user-select:none; }
+
+  .ind-accordion__arrow{ opacity:1; transform:none; }
+  .ind-accordion__label{ left:20px; right:20px; bottom:32px; }
+
+  .industries-section__arc{ height:34px; margin-top:-8px; }
+}
+
+@media (max-width:520px){
+  .industries-section{ --ind-h:360px; padding-top:56px; }
+  .ind-accordion__item{ flex-basis:76%; }
+  .ind-accordion__arrow{ width:32px; height:32px; top:14px; right:14px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .industries-section *{ transition-duration:.01ms !important; }
+}

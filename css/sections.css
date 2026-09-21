@@ -1,0 +1,877 @@
+/* =========================================================
+   Page sections
+   ========================================================= */
+
+.section { position: relative; }
+
+/* Height of the white curve that wipes up over the sticky hero. Shared so the
+   hero can extend itself by exactly this much and keep the curve below the fold
+   on load. */
+:root { --hero-curve: clamp(70px, 10.4vw, 200px); }
+
+/* ---------------- HERO ---------------- */
+/* .hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: clamp(640px, 60.7vw, 1165px);
+  min-height: 560px;
+  overflow: hidden;
+  color: #fff;
+} */
+
+/* The rest of the page sits on an opaque layer that scrolls up over the sticky
+   hero; its curved top edge wipes across the pinned mountains as you scroll. */
+.page-below {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+/* Sized to match `.hero--hiai`'s curve. At 361px the arc reached 321px into a
+   100vh hero and clipped the last line of the headline; 200px keeps the same
+   proportion of clearance the HI/AI hero has. */
+.page-below__curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: -1px;
+  height: var(--hero-curve);
+  pointer-events: none;
+  filter: drop-shadow(0 -10px 30px rgba(0, 0, 0, 0.08));
+}
+.page-below__curve svg { width: 100%; height: 100%; display: block; }
+.hero__bg { position: absolute; inset: 0; }
+.hero__bg img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+/* Photo is sky-heavy (mountains sit in the lower third), so anchor the crop and
+   the zoom to the bottom to keep the mountains in frame. */
+.hero__mountains { object-position: center bottom; transform-origin: center bottom; }
+
+.hero__tint { 
+  position: absolute; 
+  inset: 0; 
+  /* background: rgba(0, 0, 0, 0.2); */
+ }
+
+/* .hero__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(140px, 13.1vw, 252px);
+} */
+.hero__title {
+  text-align: center;
+  line-height: 1;
+}
+.hero__title .split-line { padding-bottom: 0.06em; margin-bottom: -0.06em; }
+
+/* ---------------- INTRO ---------------- */
+.intro {
+  padding: clamp(40px, 4vw, 80px) 0 clamp(90px, 7.5vw, 145px);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background: #fff;
+}
+.intro__text {
+  font-size: clamp(20px, 1.67vw, 32px);
+  font-weight: 300;
+  line-height: 2;
+  color: var(--grey);
+}
+.intro__text .split-word { opacity: 0.15; transition: opacity 0.3s; }
+html.no-js .intro__text .split-word { opacity: 1; }
+.intro__tagline {
+  margin-top: clamp(28px, 3.3vw, 64px);
+  font-size: clamp(20px, 1.67vw, 32px);
+  font-weight: 700;
+  color: var(--grey);
+}
+
+/* ---------------- PHILOSOPHY ---------------- */
+.philosophy {
+  padding: clamp(80px, 5.6vw, 108px) 0 clamp(80px, 5.2vw, 100px);
+  background-image: linear-gradient(#f8f9f9 12% 32%, #fff);
+  overflow-x: clip;
+}
+.philosophy__lead {
+  max-width: 1023px;
+  line-height: 2;
+  margin-top: 16px;
+  opacity: 1;
+}
+/* ---------------- PHILOSOPHY STAGE ----------------
+   Geometry mirrors the Figma component "Our Philosophy" (193:979) on its
+   1920 x 1192 canvas. The stage maps the band y 420..1160, so every child
+   is positioned as a percentage of a 1920 x 740 box. Sizes use cqw so type
+   and spacing scale with the stage exactly as they do in the design. */
+.philosophy__stage {
+  position: relative;
+  left: 50%;
+  translate: -50% 0;
+  width: min(100vw, 1920px);
+  aspect-ratio: 1920 / 740;
+  margin-top: clamp(40px, 3vw, 64px);
+  container-type: inline-size;
+}
+.philosophy__arc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.philosophy__arc path {
+  fill: none;
+  stroke: #626262;
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Each orb group spans the stage so its parts can be placed independently;
+   pointer-events pass through everything except the artwork and the panel. */
+.phil-orb {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.phil-orb:hover { z-index: 4; }
+
+.phil-orb__glow {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+}
+.phil-orb__frame {
+  position: absolute;
+  display: block;
+  /* overflow: hidden; */
+  pointer-events: auto;
+  z-index: 2;
+}
+.phil-orb__media {
+  --orb-scale: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+  transform: scale(var(--orb-scale));
+  transition: transform 0.7s var(--ease-out);
+}
+
+.phil-orb__info {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out);
+  pointer-events: none;
+  z-index: 3;
+}
+.phil-orb__title {
+  font-size: clamp(17px, 1.4583cqw, 28px);
+  font-weight: 500;
+  line-height: 0.95;
+  color: var(--ink);
+  margin: 0;
+}
+.phil-orb__desc {
+  font-size: clamp(12px, 0.8854cqw, 17px);
+  line-height: 2;
+  color: var(--ink);
+  margin: 0;
+}
+.phil-orb__btn {
+  height: clamp(30px, 2.0833cqw, 40px);
+  padding: 0 clamp(14px, 1.25cqw, 24px);
+  font-size: clamp(8px, 0.5729cqw, 11px);
+  gap: clamp(6px, 0.625cqw, 12px);
+  pointer-events: auto;
+}
+
+.phil-orb:hover .phil-orb__glow,
+.phil-orb:focus-within .phil-orb__glow { opacity: 1; }
+.phil-orb:hover .phil-orb__info,
+.phil-orb:focus-within .phil-orb__info {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.phil-orb:hover .phil-orb__media,
+.phil-orb:focus-within .phil-orb__media { transform: scale(calc(var(--orb-scale) * 1.03)); }
+.phil-orb:focus-within { z-index: 4; }
+
+/* --- Human Ingenuity + AI (left) ---
+   The whole group sits 1.979% further left than the raw Figma numbers so the
+   gap from the viewport edge matches the Xfactors group on the right (10%). */
+.phil-orb--hi-ai .phil-orb__glow {
+  left: 13%; top: 0.405%; width: 23.333%; height: 52.568%;
+  border-radius: 43.4% 0 0 43.4% / 50% 0 0 50%;
+  background: linear-gradient(to left, rgba(243,243,245,0) 0%, #e9e9e9 100%);
+}
+/* Same box as `.phil-orb--xfactors .phil-orb__frame` (both 1080-square videos are
+   authored with matching padding, so equal frames give equal artwork). `left`
+   is re-anchored so the narrower frame keeps the artwork where it already sat. */
+.phil-orb--hi-ai .phil-orb__frame {
+  left: 10.911%; top: 2.568%; width: 21.042%; height: 52.973%;
+  border-radius: 0 33.6% 33.6% 0 / 0 50% 50% 0;
+}
+/* No extra zoom — the left artwork renders at the same size as the middle and
+   right orbs on load; only the shared hover nudge (1.03) scales it. */
+.phil-orb--hi-ai .phil-orb__media { --orb-scale: 1; object-position: 80% 50%; }
+.phil-orb--hi-ai .phil-orb__info {
+  left: 28.813%; top: 7.703%; width: 22.083%;
+  gap: clamp(10px, 1.875cqw, 36px);
+}
+.phil-orb--hi-ai .phil-orb__title { max-width: 72.9%; }
+
+/* --- House of Xfactors (right) --- */
+.phil-orb--xfactors .phil-orb__glow {
+  left: 65%; top: 0.405%; width: 25%; height: 52.568%;
+  border-radius: 0 40.5% 40.5% 0 / 0 50% 50% 0;
+  background: linear-gradient(to right, rgba(243,243,245,0) 0%, #e9e9e9 100%);
+}
+.phil-orb--xfactors .phil-orb__frame {
+  left: 69.604%; top: 2.838%; width: 21.042%; height: 52.973%;
+  border-radius: 42.8% 0 0 42.8% / 44.1% 0 0 44.1%;
+}
+.phil-orb--xfactors .phil-orb__info {
+  left: 54.625%; top: 8.919%; width: 19.063%;
+  gap: clamp(10px, 1.875cqw, 36px);
+}
+
+/* --- Orian (bottom centre) --- */
+.phil-orb--orian .phil-orb__glow {
+  left: 40.052%; top: 34.865%; width: 19.583%; height: 65%;
+  border-radius: 0 0 50% 50% / 0 0 39.1% 39.1%;
+  background: linear-gradient(to bottom, rgba(243,243,245,0) 0%, #e9e9e9 100%);
+}
+.phil-orb--orian .phil-orb__frame {
+  left: 41.875%; top: 54.189%; width: 15.833%; height: 41.081%;
+  overflow: visible;
+}
+/* The frame matches the ring's Figma bounding box (804,821 · 304x304). Each PNG
+   is exported at its render bounds, which include shadow bleed, so both are
+   offset by that bleed instead of sitting flush to the frame. */
+.phil-orb__orian-base,
+.phil-orb__orian-ring {
+  position: absolute;
+  display: block;
+  max-width: none; /* both overhang the frame by their shadow bleed */
+}
+.phil-orb__orian-base { left: -7.3735%; top: 1.2366%; width: 115.5697%; height: 113.7297%; }
+/* The ring no longer spins on its own. The animation stays attached but
+   paused, so hovering resumes it and leaving pauses it exactly where it is —
+   restarting it on hover instead would snap the ring back to 0deg on exit. */
+.phil-orb__orian-ring {
+  left: -1.4346%; top: -1.1672%; width: 102.606%; height: 102.602%;
+  animation: orianSpin 36s linear infinite;
+  animation-play-state: paused;
+}
+.phil-orb--orian:hover .phil-orb__orian-ring,
+.phil-orb--orian:focus-within .phil-orb__orian-ring { animation-play-state: running; }
+/* Anchored from the bottom so the button always stops a short distance above
+   the logo, instead of leaving a large gap at wider stage widths. */
+.phil-orb--orian .phil-orb__info {
+  left: 37.396%; top: auto; bottom: 49%; width: 25.99%;
+  align-items: center;
+  text-align: center;
+  gap: clamp(9px, 1.6667cqw, 32px);
+}
+
+@keyframes orianSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phil-orb__orian-ring,
+  .phil-orb--orian:hover .phil-orb__orian-ring,
+  .phil-orb--orian:focus-within .phil-orb__orian-ring { animation: none; }
+}
+
+
+/* ---------------- INDUSTRIES ----------------
+   Now lives in css/industries.css (namespaced under .industries-section),
+   built from the Figma handoff. The old .ind-grid / .ind-card rules were
+   removed with the markup they styled. */
+
+/* ---------------- COMPETENCIES ---------------- */
+.competencies { padding: clamp(60px, 4.8vw, 93px) 0 clamp(80px, 7.4vw, 143px); }
+.eyebrow--sm { font-size: 13.6px; }
+.comp-row {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  max-width: 1190px;      /* 5×192 + 4×16 */
+  margin-inline: auto;
+  perspective: 1400px;    /* depth for the stack-in entrance */
+}
+.comp-card {
+  flex: 1 1 92px;        /* non-zero basis: never collapses even if grow resolves to 0 */
+  min-width: 0;
+  transition: flex-grow 0.5s var(--ease-out);
+}
+.comp-card:hover { flex-grow: 1.4; }   /* hovered card expands, siblings compress */
+
+.comp-card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 306px;
+  padding: 50px 14px 0;
+  background: var(--bg-card);
+  border-radius: 8.6px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 14px 30px -22px rgba(0,0,0,0.3);
+  transition: box-shadow 0.55s var(--ease-out), background 0.4s, opacity 0.45s var(--ease-out);
+}
+.comp-card__title {
+  font-size: 20.6px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  padding: 0 4px;
+  position: relative;
+  z-index: 1;
+  transition: letter-spacing 0.55s var(--ease-out), transform 0.55s var(--ease-out), color 0.4s var(--ease-out);
+}
+.comp-card a > img {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center 40%;
+  border-radius: 0 0 8.6px 8.6px;
+  transform: scale(1);
+  transform-origin: center bottom;
+  /* transform + filter only — both GPU-composited, no per-frame layout. */
+  transition: transform 0.6s var(--ease-out), filter 0.6s;
+  filter: saturate(0.92);
+}
+.comp-card:hover a { box-shadow: 0 40px 52px -26px rgba(0,0,0,0.45); }
+.comp-card:hover a > img { transform: scale(1.05); filter: saturate(1.14); }
+.comp-card:hover .comp-card__title { transform: translateY(-3px); letter-spacing: 0.01em; color: var(--green); }
+/* Spotlight — hovering one card dims the rest so focus lands where the cursor is */
+.comp-row:hover .comp-card:not(:hover) a { box-shadow: 0 14px 30px -22px rgba(0,0,0,0.15); }
+.comp-row:hover .comp-card:not(:hover) a > img { filter: saturate(0.35) brightness(0.98); }
+.comp-row:hover .comp-card:not(:hover) .comp-card__title { color: var(--grey); }
+
+/* ---------------- WHY LEADERS ---------------- */
+.why { padding: clamp(60px, 5vw, 100px) 0 clamp(40px, 4vw, 60px); }
+.why__grid {
+  display: grid;
+  grid-template-columns: 1fr 656px;
+  gap: 40px;
+  align-items: center;
+  
+    max-width: 1360px;
+}
+.why__copy { padding-left: clamp(0px, 8vw, 93px); }
+.why__title { max-width: 560px; line-height: 0.96; }
+.why__copy .lead { margin-top: 38px; max-width: 488px; }
+
+.why__stack {
+  position: relative;
+  height: 657px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 70%, transparent 100%);
+}
+.why__track {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0 55px;
+  will-change: transform;
+    position: relative;
+    left: -30px;
+}
+.feel-card {
+  flex: 0 0 auto;
+  background: #fff;
+  border-radius: var(--radius);
+  height: 179px;
+  padding: 37px 40px;
+  text-align: center;
+  /* box-shadow: 0 18px 36px -20px rgba(0,0,0,0.25); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s;
+filter: drop-shadow(0px 12px 12.9px rgba(0, 0, 0, 0.18));
+
+}
+.feel-card:hover { transform: scale(1.02); box-shadow: 0 30px 50px -24px rgba(0,0,0,0.3); }
+.feel-card h3 { font-size: var(--fs-card-title); line-height: 1; }
+.feel-card p { line-height: 1.8; max-width: 424px; }
+
+/* ---------------- HOW CAN WE HELP ---------------- */
+.help {
+  position: relative;
+
+    padding-top: 200px;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+.help__bg { position: absolute; inset: -10% 0; z-index: -1; }
+.help__bg img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+/* Pure white over a bright sky washes out; a soft dark shadow restores contrast
+   so the white reads as solid without changing its colour. */
+.help__title { text-align: center; text-shadow: 0 2px 26px rgba(0, 0, 0, 0.35); }
+.help-grid {
+ 
+    margin-top: 100px;
+  margin-bottom: 0; /* cards run to the section base so the curve overlaps their bottom ~45px */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 418px;          /* fixed row = tallest (hover) height, so growth never reflows siblings */
+  gap: 20px;
+  align-items: end;               /* cards anchored to the bottom baseline */
+  position: relative;
+  z-index: 1;
+}
+.help-card {
+  position: relative;
+  align-self: end;
+  background: #fff;
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  min-height: 346px;              /* rest height */
+  padding: 40px 32px 76px;        /* extra bottom padding since the base sits under the curve */
+  text-align: center;
+  box-shadow: 0 20px 40px -28px rgba(0,0,0,0.35);
+  transition: min-height 0.5s var(--ease-out), background 0.4s var(--ease-out),
+              color 0.4s, box-shadow 0.5s var(--ease-out);
+}
+/* Arrow badge — same reveal as the Industries cards: fades in and slides up
+   from the lower-left as the card is hovered. */
+.help-card__arrow {
+  position: absolute;
+  top: 20px; right: 20px;
+  z-index: 2;
+  width: 40px; height: 40px;
+  opacity: 0;
+  transform: translate(-6px, 6px) scale(0.9);
+  transition: opacity 0.35s cubic-bezier(.22,.61,.36,1), transform 0.35s cubic-bezier(.22,.61,.36,1);
+      bottom: 110px;
+    right: 10px;
+    top: auto;
+}
+.help-card__arrow svg { display: block; width: 100%; height: 100%; }
+.help-card:hover .help-card__arrow,
+.help-card:focus-within .help-card__arrow {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+.help-card h3 { font-size: 28.7px; font-weight: 700; line-height: 1.1; margin-bottom: 14px; transition: color 0.4s; }
+.help-card p { color: #1d1f1d; line-height: 1.8; transition: color 0.4s; }
+/* Hover → green + grow upward (bottom stays fixed) */
+.help-card:hover {
+  min-height: 418px;
+  background: var(--green);
+  box-shadow: 0 44px 60px -30px rgba(20,187,48,0.45);
+}
+.help-card:hover h3 { color: #fff; }
+.help-card:hover p { color: rgba(255,255,255,0.85); }
+
+/* No hover on touch — the badge stays visible, as it does in Industries. */
+@media (hover: none) {
+  .help-card__arrow { opacity: 1; transform: none; }
+}
+
+.help__curve { height: clamp(40px, 6.2vw, 120px); z-index: 3; } /* sits above the cards, covering their base */
+.help__curve svg { filter: drop-shadow(0 -12px 21px rgba(0,0,0,0.18)); }
+
+/* ---------------- INSIGHTS ---------------- */
+.insights { padding: clamp(80px, 6vw, 117px) 0 clamp(60px, 5vw, 100px); background: #fff; }
+.filter {
+  margin-top: clamp(40px, 5vw, 84px);
+  height: 71px;
+  border-radius: 999px;
+  background: var(--bg-pill);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 0 18px 0 25px;
+}
+.filter__label {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.33em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.filter__tags { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.filter__clear {
+  margin-left: 10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.3s var(--ease-out);
+}
+.filter__clear:hover { color: var(--ink); text-decoration: underline; }
+.filter__clear[hidden] { display: none; }
+.filter__actions { display: flex; gap: 10px; }
+
+.masonry {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  position: relative;
+}
+.masonry__col { display: flex; flex-direction: column; gap: 60px; }
+.masonry__col:nth-child(1) { padding-top: 0; }
+.post { display: flex; flex-direction: column; gap: 10px; }
+.post.is-hidden { display: none; }
+.post__media { display: block; overflow: hidden; height: 430px; }
+.post__media--xl { height: 568px; }
+.post__media--short { height: 267px; }
+.post__media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: transform 1s var(--ease-out), filter 0.6s var(--ease-out); }
+.post:hover .post__media img { transform: scale(1.05); filter: grayscale(0); }
+.post .tag { align-self: flex-start; margin-top: 30px; cursor: default; }
+.post__title { font-size: var(--fs-h3); font-weight: 700; line-height: 1; }
+.post__title--display { font-size: clamp(36px, 2.6vw, 50px); line-height: 1.21; font-weight: 400; }
+.post__excerpt { line-height: 1.5; }
+.post__date { line-height: 1.8; }
+.post--feature { padding-top: 40px; border-top: 0.5px solid var(--ink); gap: 4px; }
+.post--feature .post__media { margin-top: 24px; }
+
+.masonry.is-collapsed { max-height: 1640px; overflow: hidden; }
+.masonry.is-collapsed::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 420px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 29%);
+  pointer-events: none;
+}
+.insights__more { text-align: center; margin-top: 20px; }
+.load-more {
+  color: var(--green);
+  font-size: 20px;
+  line-height: 1.2;
+  padding: 20px 40px;
+  position: relative;
+}
+.load-more::after {
+  content: '';
+  position: absolute;
+  left: 40px; right: 40px; bottom: 14px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-out);
+}
+.load-more:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ---------------- TOP TALENT ---------------- */
+.talent {
+  padding: clamp(80px, 6.9vw, 133px) 0 clamp(80px, 9.6vw, 184px);
+  background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg-soft) 30%, #fff 60%);
+}
+.talent-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 50px 83px -30px rgba(0,0,0,0.25);
+  overflow: hidden;
+  min-height: 699px;
+}
+.talent-card__media { position: relative; overflow: hidden; }
+.talent-card__media img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; will-change: transform; }
+.talent-card__caption {
+  position: absolute;
+  top: 73px; left: 33px;
+  letter-spacing: 0.19em;
+  color: #fff;
+  z-index: 2;
+}
+.talent-card__caption::after {
+  content: '';
+  display: block;
+  width: 227px;
+  height: 1px;
+  background: #fff;
+  margin-top: 8px;
+}
+.talent-card__body {
+  padding: clamp(60px, 6.5vw, 124px) clamp(30px, 4vw, 64px) clamp(60px, 6.5vw, 124px) clamp(30px, 3.1vw, 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+.talent-card__body .h2 { margin-bottom: 20px; }
+.talent-card__body .lead { max-width: 593px; margin-bottom: 26px; }
+
+/* ---------------- PARTNERS ---------------- */
+.partners { padding: 0 0 clamp(80px, 11.7vw, 226px); }
+.logo-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 254px);
+  justify-content: center;
+}
+.logo {
+  height: 136px;
+  display: grid;
+  place-items: center;
+  padding: 0px 24px;
+  border-radius: var(--radius);
+  transition: background 0.4s, transform 0.4s var(--ease-out);
+}
+.logo img { width: var(--w, 220px); max-height: 130px; object-fit: cover ; transition: filter 0.5s, opacity 0.5s; height:150px }
+.logo:hover img { filter: none; opacity: 1; }
+.logo__text { font-weight: 700; font-size: 18px; letter-spacing: 0.08em; color: #1f1f1e; }
+.partners__cta { text-align: center; margin-top: 63px; }
+
+/* ---------------- IMPACT CAROUSEL ---------------- */
+.impact {
+  position: relative;
+  height: clamp(520px, 47vw, 902px);
+  overflow: hidden;
+  background: #1d1f1f; /* dark base — never shows a grey frame behind the image */
+  color: #fff;
+}
+.impact__slides { position: absolute; inset: 0; }
+.impact__slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s var(--ease-in-out);
+}
+.impact__slide.is-active { opacity: 1; }
+/* Oversized so the parallax drift never exposes the base behind the image */
+.impact__slide img {
+  position: absolute;
+  left: 0; top: -16%;
+  width: 100%; height: 132%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.impact__slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(70% 70% at 50% 40%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
+}
+.impact__arrow {
+  position: absolute;
+  top: 48%;
+  width: 40px; height: 40px;
+  z-index: 3;
+  transition: transform 0.4s var(--ease-out);
+}
+.impact__arrow img { width: 100%; height: 100%; }
+/* arrow PNG points left by default: prev stays as-is, next is mirrored to point right */
+.impact__arrow--prev { left: 50px; }
+.impact__arrow--next { right: 50px; transform: scaleX(-1); }
+.impact__arrow--prev:hover { transform: translateX(-4px); }
+.impact__arrow--next:hover { transform: scaleX(-1) translateX(4px); }
+.impact__content {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  bottom: clamp(40px, 5.5vw, 105px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  padding-left: clamp(0px, 3vw, 60px);
+}
+.impact__title { text-shadow: 0 4px 28px rgba(0,0,0,0.35); }
+.impact__sub { text-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+
+/* ---------------- CTA ---------------- */
+.cta {
+  position: relative;
+  min-height: clamp(560px, 50.6vw, 971px);
+  padding: clamp(120px, 10.8vw, 207px) 0 clamp(300px, 30vw, 520px);
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+}
+.cta__bg { position: absolute; inset: -8% 0 0; z-index: -1; }
+.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; will-change: transform; }
+.cta__title { max-width: 831px; margin-inline: auto; line-height: 1; }
+.cta__actions {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.cta__curve { height: clamp(30px, 4.4vw, 85px); z-index: 2; }
+
+
+
+.hero-banner {
+    box-sizing: border-box;
+    mix-blend-mode: normal;
+    background-color: #0000;
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    margin-top: 0;
+    font-family: Gambarino, Georgia, sans-serif;
+    /* Sticky hero, same mechanic as `.hero--hiai`: the banner is pinned for a
+       full banner-height of scroll while `.page-below` wipes up over it. That
+       long dwell is what makes the parallax read; it is not the travel value. */
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+/* Holds the photo layer; the banner itself clips, this just keeps the layer
+   isolated from the content stacking order. */
+.hero-banner__bgclip {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* One viewport of visible banner, plus a curve's worth of extra height that sits
+   below the fold. The curve is anchored to the banner's bottom edge, so without
+   that extra height it eats into the photo on load; with it, the arc starts at
+   the bottom of the viewport and the full image is visible. It only rises over
+   the banner once you scroll, exactly as before.
+   (Also outranks the legacy `.hero` height rules in responsive.css, which target
+   the old hero section but still match this element and load later.) */
+.hero-banner.hero {
+    height: calc(90vh + var(--hero-curve));
+    min-height: calc(90vh + var(--hero-curve));
+    max-height: none;
+}
+
+/* Separate layer so the photo alone can be parallaxed (js/animations.js).
+   Sized to the banner exactly like `.hero--hiai .hero__fern`; the headroom the
+   translate needs comes from the base scale JS sets, not from CSS overscan. */
+.hero-banner__bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('../assets/images/hero-bg.jpg');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    will-change: transform;
+    pointer-events: none;
+}
+
+.hero-banner .inner-row {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    font-family: Gambarino, Georgia, sans-serif;
+    display: flex;
+    position: relative;
+}
+
+.hero-banner img.horizon-shape {
+    display: inline-block;
+    position: absolute;
+    inset: auto 0% 0%;
+    width: 100%;
+    min-width: 100%;
+}
+
+.hero-banner .inner-row h1.heading {
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 100px;
+    font-weight: 400;
+    line-height: 100px;
+}
+.hero-banner .inner-row .text-wrp {
+    align-self: center;
+    padding-left: 200px;
+    padding-right: 200px;
+    font-size: 100px;
+    line-height: 100px;
+}
+
+.hero-banner  .div-block {
+    opacity: 1;
+    mix-blend-mode: overlay;
+    background-color: #0003;
+    position: absolute;
+    inset: 0%;
+}
+/* ---------------- SPLIT-LINES SCROLL ANIMATION ----------------
+   Per-line wipe mask used by js/split-lines-scroll.js.
+   The mask sits over its own line and its width scrubs 100% -> 0%,
+   so the line is revealed left-to-right (and re-covered on scroll up). */
+.sl-line {
+  display: block;
+  position: relative;
+}
+.sl-line__mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  opacity: 0.82;
+  pointer-events: none;
+  z-index: 2;
+}
+
+
+section#intro {
+    padding-top: 0;
+    position: relative;
+    top: -30px;
+}
+
+.feel-card h3 {
+    font-size: 35px;
+}
+
+.feel-card  p {
+    font-size: 17px;
+    line-height: 180%;
+}
+
+@media(max-width:1024px){
+.help-card__arrow {
+    bottom: 10px;
+}
+
+}
