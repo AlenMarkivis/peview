@@ -156,15 +156,30 @@ html.no-js .intro__text .split-word { opacity: 1; }
   pointer-events: auto;
   z-index: 2;
 }
+/* Poster and video are stacked in the same box and cross-fade on hover.
+   Both assets are authored as 1080 squares with matching padding, so they share
+   one scale and need no per-orb correction: the swap is pixel-aligned. */
 .phil-orb__media {
-  --orb-scale: 1;
+  --orb-scale: 1.15;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   background: transparent;
   transform: scale(var(--orb-scale));
-  transition: transform 0.7s var(--ease-out);
+  transition: transform 0.7s var(--ease-out), opacity 0.45s var(--ease-out);
 }
+.phil-orb__poster { opacity: 1; z-index: 1; }
+.phil-orb__video {
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.phil-orb:hover .phil-orb__poster,
+.phil-orb:focus-within .phil-orb__poster { opacity: 0; }
+.phil-orb:hover .phil-orb__video,
+.phil-orb:focus-within .phil-orb__video { opacity: 1; }
 
 .phil-orb__info {
   position: absolute;
@@ -227,7 +242,7 @@ html.no-js .intro__text .split-word { opacity: 1; }
 }
 /* No extra zoom — the left artwork renders at the same size as the middle and
    right orbs on load; only the shared hover nudge (1.03) scales it. */
-.phil-orb--hi-ai .phil-orb__media { --orb-scale: 1; object-position: 80% 50%; }
+.phil-orb--hi-ai .phil-orb__media { object-position: 80% 50%; }
 .phil-orb--hi-ai .phil-orb__info {
   left: 28.813%; top: 7.703%; width: 22.083%;
   gap: clamp(10px, 1.875cqw, 36px);
@@ -244,6 +259,9 @@ html.no-js .intro__text .split-word { opacity: 1; }
   left: 69.604%; top: 2.838%; width: 21.042%; height: 52.973%;
   border-radius: 42.8% 0 0 42.8% / 44.1% 0 0 44.1%;
 }
+/* The brain clip reads larger than its still, so the clip alone is pulled
+   back 15% to match. */
+.phil-orb--xfactors .phil-orb__video { --orb-scale: 0.9775; } /* 1.15 x 0.85 */
 .phil-orb--xfactors .phil-orb__info {
   left: 54.625%; top: 8.919%; width: 19.063%;
   gap: clamp(10px, 1.875cqw, 36px);
@@ -268,7 +286,9 @@ html.no-js .intro__text .split-word { opacity: 1; }
   display: block;
   max-width: none; /* both overhang the frame by their shadow bleed */
 }
-.phil-orb__orian-base { left: -7.3735%; top: 1.2366%; width: 115.5697%; height: 113.7297%; }
+/* Sized so the base disc matches the ring artwork exactly (both 750/1080 of
+   the ring PNG), otherwise the white disc reads as a halo behind the ring. */
+.phil-orb__orian-base { left: 8.337%; top: 15.451%; width: 83.14%; height: 81.82%; }
 /* The ring no longer spins on its own. The animation stays attached but
    paused, so hovering resumes it and leaving pauses it exactly where it is —
    restarting it on hover instead would snap the ring back to 0deg on exit. */

@@ -105,7 +105,7 @@
     margin-bottom: 28px;
   }
   /* frame is unclipped once stacked, so drop the desktop overscale */
-  .phil-orb--hi-ai .phil-orb__media { --orb-scale: 1; object-position: 50% 50%; }
+  .phil-orb--hi-ai .phil-orb__media { object-position: 50% 50%; }
   .phil-orb__info,
   .phil-orb--hi-ai .phil-orb__info,
   .phil-orb--xfactors .phil-orb__info,
