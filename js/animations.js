@@ -20,6 +20,15 @@
     return;
   }
 
+  // Phone board (Figma "mobile-homepage"): none of the desktop motion applies
+  // there — no sticky hero, scrub parallax, pinned marquee, 3D card stack or
+  // character splits. js/mobile.js runs the single fade-in the design keeps,
+  // so this file simply leaves every element in its resting state.
+  if (isMobile) {
+    revealFallback();
+    return;
+  }
+
   gsap.defaults({ ease: 'power3.out', duration: 1 });
 
   /* ---------- Helpers ---------- */

@@ -1,0 +1,687 @@
+/* =========================================================
+   PHONE — Figma "mobile-homepage" (Xoriant pages, node 111:1645)
+
+   The board is authored at 320 wide: 24px gutters, a 272px
+   content column, and its own layout for every section (the
+   desktop accordion / masonry / carousel mechanics are not
+   used here). Values below are the design's own px numbers.
+
+   Loads last, so it wins over base/sections/responsive/
+   industries at equal specificity.
+   ========================================================= */
+
+/* Content that only exists on one of the two boards. */
+.m-only { display: none; }
+
+@media (max-width: 768px) {
+
+  :root {
+    --gutter: 24px;
+    --hero-curve: 0px;
+    --radius: 10px;
+  }
+
+  .d-only { display: none; }
+  span.m-only { display: inline; }
+  li.m-only,
+  a.m-only { display: block; }
+
+  /* The page-below wipe belongs to the desktop scroll mechanic; the phone
+     board just stacks. */
+  .page-below__curve { display: none; }
+  .page-below { background: #fff; }
+
+  /* Floating UI is not part of the mobile board. */
+  .float-card,
+  .ask { display: none; }
+
+  /* ---------------- Type ---------------- */
+  .h2, .h2--tight { font-size: clamp(36px, 11.25vw, 42px); line-height: 1; }
+  .eyebrow {
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.33em;
+    font-weight: 700;
+  }
+  .eyebrow--sm { font-size: 14px; }
+  .lead { font-size: 17px; line-height: 1.6; }
+  .section-head { gap: 20px; }
+  .container,
+  .container--narrow { width: calc(100% - var(--gutter) * 2); }
+
+  .btn {
+    height: 40px;
+    min-height: 40px;
+    padding: 0 24px;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+  }
+
+  /* ---------------- Nav ----------------
+     The board's bar is a 300x40 pill holding the logo and the burger only. */
+  .site-header { padding-top: 12px; }
+  .nav-wrap { width: calc(100% - 20px); }
+  .nav { height: 40px; padding: 0 20px; }
+  .nav__logo img { width: 80px; }
+  .nav__cta { display: none; }
+  .nav__burger { width: 24px; height: 24px; }
+  .nav__burger span { left: 4px; right: 4px; top: 6px; }
+  .nav__burger span:nth-child(2) { top: 11px; }
+  .nav__burger span:nth-child(3) { top: 16px; }
+  .site-header.drawer-open .nav__cta { display: inline-flex; margin-top: 16px; }
+  .site-header.drawer-open .nav__burger { top: 10px; right: 16px; }
+
+  /* ---------------- Hero ----------------
+     441px of photo, the headline starting 97px down, a 10% black scrim and
+     the shallow white shape along the bottom edge. No sticky, no parallax. */
+  .hero-banner.hero {
+    position: relative;
+    height: 441px;
+    min-height: 441px;
+    max-height: none;
+  }
+  .hero-banner .inner-row {
+    min-height: 0;
+    max-height: none;
+    height: 441px;
+    align-items: flex-start;
+    padding-top: 97px;
+  }
+  .hero-banner .inner-row .text-wrp {
+    align-self: flex-start;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+  .hero-banner .inner-row h1.heading,
+  .hero-banner .inner-row .text-wrp {
+    font-size: clamp(44px, 15vw, 60px);
+    line-height: 0.9;
+    letter-spacing: -0.0375em;
+  }
+  .hero-banner .div-block {
+    mix-blend-mode: normal;
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+  .hero-banner img.horizon-shape { bottom: -1px; }
+
+  /* ---------------- Intro ---------------- */
+  section#intro.intro {
+    position: static;
+    top: auto;
+    padding: 48px 0 0;
+    background: #fff;
+  }
+  .intro__text {
+    font-size: 19px;
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .intro__tagline {
+    margin-top: 27px;
+    font-size: 19px;
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* ---------------- Philosophy ----------------
+     Three stacked #f3f3f5 cards: artwork centred on top, copy left-aligned
+     below it, 40px apart. */
+  .philosophy {
+    padding: 120px 0 0;
+    background-image: linear-gradient(180deg, #fff 0%, #f8f9f9 14%, #f8f9f9 72%, #fff 100%);
+  }
+  .philosophy__lead { margin-top: 16px; line-height: 1.6; }
+  .philosophy__stage { margin-top: 60px; gap: 40px; }
+  .philosophy__arc { display: none; }
+
+  .phil-orb {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: none;
+    padding: 36px 20px;
+    border-radius: 10px;
+    background: var(--bg-card);
+  }
+  .phil-orb__glow { display: none; }
+  /* The clips are a desktop hover affordance — the phone board shows stills. */
+  .phil-orb__video { display: none; }
+
+  .phil-orb__frame,
+  .phil-orb--hi-ai .phil-orb__frame,
+  .phil-orb--xfactors .phil-orb__frame,
+  .phil-orb--orian .phil-orb__frame {
+    position: relative;
+    left: auto; top: auto;
+    align-self: center;
+    width: 190px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 0;
+    margin-bottom: 32px;
+    overflow: visible;
+  }
+  .phil-orb--hi-ai .phil-orb__frame { width: 160px; }
+  .phil-orb--xfactors .phil-orb__frame { width: 150px; }
+  .phil-orb__media { --orb-scale: 1; object-position: 50% 50%; }
+  .phil-orb--hi-ai .phil-orb__media { object-position: 50% 50%; }
+
+  /* HI / AI flank the yin-yang on the mobile board. */
+  .orb-hiai {
+    position: absolute;
+    top: 105px;
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 21px;
+  }
+  .orb-hiai--hi { left: 34px; color: var(--hi); }
+  .orb-hiai--ai { right: 34px; color: var(--ai); }
+
+  .phil-orb__info,
+  .phil-orb--hi-ai .phil-orb__info,
+  .phil-orb--xfactors .phil-orb__info,
+  .phil-orb--orian .phil-orb__info {
+    position: relative;
+    left: auto; right: auto; top: auto; bottom: auto;
+    width: 100%;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+  }
+  .phil-orb__title {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    max-width: none;
+  }
+  .phil-orb__desc { font-size: 17px; line-height: 1.6; }
+  .phil-orb__btn { margin-top: 20px; align-self: flex-start; }
+
+  /* ---------------- Industries ----------------
+     Six stacked photo cards, 272x290 at the board, 16px apart, each with a
+     bottom scrim and a centred white label. */
+  .industries-section { padding: 90px 0 0; background: #fff; }
+  .industries-section__inner { padding-inline: 0; }
+  .industries-section__head { padding-inline: var(--gutter); margin-bottom: 30px; }
+  .industries-section__title { font-size: clamp(36px, 11.25vw, 42px); line-height: 1; }
+  .industries-section__eyebrow {
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.33em;
+  }
+
+  .ind-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding: 0 var(--gutter);
+    cursor: default;
+  }
+  .ind-accordion__item {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    scroll-snap-align: none;
+  }
+  /* Board order: Financial, Technologies, Consumer, Industrials, Healthcare,
+     Other — the markup has Healthcare before Industrials. */
+  .ind-accordion__item:nth-child(4) { order: 5; }
+  .ind-accordion__item:nth-child(5) { order: 4; }
+  .ind-accordion__item--other { order: 6; }
+
+  .ind-accordion__link {
+    height: auto;
+    aspect-ratio: 272 / 290;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .ind-accordion__link::after { opacity: 0; }
+  .ind-accordion__img { object-fit: cover; }
+  .ind-accordion__link::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 96px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%);
+    z-index: 1;
+  }
+  .ind-accordion__label {
+    left: 20px; right: 20px; bottom: 20px;
+    width: auto;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+  }
+  .ind-accordion__arrow { display: none; }
+  .industries-section__arc { display: none; }
+
+  /* ---------------- Competencies ----------------
+     Snap strip of 191x306 cards, the next one peeking past the gutter. */
+  .competencies { padding: 150px 0 0; }
+  .comp-row {
+    margin-top: 34px;
+    display: flex;
+    grid-template-columns: none;
+    gap: 16px;
+    max-width: none;
+    perspective: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+  .comp-row::-webkit-scrollbar { display: none; }
+  .comp-card { flex: 0 0 191px; scroll-snap-align: start; }
+  .comp-card:hover { flex-grow: 0; }
+  .comp-card a {
+    height: 306px;
+    padding: 50px 10px 0;
+    border-radius: 8.6px;
+    background: var(--bg-card);
+    box-shadow: none;
+  }
+  .comp-card__title { font-size: 20.6px; line-height: 1.1; }
+  .comp-card a > img,
+  .comp-card:hover a > img { height: 200px; transform: none; filter: saturate(1); }
+
+  /* ---------------- Why leaders ----------------
+     Title + uppercase line, then a static stack of 272x179 white cards with
+     the board's fade at both ends. */
+  .why { padding: 90px 0 0; }
+  .container.why__grid,
+  .why__grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    max-width: 100%;
+  }
+  .why__copy { padding-left: 0; text-align: center; }
+  .why__title { max-width: none; line-height: 1; text-align: center; }
+  .why__copy .lead {
+    margin-top: 20px;
+    max-width: none;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0.33em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .why__stack {
+    height: 603px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 72%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 72%, transparent 100%);
+  }
+  .why__track {
+    left: 0;
+    gap: 16px;
+    padding: 0;
+  }
+  .feel-card {
+    height: 179px;
+    min-height: 0;
+    padding: 24px 19px;
+    gap: 14px;
+    justify-content: flex-start;
+  }
+  .feel-card:hover { transform: none; }
+  .feel-card h3 { font-size: 24px; line-height: 1; }
+  .feel-card p { font-size: 17px; line-height: 1.6; }
+
+  /* ---------------- How can we help ----------------
+     The photo is a 354px band at the top with a 60% ink scrim; the cards sit
+     on the #f8f9f9 wash below it. */
+  .help {
+    padding: 27px 0 0;
+    min-height: 0;
+    background: var(--bg-soft);
+  }
+  .help__bg {
+    inset: 0 0 auto;
+    height: 354px;
+  }
+  .help__bg img { height: 100%; transform: none !important; }
+  .help__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(29, 31, 31, 0.6);
+  }
+  .help__title {
+    margin-top: 64px;
+    text-shadow: none;
+    transform: none !important;
+  }
+  .help-grid {
+    margin-top: 89px;
+    margin-bottom: 0;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 20px;
+  }
+  .help-card,
+  .help-card:hover {
+    min-height: 0;
+    padding: 24px;
+    border-radius: 4.8px;
+    text-align: left;
+    background: #fff;
+    box-shadow: none;
+  }
+  .help-card h3,
+  .help-card:hover h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.06;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .help-card p,
+  .help-card:hover p { font-size: 17px; line-height: 1.6; color: var(--ink); }
+  .help-card__arrow { display: none; }
+  .help__curve { display: none; }
+
+  /* ---------------- Insights ---------------- */
+  .insights {
+    padding: 134px 0 70px;
+    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg-soft) 300px, #fff 300px);
+  }
+
+  /* Board order: the two buttons sit above a collapsed filter pill. */
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    margin-top: 20px;
+    padding: 0;
+    gap: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+  .filter__actions {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .filter__label {
+    order: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 40px;
+    margin-right: 0;
+    padding: 0 18px;
+    border-radius: 10px;
+    background: var(--bg-pill);
+    font-size: 14px;
+    letter-spacing: 0.33em;
+    color: var(--ink-3);
+    cursor: pointer;
+  }
+  .filter__label::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    background: no-repeat center / 17px 15px
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 16' fill='none' stroke='%23313131' stroke-width='1.67' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1h16l-6.4 7.2V15L7.4 13.4V8.2z'/%3E%3C/svg%3E");
+  }
+  /* Collapsed by default; the pill above toggles .is-open (js/mobile.js). */
+  .filter__tags {
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s var(--ease-out), margin-top 0.35s var(--ease-out);
+  }
+  .filter.is-open .filter__tags { max-height: 420px; margin-top: 12px; }
+  .filter__tags li { width: 100%; }
+  .filter__tags .tag {
+    display: flex;
+    width: 100%;
+    height: 20px;
+    margin-bottom: 16px;
+    font-size: 9px;
+  }
+  .filter__clear { margin: 0 0 8px; width: 100%; text-align: center; }
+
+  .masonry {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    grid-template-columns: none;
+    margin-top: 40px;
+  }
+  .masonry__col { display: contents; }
+  .masonry__col:nth-child(2),
+  .masonry__col:nth-child(3),
+  .masonry__col:nth-child(4) { display: contents; }
+  .masonry.is-collapsed { max-height: 2450px; }
+  .masonry.is-collapsed::after { height: 300px; }
+
+  .post {
+    gap: 0;
+    padding-bottom: 32px;
+    border-bottom: 0.5px solid var(--ink);
+  }
+  .post__media,
+  .post__media--xl,
+  .post__media--tall,
+  .post__media--short {
+    height: auto;
+    aspect-ratio: 272 / 315;
+  }
+  .post__media img { filter: none; }
+  .post .tag { margin-top: 32px; }
+  .post__title,
+  .post__title--display {
+    margin-top: 24px;
+    font-family: var(--font-body);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .post__excerpt { margin-top: 16px; font-size: 17px; line-height: 1.5; }
+  .post__date { margin-top: 26px; font-size: 17px; line-height: 1.8; }
+  .post--feature { padding-top: 0; border-top: 0; }
+  .post--feature .post__media { margin-top: 24px; }
+  .insights__more { margin-top: 0; }
+  .load-more { font-size: 20px; line-height: 1.2; }
+
+  /* ---------------- Top talent ---------------- */
+  .talent { padding: 100px 0 0; background: #fff; }
+  .talent-card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    border-radius: 10px;
+    box-shadow: 0 14px 34px -20px rgba(0, 0, 0, 0.25);
+  }
+  .talent-card__media { height: 264px; }
+  .talent-card__media img { inset: 0; height: 100%; transform: none !important; }
+  .talent-card__caption {
+    top: 24px; left: 24px;
+    font-size: 9px;
+    line-height: 1.2;
+    letter-spacing: 0.19em;
+  }
+  .talent-card__caption::after { width: 120px; margin-top: 9px; }
+  .talent-card__body { padding: 24px; gap: 0; }
+  .talent-card__body .eyebrow {
+    font-size: 14px;
+    line-height: 25px;
+    letter-spacing: 0.33em;
+    color: var(--ink-3);
+  }
+  .talent-card__body .h2 { font-size: 36px; line-height: 1; margin: 9px 0 0; }
+  .talent-card__body .lead {
+    max-width: none;
+    margin: 32px 0 40px;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  /* ---------------- Partners ---------------- */
+  .partners { padding: 100px 0 90px; }
+  .logo-grid {
+    margin-top: 36px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 0;
+  }
+  .logo { height: 92px; padding: 0 12px; }
+  .logo img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 56px;
+    object-fit: contain;
+  }
+  .partners__cta { margin-top: 51px; }
+
+  /* ---------------- Education band ---------------- */
+  .impact { height: 503px; min-height: 0; }
+  .impact__content {
+    top: 225px;
+    bottom: auto;
+    width: calc(100% - var(--gutter) * 2);
+    align-items: center;
+    text-align: center;
+    padding-left: 0;
+    gap: 24px;
+  }
+  .impact__title { font-size: 36px; line-height: 0.78; }
+  .impact__sub { font-size: 14px; line-height: 1.36; letter-spacing: 0.33em; }
+  .impact__arrow {
+    top: auto;
+    bottom: 20px;
+    width: 32px;
+    height: 32px;
+  }
+  .impact__arrow--prev { left: var(--gutter); }
+  .impact__arrow--next { right: var(--gutter); }
+
+  /* ---------------- CTA ---------------- */
+  .cta {
+    min-height: 479px;
+    padding: 80px 0 120px;
+  }
+  .cta__bg img { transform: none !important; }
+  .cta__title {
+    max-width: 272px;
+    margin-inline: auto;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .cta__title .accent { color: #fff; }
+  .cta__actions { margin-top: 48px; gap: 16px; }
+  .cta__curve { height: 20px; }
+
+  /* ---------------- Footer ---------------- */
+  .footer { padding-top: 48px; }
+  .footer__logo:not(.footer__logo--bottom) { display: none; }
+  .footer__cols {
+    grid-template-columns: 1fr;
+    gap: 46px;
+    width: 100%;
+    padding-bottom: 0;
+  }
+  .footer__col h4 { font-size: 20px; line-height: 1.2; margin-bottom: 11px; }
+  .footer__col li a { font-size: 17px; line-height: 1.8; }
+  .footer__col--wide h4 { margin-bottom: 20px; }
+  .footer__col--wide .btn--soft {
+    display: flex;
+    width: 250px;
+    height: 43px;
+    margin-top: 0;
+    padding: 0 21px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    gap: 9px;
+  }
+  .social {
+    justify-content: center;
+    gap: 10px;
+    margin-top: 27px;
+    opacity: 1;
+  }
+  .footer__bar {
+    margin-top: 39px;
+    padding: 23px 0 0;
+    background: var(--bg-card);
+  }
+  .footer__bar-inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 var(--gutter);
+    justify-items: stretch;
+    text-align: left;
+  }
+  .certs { justify-content: center; gap: 6px; margin-bottom: 32px; }
+  .footer__legal {
+    text-align: left;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--grey);
+  }
+  .footer__legal-links { display: flex; flex-direction: column; }
+  .footer__legal-links a::after { content: none; }
+  .footer__legal-copy {
+    display: block;
+    margin-top: 24px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .footer__logo--bottom {
+    width: 173px;
+    margin: 24px auto 40px;
+  }
+
+  /* ---------------- Motion ----------------
+     The phone board keeps one simple move: a short fade-and-rise as a block
+     enters. Everything scroll-scrubbed, pinned, 3D or character-split is off
+     (see the mobile branch in js/animations.js). */
+  .reveal,
+  .reveal-up { opacity: 1; transform: none; }
+
+  .m-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  }
+  .m-in.is-in { opacity: 1; transform: none; }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .m-in { opacity: 1; transform: none; transition: none; }
+}
+
+/* Desktop keeps the legal line inline, with the separators the single
+   paragraph used to carry. */
+@media (min-width: 769px) {
+  .footer__legal-links a::after { content: ' | '; white-space: pre; }
+}
