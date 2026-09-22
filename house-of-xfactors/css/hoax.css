@@ -5,12 +5,21 @@
    ========================================================= */
 
 /* ---------- Sticky-hero mechanics (same pattern as home / HI-AI) ---------- */
+/* Curve height as a token so the hero can reserve exactly that much extra
+   height for it (the home page does the same with its own 200px arc). */
+:root { --hero-curve: clamp(40px, 4.43vw, 85px); }
+
+/* One viewport of visible hero plus a curve's worth of extra height that sits
+   below the fold. Without it the curve, anchored to the hero's bottom edge,
+   eats into the photo on load; with it the arc starts at the bottom of the
+   viewport. The full hero height is also the sticky dwell, and that long dwell
+   is what makes the parallax read — it is not the travel value. */
 .hero {
   position: sticky;
   top: 0;
   z-index: 0;
-  height: clamp(600px, 49.3vw, 946px);
-  min-height: 560px;
+  height: calc(90vh + var(--hero-curve));
+  min-height: calc(560px + var(--hero-curve));
   overflow: hidden;
   background: linear-gradient(180deg, #1f4f7a 0%, #0d2740 100%);
   color: #fff;
@@ -29,7 +38,7 @@
   right: 0;
   bottom: 100%;
   margin-bottom: -1px;
-  height: clamp(40px, 4.43vw, 85px);
+  height: var(--hero-curve);
   pointer-events: none;
 }
 
@@ -95,7 +104,10 @@
 .hero--hoax .hero__content {
   position: relative;
   z-index: 2;
-  height: 100%;
+  /* The visible viewport only, not the hero's full height: the copy then sits
+     centred on screen and stays clear of the curve's overlap. */
+  height: 90vh;
+  min-height: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -316,6 +328,44 @@
 
 .video-card:hover .video-card__play {
   transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* ---------- Video card: playing state ---------- */
+.video-card__frame {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: #000;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease-out);
+}
+
+.video-card__frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  display: block;
+  background: #000;
+}
+
+.video-card.is-playing {
+  cursor: default;
+}
+
+/* Poster, tint, title and the play badge step aside for the film. */
+.video-card.is-playing .video-card__img,
+.video-card.is-playing .video-card__tint,
+.video-card.is-playing .video-card__title,
+.video-card.is-playing .video-card__play {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease-out), visibility var(--dur) var(--ease-out);
+}
+
+.video-card.is-playing .video-card__frame {
+  opacity: 1;
 }
 
 /* ---------- POWER HOUSE COMPETENCIES ---------- */
@@ -576,14 +626,14 @@
 
 /* Figma 1:3773 — one photo (sky through to hills) backs the whole section,
    with the heading sitting over the sky. */
-/* Overhangs the section top and bottom so the scrubbed ±6% parallax never
-   exposes an edge. */
+/* Overhangs the section top and bottom so the scrubbed 8% parallax and the
+   slow zoom never expose an edge. */
 .cta-hoax__hills {
   position: absolute;
   left: 0;
   right: 0;
-  top: -8%;
-  height: 116%;
+  top: -10%;
+  height: 120%;
   z-index: 1;
   pointer-events: none;
   overflow: hidden;

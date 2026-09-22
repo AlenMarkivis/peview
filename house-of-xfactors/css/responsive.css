@@ -162,13 +162,14 @@
     font-size: clamp(34px, 8.6vw, 88px);
     line-height: 1.05;
   }
-  /* `vh` on mobile is the *largest* viewport, so a 100vh hero sits partly under
-     the browser chrome on load. `svh` measures the visible area instead. */
-  .hero-banner.hero {
-    height: calc(100svh + var(--hero-curve));
-    min-height: calc(100svh + var(--hero-curve));
+  /* `vh` on mobile is the *largest* viewport, so a vh-sized hero sits partly
+     under the browser chrome on load. `svh` measures the visible area instead.
+     The curve reserve is kept, exactly as on desktop. */
+  .hero {
+    height: calc(90svh + var(--hero-curve));
+    min-height: calc(560px + var(--hero-curve));
   }
-  .hero-banner .inner-row { min-height: 100svh; max-height: 100svh; }
+  .hero--hoax .hero__content { height: 90svh; }
 
   /* ---- Buttons ----
      `.btn` is `white-space: nowrap` for the desktop pill shape. Long labels
@@ -201,7 +202,8 @@
   .site-header { padding-top: 12px; }
   .nav { height: 60px; padding: 0 16px; }
   .nav__logo img { width: 110px; }
-  .hero { height: 88vh; min-height: 520px; }
+  .hero { height: calc(88svh + var(--hero-curve)); min-height: calc(520px + var(--hero-curve)); }
+  .hero--hoax .hero__content { height: 88svh; min-height: 520px; }
   .hero__content { padding-top: 28vh; }
   .hero__curve { height: 60px; }
   .intro__text { font-size: 18px; line-height: 1.8; }
@@ -260,6 +262,7 @@
 
 /* Very large screens: stop the page from stretching beyond the design */
 @media (min-width: 1921px) {
-  .hero { height: 1165px; }
+  .hero { height: calc(1165px + var(--hero-curve)); min-height: calc(1165px + var(--hero-curve)); }
+  .hero--hoax .hero__content { height: 1165px; }
   .impact { height: 902px; }
 }

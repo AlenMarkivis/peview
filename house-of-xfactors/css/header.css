@@ -435,3 +435,12 @@
     visibility: visible;
     display: block;
 }
+
+.new1 img.stickyLogo{
+    opacity: 0;
+    display: none;
+}
+.is-light img.stickyLogo {
+    opacity: 1;
+    display: block;
+}

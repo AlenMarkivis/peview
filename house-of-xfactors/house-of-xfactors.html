@@ -26,11 +26,12 @@
   <div class="page-dim" aria-hidden="true"></div>
 
   <!-- ================= HEADER ================= -->
-  <header class="site-header" id="site-header">
+  <header class="site-header new1" id="site-header">
     <div class="nav-wrap">
       <nav class="nav glass" aria-label="Primary">
         <a class="nav__logo" href="#" aria-label="Xoriant — New Horizons">
-          <img src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="137" height="47">
+          <img class="staticLogo" src="assets\images\headerLogo.png" alt="Xoriant New Horizons" width="137" height="47">
+          <img class="stickyLogo" src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="137" height="47">
         </a>
 
         <ul class="nav__menu">
@@ -77,7 +78,7 @@
               <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-consumer.png" alt="Consumer"></a></li>
               <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-industrials.png" alt="Industrials"></a></li>
               <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-healthcare.png" alt="Healthcare"></a></li>
-              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-other.png" alt="Other"></a></li>
+              <!-- <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-other.png" alt="Other"></a></li> -->
             </ul>
           </section>
 
@@ -202,14 +203,15 @@
           <h2 class="hoax-h2 future__head" data-split="chars">How it develops your <span class="accent">future</span> partners</h2>
           <p class="future__body reveal">Each House is a safe space away from project pressure where people can step back, learn and experiment. Engineers learn to tell better business stories, consultants pick up new technical patterns, leaders from new acquisitions bring fresh colors and ways of working; ideas and people constantly “pollinate” across Houses.</p>
 
-          <button class="video-card reveal" type="button" aria-label="Play the Human Ingenuity film">
+          <div class="video-card reveal" data-video="assets/video/magnific_generte-a-video_P3Vg7w842C.mp4">
             <img class="video-card__img" src="assets/images/hoax-video-poster.jpg" alt="">
             <span class="video-card__tint"></span>
             <span class="video-card__title display">Human<br>Ingenuity</span>
-            <span class="video-card__play">
+            <button class="video-card__play" type="button" aria-label="Play the Human Ingenuity film">
               <svg viewBox="0 0 137 141" fill="none" aria-hidden="true"><path d="M137 70.5 0 141V0l137 70.5Z" fill="#ffffff"/></svg>
-            </span>
-          </button>
+            </button>
+            <div class="video-card__frame" hidden></div>
+          </div>
         </div>
       </section>
 

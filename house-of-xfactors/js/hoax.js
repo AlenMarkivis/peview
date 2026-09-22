@@ -13,6 +13,55 @@
       el.style.transform = 'none';
     });
   }
+
+  /* ---------- Video card: swap the poster for the film ---------- */
+  // Runs before the GSAP guards below so the film still plays with reduced motion.
+  function videoPlayer() {
+    document.querySelectorAll('.video-card[data-video]').forEach(function (card) {
+      var frame = card.querySelector('.video-card__frame');
+      var play = card.querySelector('.video-card__play');
+      if (!frame || !play) return;
+
+      function start() {
+        if (card.classList.contains('is-playing')) return;
+        var src = card.dataset.video;
+        if (!src) return;
+
+        var video = document.createElement('video');
+        video.src = src;
+        video.poster = card.querySelector('.video-card__img').src;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.preload = 'auto';
+
+        frame.appendChild(video);
+        frame.hidden = false;
+        card.classList.add('is-playing');
+
+        // The click is a user gesture, so sound is normally allowed; if the
+        // browser still blocks it, fall back to a muted autoplay.
+        var p = video.play();
+        if (p && p.catch) {
+          p.catch(function () {
+            video.muted = true;
+            video.play();
+          });
+        }
+      }
+
+      play.addEventListener('click', start);
+      // Clicking anywhere on the poster starts it too; once playing the video
+      // owns the pointer, so this never steals its own controls.
+      card.addEventListener('click', function (e) {
+        if (card.classList.contains('is-playing')) return;
+        if (e.target === play || play.contains(e.target)) return;
+        start();
+      });
+    });
+  }
+  videoPlayer();
+
   if (!window.gsap || !window.ScrollTrigger) { revealFallback(); cultureTabs(); return; }
   gsap.registerPlugin(ScrollTrigger);
 
@@ -188,12 +237,19 @@
   }
 
   /* ---------- Background parallax ---------- */
+  // Same two-layer treatment as the home page CTA: a scrubbed ±8% drift plus a
+  // slow one-shot zoom. Scale and translate live on separate tweens so they
+  // never fight each other on the same image.
   function backgrounds() {
     var hills = document.querySelector('.cta-hoax__hills img');
     if (hills) {
-      gsap.fromTo(hills, { yPercent: -6 }, {
-        yPercent: 6, ease: 'none',
+      gsap.fromTo(hills, { yPercent: -8 }, {
+        yPercent: 8, ease: 'none',
         scrollTrigger: { trigger: '.cta-hoax', start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+      gsap.fromTo(hills, { scale: 1 }, {
+        scale: 1.12, duration: 10, ease: 'power1.out',
+        scrollTrigger: { trigger: '.cta-hoax', start: 'top 75%', once: true }
       });
     }
   }
