@@ -93,11 +93,11 @@
   //     .to('.hero__content', { yPercent: 35, opacity: 0, ease: 'none' }, 0);
   // }
 
-  /* ---------- Hero banner: the HI/AI hero's parallax ----------
-     Same values as hero() in js/hiai.js: base scale 1.12, a slow one-way zoom
-     to 1.22, and a scrub across the pinned banner that drifts the photo 8%
-     down. The one deliberate difference: HI/AI also slides and fades
-     `.hero__content`, here the headline stays fixed while the photo moves. */
+  /* ---------- Hero banner parallax ----------
+     Base scale 1.12, a slow one-way zoom to 1.22, and a scrub across the
+     pinned banner that drifts the photo 8% down. The headline is deliberately
+     left out of the move: `.hero__content` stays fixed while the photo
+     drifts behind it. */
   function heroBanner() {
     var banner = document.querySelector('.hero-banner');
     var bg = banner && banner.querySelector('.hero-banner__bg');

@@ -140,17 +140,13 @@
       .to(aiItems, step(), '>');
   }
 
-  /* ---------- Flywheel: fades + slow spin as it enters ---------- */
+  /* ---------- Flywheel: fades in as it enters (no rotation) ---------- */
   function flywheel() {
     var fw = document.querySelector('.way__flywheel');
     if (!fw) return;
-    gsap.fromTo(fw, { rotate: -18, scale: 0.9, opacity: 0 }, {
-      rotate: 0, scale: 1, opacity: 1, duration: 1.6, ease: 'power3.out',
+    gsap.fromTo(fw, { scale: 0.9, opacity: 0 }, {
+      scale: 1, opacity: 1, duration: 1.6, ease: 'power3.out',
       scrollTrigger: { trigger: fw, start: 'top 82%', once: true }
-    });
-    gsap.to(fw, {
-      rotate: 10, ease: 'none',
-      scrollTrigger: { trigger: '.way', start: 'top bottom', end: 'bottom top', scrub: true }
     });
   }
 

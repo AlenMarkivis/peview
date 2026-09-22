@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xoriant — Engineering New Horizons of Possibility</title>
+  <meta name="description"
+    content="Xoriant is the high-impact engineering partner for ambitious enterprises, blending Human Ingenuity and applied AI.">
+
+  <!-- Fonts: DM Sans (Google) + Gambarino (Fontshare) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
+    rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap" rel="stylesheet">
+
+  <!-- Styles (split by concern) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/industries.css">
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+
+<body>
+
+  <!-- Page blur overlay used by the mega menu -->
+  <div class="page-dim" aria-hidden="true"></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="site-header">
+    <div class="nav-wrap">
+      <nav class="nav glass" aria-label="Primary">
+        <a class="nav__logo" href="#top" aria-label="Xoriant — New Horizons">
+          <img class="staticLogo" src="assets/icons/headerLogo.png" alt="Xoriant New Horizons" width="137" height="47">
+          <img class="animatedLogo" src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="137"
+            height="47">
+        </a>
+
+        <ul class="nav__menu">
+          <li class="nav__item">
+            <a class="nav__toggle" href="#" aria-label="Human Ingenuity powered by AI">
+              <span>HI</span>
+              <img src="assets/icons/hi-ai-toggle.png" alt="" width="30" height="30">
+              <span>AI</span>
+            </a>
+          </li>
+          <li class="nav__item has-menu" data-menu="industries">
+            <a class="nav__link" href="#industries">Industries</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="competencies">
+            <a class="nav__link" href="#competencies">Competencies</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="about">
+            <a class="nav__link" href="#philosophy">About</a>
+          </li>
+        </ul>
+
+        <div class="nav__right">
+          <a class="nav__link has-menu" data-menu="insights" href="#insights">Insights</a>
+          <a class="nav__link" href="#careers">Careers</a>
+          <a class="nav__cta" href="#contact">Contact</a>
+          <button class="nav__burger" type="button" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- ===== Mega menu panels ===== -->
+      <div class="mega" id="mega" aria-hidden="true">
+        <div class="mega__inner container">
+          <!-- Industries -->
+          <section class="mega__panel" data-panel="industries">
+            <div class="mega__intro">
+              <h3>Industries</h3>
+              <p>Turning ideas into solutions that keep delivering real‑world value in a fast‑changing world.</p>
+            </div>
+            <ul class="mega__tiles">
+              <li><a href="#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-financial.png"
+                    alt="Financial Services"></a></li>
+              <li><a href="#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-technology.png"
+                    alt="Technology"></a></li>
+              <li><a href="#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-consumer.png"
+                    alt="Consumer"></a></li>
+              <li><a href="#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-industrials.png"
+                    alt="Industrials"></a></li>
+              <li><a href="#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-healthcare.png"
+                    alt="Healthcare"></a></li>
+              <!-- <li><a href="#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-other.png" alt="Other"></a></li> -->
+            </ul>
+          </section>
+
+          <!-- Competencies -->
+          <section class="mega__panel" data-panel="competencies">
+            <div class="mega__intro">
+              <h3>Competencies</h3>
+              <p>Discover how our left and right brain training, amplified by specialized skills sets create synergy.
+              </p>
+            </div>
+            <ul class="mega__tiles mega__tiles--5">
+              <li><a href="#competencies" class="mega__tile mega__tile--labelled"><span>Engineering</span><img
+                    src="assets/images/menu/menu-comp-engineering.png" alt=""></a></li>
+              <li><a href="#competencies" class="mega__tile mega__tile--labelled"><span>Cloud &amp; Security</span><img
+                    src="assets/images/menu/menu-comp-cloud.png" alt=""></a></li>
+              <li><a href="#competencies" class="mega__tile mega__tile--labelled"><span>Quality</span><img
+                    src="assets/images/menu/menu-comp-quality.png" alt=""></a></li>
+              <li><a href="#competencies" class="mega__tile mega__tile--labelled"><span>Data &amp; AI</span><img
+                    src="assets/images/menu/menu-comp-data.png" alt=""></a></li>
+              <li><a href="#competencies" class="mega__tile mega__tile--labelled"><span>Enterprise</span><img
+                    src="assets/images/menu/menu-comp-enterprise.png" alt=""></a></li>
+            </ul>
+          </section>
+
+          <!-- Insights -->
+          <section class="mega__panel" data-panel="insights">
+            <div class="mega__intro">
+              <h3>Insights</h3>
+              <p>Ideas, stories, and expert views — shaped by AI and engineering — driving measurable business outcomes.
+              </p>
+            </div>
+            <ul class="mega__tiles">
+              <li><a href="#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-success.png"
+                    alt="Success Stories"></a></li>
+              <li><a href="#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-blog.png" alt="Blog"></a>
+              </li>
+              <li><a href="#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-infographics.png"
+                    alt="Infographics"></a></li>
+              <li><a href="#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-webinar.png"
+                    alt="Webinar &amp; Podcast"></a></li>
+              <li><a href="#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-brochures.png"
+                    alt="Brochures"></a></li>
+              <li><a href="#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-whitepapers.png"
+                    alt="White Papers"></a></li>
+            </ul>
+          </section>
+
+          <!-- About -->
+          <section class="mega__panel" data-panel="about">
+            <div class="mega__intro">
+              <h3>About</h3>
+              <p>Discover the impact of our HI/AI‑powered competencies on what you New Horizon.</p>
+            </div>
+            <ul class="mega__tiles mega__tiles--5">
+              <li><a href="#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Our
+                    Story</span><img src="assets/images/menu/menu-about-story.png" alt="" class="cover"></a></li>
+              <li><a href="#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Human Powered
+                    AI</span><img src="assets/images/yin-yang.png" alt="" class="contain"></a></li>
+              <li><a href="#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>House of
+                    X-Factors</span><img src="assets/images/brain-flowers.png" alt="" class="contain"></a></li>
+              <li><a href="#partners" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Partner
+                    Ecosystem</span><img src="assets/images/menu/menu-about-partner.png" alt="" class="contain"></a>
+              </li>
+              <li><a href="#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Values</span><img
+                    src="assets/images/menu/menu-about-values.png" alt="" class="contain"></a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <!-- <section class="hero" id="hero">
+      <div class="hero__bg">
+        <img class="hero__mountains" src="assets/images/hero-mountains.jpg" alt="" fetchpriority="high">
+        <div class="hero__tint"></div>
+      </div>
+
+      <div class="hero__content">
+        <h1 class="h1 display hero__title">
+          <span class="split-line"><span class="split-inner">Engineering</span></span>
+          <span class="split-line"><span class="split-inner">New Horizons</span></span>
+          <span class="split-line"><span class="split-inner">of Possibility</span></span>
+        </h1>
+      </div>
+
+    </section> -->
+
+    <div class="hero-banner hero">
+
+      <div class="hero-banner__bgclip" aria-hidden="true">
+        <div class="hero-banner__bg"></div>
+      </div>
+
+      <img src="assets/images/shape1.svg" loading="lazy" alt="" class="horizon-shape">
+      <div class="inner-row hero__content">
+        <div class="text-wrp">
+          <h1 class="heading">Engineering<br>New Horizons<br>of Possibility</h1>
+        </div>
+        <div class="div-block"></div>
+      </div>
+    </div>
+
+    <!-- ===== Everything below the hero scrolls up over the sticky hero; its
+             curved top edge wipes over the pinned mountains. ===== -->
+    <div class="page-below">
+      <div class="page-below__curve" aria-hidden="true">
+        <svg viewBox="0 0 1920 361" preserveAspectRatio="none">
+          <path d="M0,361 L0,120 Q960,-40 1920,120 L1920,361 Z" fill="#ffffff" />
+        </svg>
+      </div>
+
+      <!-- ================= INTRO ================= -->
+      <section class="intro" id="intro">
+        <div class="container--narrow">
+          <p class="intro__text">Xoriant amplifies Human Ingenuity with AI to engineer to a vision, not just a spec –
+            turning platforms, data, and intelligence into measurable outcomes.</p>
+          <p class="intro__tagline reveal">Together, we create New Horizons for our clients, employees and partners.</p>
+        </div>
+      </section>
+
+      <!-- ================= PHILOSOPHY ================= -->
+      <section class="philosophy section" id="philosophy">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="h2 h2--tight display" data-split="chars"><span class="accent">Our</span> Philosophy</h2>
+            <p class="eyebrow reveal">in an era of AI</p>
+            <p class="philosophy__lead reveal">We believe AI will never replace human ingenuity — only amplify it. Our
+              vision is a world where<br> every ambitious enterprise continuously reimagines what's possible, using AI
+              to elevate human<br> experience, society and life.</p>
+          </div>
+
+          <div class="philosophy__stage" id="orian">
+            <svg class="philosophy__arc" viewBox="0 0 1920 740" fill="none" preserveAspectRatio="none"
+              aria-hidden="true">
+              <path d="M1497 201C1497 407.55 1260.83 575 969.5 575C678.67 575 442 407.55 442 201" />
+            </svg>
+
+            <div class="phil-orb phil-orb--hi-ai">
+              <span class="phil-orb__glow" aria-hidden="true"></span>
+              <a href="#" class="phil-orb__frame" aria-label="Human Ingenuity + Artificial Intelligence">
+
+                <span class="hide">HI</span>
+                <img class="phil-orb__media phil-orb__poster" src="assets/images/yin-yang-poster.png" alt=""
+                  width="1080" height="1080">
+                <video class="phil-orb__media phil-orb__video" data-phil-video muted playsinline loop preload="none"
+                  poster="assets/images/yin-yang-poster.png" width="1080" height="1080" aria-hidden="true"
+                  tabindex="-1">
+                  <source src="assets/videos/Composition 2.webm" type="video/webm">
+                </video>
+                <span class="hide">AI</span>
+              </a>
+              <div class="phil-orb__info">
+                <h3 class="phil-orb__title">Human Ingenuity + Artificial Intelligence</h3>
+                <p class="phil-orb__desc">Blending Human Ingenuity with applied AI to define, design, build and run
+                  solutions that stay deeply human.</p>
+                <a href="#" class="btn phil-orb__btn">Human centric, Ai in the loop <svg class="btn__icon"
+                    viewBox="0 0 14 14" fill="none">
+                    <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg></a>
+              </div>
+            </div>
+
+            <div class="phil-orb phil-orb--xfactors">
+              <span class="phil-orb__glow" aria-hidden="true"></span>
+              <a href="#" class="phil-orb__frame" aria-label="House of Xfactors">
+                <img class="phil-orb__media phil-orb__poster" src="assets/images/brain-flowers.png" alt="" width="1080"
+                  height="1080">
+                <video class="phil-orb__media phil-orb__video" data-phil-video muted playsinline loop preload="none"
+                  poster="assets/images/brain-flowers.png" width="1080" height="1080" aria-hidden="true" tabindex="-1">
+                  <source src="assets/videos/Composition 1.webm" type="video/webm">
+                </video>
+              </a>
+              <div class="phil-orb__info">
+                <h3 class="phil-orb__title">House of Xfactors</h3>
+                <p class="phil-orb__desc">The home of the whole brain thinkers
+                  - the creator engineers.</p>
+                <a href="#" class="btn phil-orb__btn">Whole brain thinking <svg class="btn__icon" viewBox="0 0 14 14"
+                    fill="none">
+                    <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg></a>
+              </div>
+            </div>
+
+            <div class="phil-orb phil-orb--orian">
+              <span class="phil-orb__glow" aria-hidden="true"></span>
+              <a href="#" class="phil-orb__frame" aria-label="The Orian Way">
+                <img class="phil-orb__orian-base" src="assets/images/orian-base.png" alt="orian — The Orian Way"
+                  width="301" height="295">
+                <img class="phil-orb__orian-ring" src="assets/images/orian-ring.png" alt="" width="304" height="304">
+              </a>
+              <div class="phil-orb__info">
+                <h3 class="phil-orb__title">Orian</h3>
+                <p class="phil-orb__desc">Orian is how we operationalize HI-AI <br> into client value and outcomes. </p>
+                <a href="#" class="btn phil-orb__btn">Explore the Orian Way <svg class="btn__icon" viewBox="0 0 14 14"
+                    fill="none">
+                    <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= INDUSTRIES ================= -->
+      <section class="industries-section" id="industries" aria-labelledby="industries-title">
+
+        <div class="industries-section__inner">
+
+          <header class="industries-section__head">
+            <h2 class="industries-section__title" id="industries-title" data-split="chars">Industries</h2>
+            <p class="industries-section__eyebrow reveal">Shaping new Horizons <br> across sectors</p>
+          </header>
+
+          <ul class="ind-accordion" id="indAccordion">
+
+            <li class="ind-accordion__item">
+              <a class="ind-accordion__link" href="#">
+                <img class="ind-accordion__img" src="assets/images/ind-financial.jpg" alt="" style="--focal:54% 50%"
+                  loading="lazy" decoding="async">
+                <span class="ind-accordion__label">Financial</span>
+                <span class="ind-accordion__arrow" aria-hidden="true">
+                  <img src="assets/images/arroe.svg" width="40" height="40" alt="arrow">
+
+                </span>
+              </a>
+            </li>
+
+            <li class="ind-accordion__item">
+              <a class="ind-accordion__link" href="#">
+                <img class="ind-accordion__img" src="assets/images/ind-technology.jpg" alt="" style="--focal:50% 46%"
+                  loading="lazy" decoding="async">
+                <span class="ind-accordion__label">Technology</span>
+                <span class="ind-accordion__arrow" aria-hidden="true">
+                  <img src="assets/images/arroe.svg" width="40" height="40" alt="arrow">
+
+                </span>
+              </a>
+            </li>
+
+            <li class="ind-accordion__item">
+              <a class="ind-accordion__link" href="#">
+                <img class="ind-accordion__img" src="assets/images/ind-consumer.jpg" alt="" style="--focal:52% 46%"
+                  loading="lazy" decoding="async">
+                <span class="ind-accordion__label">Consumer</span>
+                <span class="ind-accordion__arrow" aria-hidden="true">
+                  <img src="assets/images/arroe.svg" width="40" height="40" alt="arrow">
+
+                </span>
+              </a>
+            </li>
+
+            <li class="ind-accordion__item">
+              <a class="ind-accordion__link" href="#">
+                <img class="ind-accordion__img" src="assets/images/ind-healthcare.jpg" alt="" style="--focal:56% 48%"
+                  loading="lazy" decoding="async">
+                <span class="ind-accordion__label">Healthcare</span>
+                <span class="ind-accordion__arrow" aria-hidden="true">
+                  <img src="assets/images/arroe.svg" width="40" height="40" alt="arrow">
+
+                </span>
+              </a>
+            </li>
+
+            <li class="ind-accordion__item">
+              <a class="ind-accordion__link" href="#">
+                <img class="ind-accordion__img" src="assets/images/ind-industrials.jpg" alt="" style="--focal:46% 46%"
+                  loading="lazy" decoding="async">
+                <span class="ind-accordion__label">Industrials</span>
+                <span class="ind-accordion__arrow" aria-hidden="true">
+                  <img src="assets/images/arroe.svg" width="40" height="40" alt="arrow">
+
+                </span>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
+        <!-- white arc — path exported from Figma (Rectangle 376715698) -->
+        <div class="industries-section__arc" aria-hidden="true">
+          <svg viewBox="0 0 1920 96" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#indArcShadow)">
+              <path d="M-1 74.24C-1 74.24 372.3 38.3 959 38.3C1545.7 38.3 1919 74.24 1919 74.24L1919 96H-1L-1 74.24Z"
+                fill="#fff" />
+            </g>
+            <defs>
+              <filter id="indArcShadow" x="-40" y="-20" width="2000" height="140" filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="bg" />
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha" />
+                <feOffset dy="-17" />
+                <feGaussianBlur stdDeviation="10.65" />
+                <feComposite in2="hardAlpha" operator="out" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0" />
+                <feBlend mode="normal" in2="bg" result="shadow" />
+                <feBlend mode="normal" in="SourceGraphic" in2="shadow" />
+              </filter>
+            </defs>
+          </svg>
+        </div>
+      </section>
+
+      <!-- ================= COMPETENCIES ================= -->
+      <section class="competencies section" id="competencies">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="h2 h2--tight display" data-split="chars">Competencies</h2>
+            <p class="eyebrow eyebrow--muted eyebrow--sm reveal" data-split="chars">Our Houses of XFactors</p>
+          </div>
+
+          <ul class="comp-row">
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Engineering</span><img
+                  src="assets/images/comp-engineering.png" alt=""></a></li>
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Cloud &amp; Security</span><img
+                  src="assets/images/comp-cloud.png" alt=""></a></li>
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Quality</span><img
+                  src="assets/images/comp-quality2.png" alt=""></a></li>
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Data &amp; AI</span><img
+                  src="assets/images/comp-data-ai.png" alt=""></a></li>
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Enterprise</span><img
+                  src="assets/images/comp-supply-chain.png" alt=""></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ================= WHY LEADERS ================= -->
+      <section class="why section" id="why">
+        <div class="container why__grid">
+          <div class="why__copy">
+            <h2 class="h2 display why__title">Why <span class="accent word-animate"></span> <br> choose Xoriant?</h2>
+            <p class="lead reveal">Beyond capabilities, clients stay with us because of how it feels to work together.
+            </p>
+          </div>
+
+          <div class="why__stack" aria-label="What clients feel">
+            <div class="why__track">
+              <article class="feel-card">
+                <h3 class="display">Feel Confident</h3>
+                <p>You’re not missing the next wave of AI and technology.</p>
+              </article>
+              <article class="feel-card">
+                <h3 class="display">Feel Understood</h3>
+                <p>By teams who listen first and design around your reality, not a generic playbook.</p>
+              </article>
+              <article class="feel-card">
+                <h3 class="display">Feel Supported</h3>
+                <p>By partners who stay accountable long after launch, not just until sign‑off.</p>
+              </article>
+              <article class="feel-card">
+                <h3 class="display">Feel Ahead</h3>
+                <p>With platforms and intelligence that compound value, quarter after quarter.</p>
+              </article>
+              <article class="feel-card">
+                <h3 class="display">Feel Inspired</h3>
+                <p>By whole‑brain teams who bring imagination to every engineering decision.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HOW CAN WE HELP ================= -->
+      <section class="help" id="help">
+        <div class="help__bg">
+          <img src="assets/images/sunset-clouds.jpg" alt="" data-parallax-bg>
+          <img src="assets\images\bg1.png" alt="" class="mob_img">
+        </div>
+
+        <div class="container help__inner">
+          <h2 class="h2 h2--tight display help__title" data-split="chars">How can we<br> help?</h2>
+
+          <ul class="help-grid">
+            <li class="help-card reveal-up"><span class="help-card__arrow" aria-hidden="true"><img
+                  src="assets/images/arroe.svg" width="40" height="40" alt="arrow"></span>
+              <h3>Intelligent Platforms</h3>
+              <p>Create intuitive experiences people value, while unlocking new business models and richer data with
+                every interaction.</p>
+            </li>
+            <li class="help-card reveal-up"><span class="help-card__arrow" aria-hidden="true"><img
+                  src="assets/images/arroe.svg" width="40" height="40" alt="arrow"></span>
+              <h3>Data to Intelligence</h3>
+              <p>Turn trusted, connected data into intelligence that helps people decide faster and businesses create
+                new value.</p>
+            </li>
+            <li class="help-card reveal-up"><span class="help-card__arrow" aria-hidden="true"><img
+                  src="assets/images/arroe.svg" width="40" height="40" alt="arrow"></span>
+              <h3>Agentic Enterprise</h3>
+              <p>Reimagine work around people and AI, creating intelligent workflows that improve speed, margins and
+                customer outcomes.</p>
+            </li>
+            <li class="help-card reveal-up"><span class="help-card__arrow" aria-hidden="true"><img
+                  src="assets/images/arroe.svg" width="40" height="40" alt="arrow"></span>
+              <h3>Help me<br>Figure This Out</h3>
+              <p>Not sure where to start? Let’s map your challenges together and uncover the opportunities you may not
+                see yet.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="curve curve--bottom help__curve" aria-hidden="true">
+          <svg viewBox="0 0 1920 120" preserveAspectRatio="none">
+            <path d="M0,120 L0,60 Q960,-30 1920,60 L1920,120 Z" fill="#ffffff" />
+          </svg>
+        </div>
+      </section>
+
+      <!-- ================= INSIGHTS / STAY TUNED ================= -->
+      <section class="insights section" id="insights">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="h2 h2--tight display" data-split="chars"><span class="accent">Stay</span> tuned</h2>
+            <h2 class="h2 h2--tight display mobile-show" data-split="chars">Keeping You <br> <span
+                class="accent">Updated</span> </h2>
+          </div>
+
+          <div class="filter reveal">
+            <span class="filter__label">Filter</span>
+            <!-- Mobile only: the label row becomes a dropdown trigger (CSS hides it above 768). -->
+            <button class="filter__toggle" type="button" aria-expanded="false" aria-controls="filter-tags">
+              <svg class="filter__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 4H3l7.2 8.51V19l3.6 1.8v-8.29L21 4Z" stroke="currentColor" stroke-width="1.6"
+                  stroke-linejoin="round" />
+              </svg>
+              <span class="filter__toggle-text">Filter</span>
+            </button>
+            <ul class="filter__tags" id="filter-tags">
+              <li><button class="tag tag--article" data-filter="article" type="button" aria-pressed="false">Article<span
+                    class="tag__x" aria-hidden="true"><img src="assets/images/x.png" alt="Clear filter"></span></button>
+              </li>
+              <li><button class="tag tag--blog" data-filter="blog" type="button" aria-pressed="false">Blog<span
+                    class="tag__x" aria-hidden="true"><img src="assets/images/x.png" alt="Clear filter"></span></button>
+              </li>
+              <li><button class="tag tag--case" data-filter="case" type="button" aria-pressed="false">Case<span
+                    class="tag__x" aria-hidden="true"><img src="assets/images/x.png" alt="Clear filter"></span></button>
+              </li>
+              <li><button class="tag tag--podcast" data-filter="podcast" type="button" aria-pressed="false">Podcast<span
+                    class="tag__x" aria-hidden="true"><img src="assets/images/x.png" alt="Clear filter"></span></button>
+              </li>
+              <li><button class="tag tag--interview" data-filter="interview" type="button"
+                  aria-pressed="false">Interview<span class="tag__x" aria-hidden="true"><img src="assets/images/x.png"
+                      alt="Clear filter"></span></button></li>
+              <li><button class="tag tag--whitepaper" data-filter="whitepaper" type="button" aria-pressed="false">White
+                  paper<span class="tag__x" aria-hidden="true"><img src="assets/images/x.png"
+                      alt="Clear filter"></span></button></li>
+              <li><button class="filter__clear" id="clear-filter" type="button" hidden>Clear filter</button></li>
+            </ul>
+            <div class="filter__actions">
+              <a href="#" class="btn btn--dark">Subscribe <svg class="btn__icon" viewBox="0 0 14 14" fill="none">
+                  <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg></a>
+              <a href="#" class="btn">Other insights <svg class="btn__icon" viewBox="0 0 14 14" fill="none">
+                  <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg></a>
+            </div>
+          </div>
+
+          <div class="masonry" id="masonry">
+            <div class="masonry__col">
+              <article class="post reveal-up" data-type="podcast">
+                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins-1.jpg" alt=""></a>
+                <span class="tag tag--podcast">Podcast</span>
+                <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
+                <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
+                  live and work. From virtual assistants that help us schedule meetings...</p>
+                <time class="post__date">Apr 20, 2026</time>
+              </article>
+              <article class="post reveal-up" data-type="podcast">
+                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins-5.jpg" alt=""></a>
+                <span class="tag tag--podcast">Podcast</span>
+                <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
+                <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
+                  live and work. From virtual assistants that help us schedule meetings...</p>
+                <time class="post__date">Apr 20, 2026</time>
+              </article>
+            </div>
+
+            <div class="masonry__col">
+              <article class="post reveal-up" data-type="interview">
+                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins-2.jpg" alt=""></a>
+                <span class="tag tag--interview">Interview</span>
+                <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
+                <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
+                  live and work. From virtual assistants that help us schedule meetings...</p>
+                <time class="post__date">Apr 20, 2026</time>
+              </article>
+              <article class="post reveal-up" data-type="interview">
+                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins-6.jpg" alt=""></a>
+                <span class="tag tag--interview">Interview</span>
+                <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
+                <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
+                  live and work.</p>
+                <time class="post__date">Apr 20, 2026</time>
+              </article>
+            </div>
+
+            <div class="masonry__col">
+              <article class="post reveal-up" data-type="blog">
+                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins-3.jpg" alt=""></a>
+                <span class="tag tag--blog">Blog</span>
+                <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
+                <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
+                  live and work. From virtual assistants that help us schedule meetings...</p>
+                <time class="post__date">Apr 20, 2026</time>
+              </article>
+              <article class="post post--feature reveal-up" data-type="article">
+                <h3 class="post__title post__title--display display">From Dashboards to Digital Twins: How Organizations
+                  Are</h3>
+                <time class="post__date">Apr 20, 2026</time>
+                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins-7.jpg" alt=""></a>
+              </article>
+            </div>
+
+            <div class="masonry__col">
+              <article class="post reveal-up" data-type="whitepaper">
+                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins-4.jpg" alt=""></a>
+                <span class="tag tag--whitepaper">White paper</span>
+                <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
+                <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
+                  live and work. From virtual assistants that help us schedule meetings...</p>
+                <time class="post__date">Apr 20, 2026</time>
+              </article>
+              <article class="post reveal-up" data-type="podcast">
+                <a href="#" class="post__media post__media--short"><img src="assets/images/ins-8.jpg" alt=""></a>
+                <span class="tag tag--podcast">Podcast</span>
+                <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
+                <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
+                  live and work. From virtual assistants that help us schedule meetings...</p>
+                <time class="post__date">Apr 20, 2026</time>
+              </article>
+            </div>
+          </div>
+
+          <div class="insights__more">
+            <button class="load-more" type="button" id="load-more">Load more</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TOP TALENT ================= -->
+      <section class="talent section" id="careers">
+        <div class="container">
+          <div class="talent-card reveal-up">
+            <div class="talent-card__media">
+              <img src="assets/images/talent.jpg" alt="Xoriant team members smiling">
+            </div>
+            <div class="talent-card__body">
+              <p class="eyebrow eyebrow--muted">Careers</p>
+              <h2 class="h2 h2--tight display" data-split="chars">Top Talent</h2>
+              <p class="lead">Bring your ideas, your curiosity and your code, and grow in a place that’s serious about
+                developing your technical strengths, your right‑brain powers, your Human Ingenuity and AI skills, so
+                every step in your career opens up your own New Horizons.</p>
+              <a href="#" class="btn">What future do you want to create? <svg class="btn__icon" viewBox="0 0 14 14"
+                  fill="none">
+                  <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PARTNERS ================= -->
+      <section class="partners section" id="partners">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="h2 h2--tight display" data-split="chars">Our Partner <span class="accent">Ecosystem</span></h2>
+            <p class="eyebrow eyebrow--muted reveal" data-split="chars">Better Together: Platforms Built Around You</p>
+          </div>
+
+          <ul class="logo-grid">
+            <li class="logo"><img src="assets/images/logo-salesforce.png" alt="Salesforce"></li>
+            <li class="logo"><img src="assets/images/logo-microsoft.png" alt="Microsoft Azure"></li>
+            <li class="logo"><img src="assets/images/logo-aws.png" alt="AWS"></li>
+            <li class="logo"><img src="assets/images/logo-snowflake.png" alt="Snowflake"></li>
+            <li class="logo"><img src="assets/images/logo-servicenow.png" alt="ServiceNow"></li>
+            <li class="logo"><img src="assets/images/logo-databricks.png" alt="Databricks"></li>
+            <li class="logo"><img src="assets/images/logo-googlecloud.png" alt="Google Cloud"></li>
+            <li class="logo"><img src="assets/images/logo-anthropic.png" alt="Anthropic"></li>
+          </ul>
+
+          <div class="partners__cta reveal">
+            <a href="#" class="btn">Partner Ecosystem <svg class="btn__icon" viewBox="0 0 14 14" fill="none">
+                <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= EDUCATION / IMPACT CAROUSEL ================= -->
+      <section class="impact" id="impact">
+        <div class="impact__slides">
+          <div class="impact__slide is-active" data-title="Education for all"
+            data-sub="Xoriant Ensuring New horizons are accessible for all" data-cta="Beyond Business">
+            <img src="assets/images/education.png" alt="Smiling school children in uniform" data-parallax-bg>
+          </div>
+          <div class="impact__slide" data-title="Healthcare for every horizon"
+            data-sub="Bringing intelligent care to communities that need it most" data-cta="Beyond Business">
+            <img src="assets/images/impact-healthcare.png" alt="">
+          </div>
+          <div class="impact__slide" data-title="Skills that last a lifetime"
+            data-sub="Building tomorrow's engineers, one classroom at a time" data-cta="Beyond Business">
+            <img src="assets/images/ind-industrials.jpg" alt="">
+          </div>
+        </div>
+
+        <button class="impact__arrow impact__arrow--prev" type="button" aria-label="Previous"><img
+            src="assets/icons/arrow-box-green.png" alt=""></button>
+        <button class="impact__arrow impact__arrow--next" type="button" aria-label="Next"><img
+            src="assets/icons/arrow-box-green.png" alt=""></button>
+
+        <div class="container impact__content">
+          <h2 class="h2 h2--tight display impact__title">Education for all</h2>
+          <p class="eyebrow eyebrow--light impact__sub">Xoriant Ensuring New horizons are accessible for all</p>
+          <a href="#" class="btn impact__cta">Beyond Business <svg class="btn__icon" viewBox="0 0 14 14" fill="none">
+              <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg></a>
+        </div>
+      </section>
+
+      <!-- ================= CTA ================= -->
+      <section class="cta" id="contact">
+        <div class="cta__bg"><img src="assets/images/cta-landscape.jpg" alt="" data-parallax-bg></div>
+        <div class="container cta__inner">
+          <h2 class="h2 display cta__title" data-split="lines">Start a <span class="accent">Conversation</span> about
+            your next horizon</h2>
+          <div class="cta__actions reveal">
+            <a href="#" class="btn">schedule a quick call <svg class="btn__icon" viewBox="0 0 14 14" fill="none">
+                <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg></a>
+            <a href="#" class="btn">Contact <svg class="btn__icon" viewBox="0 0 14 14" fill="none">
+                <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg></a>
+          </div>
+        </div>
+        <div class="curve curve--bottom cta__curve" aria-hidden="true">
+          <svg viewBox="0 0 1920 85" preserveAspectRatio="none">
+            <path d="M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z" fill="#ffffff" />
+          </svg>
+        </div>
+      </section>
+    </div><!-- /.page-below -->
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <a href="#top" class="footer__logo"><img src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="212"
+          height="73"></a>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Industries</h4>
+          <ul>
+            <li><a href="#">Financial Services</a></li>
+            <li><a href="#">Technology</a></li>
+            <li><a href="#">Consumer</a></li>
+            <li><a href="#">Industrials</a></li>
+            <li><a href="#">Healthcare</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Competencies</h4>
+          <ul>
+            <li><a href="#">Engineering</a></li>
+            <li><a href="#">Cloud &amp; Security</a></li>
+            <li><a href="#">Quality</a></li>
+            <li><a href="#">Data &amp; AI</a></li>
+            <li><a href="#">Enterprise</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Human Powered AI</a></li>
+            <li><a href="#">House of X-Factors</a></li>
+            <li><a href="#">Partner Ecosystem</a></li>
+            <li><a href="#">Values</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Insights</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Locations</a></li>
+          </ul>
+        </div>
+        <div class="footer__col footer__col--wide">
+          <h4>Explore new horizons</h4>
+          <a href="#" class="btn btn--soft">Subscribe to our newsletter <svg class="btn__icon" viewBox="0 0 14 14"
+              fill="none">
+              <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg></a>
+          <ul class="social">
+            <li><a href="#" aria-label="LinkedIn"><img src="assets/icons/social-linkedin.png" alt=""></a></li>
+            <li><a href="#" aria-label="Instagram"><img src="assets/icons/social-instagram.png" alt=""></a></li>
+            <li><a href="#" aria-label="Facebook"><img src="assets/icons/social-facebook.png" alt=""></a></li>
+            <li><a href="#" aria-label="X"><img src="assets/icons/social-twitter.png" alt=""></a></li>
+            <li><a href="#" aria-label="YouTube"><img src="assets/icons/social-youtube.png" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <div class="footer__bar-inner">
+        <ul class="certs">
+          <li><img src="assets/icons/cert-iso.png" alt="ISO certified"></li>
+          <li><img src="assets/icons/cert-psi.png" alt="PSI"></li>
+          <li><img src="assets/icons/cert-soc.png" alt="SOC"></li>
+          <li><img src="assets/icons/cert-cdp.png" alt="CDP"></li>
+        </ul>
+        <p class="footer__legal">Terms of Use | Cookie Policy | Privacy Policy | Edit Cookies | Sitemap | Ethics | Brand
+          Policy © 2026 - All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= FLOATING UI ================= -->
+  <!-- Podcast teaser card (slides in after a delay) -->
+  <aside class="float-card" id="float-card" aria-label="Latest podcast">
+    <button class="float-card__close" type="button" aria-label="Dismiss"><img src="assets/icons/card-badge.png"
+        alt=""></button>
+    <a href="#insights" class="float-card__media"><img src="assets/images/card-podcast.jpg" alt=""></a>
+    <div class="float-card__body">
+      <span class="float-card__tag">Podcast</span>
+      <h3>From Dashboards to Digital Twins: How Organizations Are pushing...</h3>
+    </div>
+  </aside>
+
+  <!-- "Ask me" assistant pill → expands into a search field -->
+  <div class="ask" id="ask">
+    <button class="ask__pill glass-light" type="button" aria-expanded="false" aria-controls="ask-form">
+      <span class="ask__label">ask me</span>
+    </button>
+    <form class="ask__form glass-light" id="ask-form" action="#" role="search">
+      <span class="ask__spark" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#1d1f1f" stroke-width="1.33" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M8 1.5c.6 3.6 2.9 5.9 6.5 6.5-3.6.6-5.9 2.9-6.5 6.5-.6-3.6-2.9-5.9-6.5-6.5C5.1 7.4 7.4 5.1 8 1.5Z" />
+          <path d="M13 1v3M11.5 2.5h3M3 11v1.5M2.25 11.75h1.5" />
+        </svg>
+      </span>
+      <span class="ask__divider"></span>
+      <input type="search" name="q" placeholder="Find case studies in Fintech..." aria-label="Ask Xoriant">
+      <button class="ask__submit" type="submit" aria-label="Search">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.33" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M4.5 8h7M8 4.5 11.5 8 8 11.5" />
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/split-text.js"></script>
+  <script src="js/word-animate.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/industries.js" defer></script>
+</body>
+
+</html>

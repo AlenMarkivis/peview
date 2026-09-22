@@ -184,10 +184,15 @@
   pointer-events:none;
 }
 
+.ind-accordion {
+    position: relative;
+    top: 10px;
+}
+
 @media(min-width:1800px){
 .industries-section__arc{
 
-  margin-top:-46px;          /* the arc overlaps the card row */
+  margin-top:-53px;          /* the arc overlaps the card row */
 }
 
 }
@@ -309,5 +314,14 @@
     font-size:20px;
     line-height:1.2;
   }
-  .ind-accordion__arrow{ opacity:1; transform:none; width:32px; height:32px; top:14px; right:14px; }
+  /* The board shows the cards with no badge at rest — the arrow is the
+     reveal-on-interaction affordance it is everywhere else, so the phone
+     layout keeps the base hidden state instead of forcing it visible.
+     industries.js adds .is-open on the first tap, which is what stands in
+     for hover here; the rules above then bring it in. */
+  .ind-accordion__arrow{
+    width:32px; height:32px; top:14px; right:14px;
+    opacity:0;
+    transform:translate(-6px,6px) scale(.9);
+  }
 }

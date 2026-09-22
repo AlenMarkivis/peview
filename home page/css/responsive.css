@@ -1,0 +1,1702 @@
+.phil-orb--hi-ai .phil-orb__frame .hide {
+  display: none;
+}
+
+/* =========================================================
+   Responsive adjustments (design authored at 1920px)
+   ========================================================= */
+
+@media (max-width: 1500px) {
+  .comp-row {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .mega__tiles {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .mega__tiles--7 {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .mega__tiles--5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .logo-grid {
+    grid-template-columns: repeat(4, minmax(0, 254px));
+
+  }
+
+
+  .why__track {
+    left: 0;
+  }
+}
+
+@media (max-width: 1280px) {
+  .float-card {
+    display: none;
+  }
+
+  .why__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .why__copy {
+    padding-left: 0;
+  }
+
+  .why__track {
+    padding: 0 20px;
+  }
+
+  .help-grid {
+    gap: 16px;
+  }
+
+  .help-card {
+    padding: 28px 22px;
+    min-height: 320px;
+  }
+
+  .masonry {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .masonry__col:nth-child(4) {
+    display: none;
+  }
+
+  .mega__inner {
+    padding: 12px 24px 40px;
+  }
+
+  .mega__panel {
+    gap: 24px;
+  }
+
+  .footer__bar-inner {
+    padding: 8px 32px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --nav-h: 70px;
+  }
+
+  .nav__menu,
+  .nav__right .nav__link {
+    display: none;
+  }
+
+  /* With the menu hidden the third column has nothing to hold, so `.nav__right`
+     is auto-placed into the `1fr` track and packs against the logo. Two tracks
+     plus flex-end puts Contact and the burger back on the right edge. */
+  .nav {
+    grid-template-columns: auto 1fr;
+  }
+
+  .nav__right {
+    justify-content: flex-end;
+  }
+
+  /* The sliding underline is a hover affordance; drop it on touch. */
+  .nav__link::after {
+    display: none;
+  }
+
+  .nav__burger {
+    display: block;
+  }
+
+  .mega {
+    display: none;
+  }
+
+  /* Mobile drawer built from the nav */
+  .site-header.drawer-open .nav {
+    background: #fff;
+    color: var(--ink);
+    border-radius: 24px;
+    height: auto;
+    display: block;
+    padding: 12px 23px 24px;
+  }
+
+  .site-header.drawer-open .nav__logo {
+    display: inline-block;
+    padding: 8px 0;
+  }
+
+  .site-header.drawer-open .nav__logo img {
+    filter: none;
+  }
+
+  /* `.nav__right` holds Insights and Careers as well as the burger. Pinning the
+     whole group to the corner left those two links with no mobile entry point
+     at all, since they are also hidden in the collapsed bar. Stack the group
+     under the menu and pin only the burger. */
+  .site-header.drawer-open .nav__right {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .site-header.drawer-open .nav__burger {
+    position: absolute;
+    top: 15px;
+    right: 16px;
+  }
+
+  .site-header.drawer-open .nav__right .nav__link {
+    display: inline-block;
+    font-size: 20px;
+    padding: 10px 0;
+  }
+
+  .site-header.drawer-open .nav__cta {
+    display: none;
+  }
+
+  .site-header.drawer-open .nav__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-top: 16px;
+  }
+
+  .site-header.drawer-open .nav__menu .nav__link {
+    font-size: 20px;
+    padding: 10px 0;
+  }
+
+  .site-header.drawer-open .nav__toggle {
+    background: rgba(0, 0, 0, 0.05);
+    margin-bottom: 8px;
+  }
+
+  /* Below the design's hover model: stack the three orbs and keep the copy open. */
+  .philosophy__stage {
+    position: static;
+    left: auto;
+    translate: none;
+    width: 100%;
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+    margin-top: 48px;
+  }
+
+  .philosophy__arc {
+    display: none;
+  }
+
+  .phil-orb {
+    position: static;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 520px;
+    pointer-events: auto;
+  }
+
+  .phil-orb__glow {
+    display: none;
+  }
+
+  .phil-orb__frame,
+  .phil-orb--hi-ai .phil-orb__frame,
+  .phil-orb--xfactors .phil-orb__frame,
+  .phil-orb--orian .phil-orb__frame {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(280px, 68vw);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 0;
+    overflow: visible;
+    margin-bottom: 28px;
+  }
+
+  /* frame is unclipped once stacked, so drop the desktop overscale */
+  .phil-orb--hi-ai .phil-orb__media {
+    object-position: 50% 50%;
+  }
+
+  /* Square frame once stacked: the clip square is flush with it, so it pivots
+     on its own centre exactly as the poster does. */
+  .phil-orb--hi-ai .phil-orb__video {
+    transform-origin: 50% 50%;
+  }
+
+  .phil-orb__info,
+  .phil-orb--hi-ai .phil-orb__info,
+  .phil-orb--xfactors .phil-orb__info,
+  .phil-orb--orian .phil-orb__info {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .phil-orb__title {
+    font-size: 24px;
+    max-width: none;
+  }
+
+  .phil-orb__desc {
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .phil-orb__btn {
+    height: 40px;
+    padding: 0 24px;
+    font-size: var(--fs-btn);
+    gap: 12px;
+  }
+
+  .comp-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: none;
+    perspective: none;
+  }
+
+  .comp-card {
+    flex: 0 1 auto;
+  }
+
+  .comp-card:hover {
+    flex-grow: 0;
+  }
+
+  .why__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .why__stack {
+    height: 520px;
+  }
+
+  .help {
+    min-height: 0;
+  }
+
+  .help-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 80px;
+  }
+
+  .filter {
+    height: auto;
+    border-radius: 30px;
+    grid-template-columns: 1fr;
+    padding: 18px 22px;
+    gap: 14px;
+  }
+
+  .filter__label {
+    margin-right: 0;
+  }
+
+  .masonry {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .masonry__col:nth-child(3) {
+    display: none;
+  }
+
+  .masonry.is-collapsed {
+    max-height: 1500px;
+  }
+
+  .talent-card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .talent-card__media {
+    height: 420px;
+  }
+
+  .logo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer__cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer__bar-inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .float-card {
+    width: 280px;
+    left: 20px;
+  }
+
+  .float-card__media {
+    height: 150px;
+  }
+
+  .float-card__body h3 {
+    font-size: 20px;
+  }
+
+  .ask {
+    right: 20px;
+    top: auto;
+    bottom: 24px;
+  }
+
+  .impact__arrow--prev {
+    left: 8px;
+  }
+
+  .impact__arrow--next {
+    right: 8px;
+  }
+
+  /* ---- Home hero banner ----
+     The banner's type is authored at a fixed 100px with 200px of side padding,
+     which only fits from ~1025px up. Below that the headline ran ~506px wide
+     inside a 375px screen and the padding alone exceeded the viewport, so both
+     become fluid here. Desktop keeps the authored values untouched. */
+  .hero-banner .inner-row .text-wrp {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    font-size: clamp(34px, 8.6vw, 88px);
+    line-height: 1.05;
+  }
+
+  .hero-banner .inner-row h1.heading {
+    font-size: clamp(34px, 8.6vw, 88px);
+    line-height: 1.05;
+  }
+
+  /* `vh` on mobile is the *largest* viewport, so a 100vh hero sits partly under
+     the browser chrome on load. `svh` measures the visible area instead. */
+  .hero-banner.hero {
+    height: calc(80svh + var(--hero-curve));
+    min-height: calc(80svh + var(--hero-curve));
+  }
+
+  .hero-banner .inner-row {
+    min-height: 90svh;
+    max-height: 80svh;
+  }
+
+  /* ---- Buttons ----
+     `.btn` is `white-space: nowrap` for the desktop pill shape. Long labels
+     ("Start a conversation about your New Horizon" = 445px, "What future do you
+     want to create?" = 356px) then set a min-content width that overflowed the
+     viewport and stretched the talent card past its own grid cell. Allow the
+     label to wrap and grow the pill instead, which also lifts every button to a
+     44px tap target. */
+  .btn {
+    white-space: normal;
+    height: auto;
+    min-height: 44px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .btn--soft {
+    height: auto;
+    min-height: 44px;
+  }
+
+  /* ---- Tap targets ---- */
+  .nav__cta {
+    height: 40px;
+  }
+
+  .social a {
+    width: 40px;
+    height: 40px;
+  }
+
+  .tag {
+    height: auto;
+    min-height: 30px;
+    padding: 5px 12px;
+  }
+
+  .ask__submit {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+  }
+
+  section#intro {
+    padding-top: 50px;
+  }
+
+  .container.why__grid {
+    max-width: 100%;
+  }
+
+  .why__track {
+    left: 0;
+  }
+}
+
+
+@media (max-width: 768px) {
+  :root {
+    --gutter: 20px;
+  }
+
+  .site-header {
+    padding-top: 12px;
+  }
+
+  .nav {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .nav__logo img {
+    width: 110px;
+  }
+
+  .hero {
+    height: 88vh;
+    min-height: 520px;
+  }
+
+  .hero__content {
+    padding-top: 28vh;
+  }
+
+  .hero__curve {
+    height: 60px;
+  }
+
+  .intro__text {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  /* 0.78 is set for the stacked desktop look; once a title wraps at mobile
+     sizes that pulls the lines into each other. */
+  .h2--tight {
+    line-height: 0.9;
+  }
+
+  .section-head {
+    gap: 14px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+  }
+
+  .lead {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .phil-orb__frame,
+  .phil-orb--hi-ai .phil-orb__frame,
+  .phil-orb--xfactors .phil-orb__frame,
+  .phil-orb--orian .phil-orb__frame {
+    width: min(240px, 66vw);
+    margin-bottom: 22px;
+  }
+
+  .comp-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .comp-card a {
+    height: 260px;
+    padding-top: 32px;
+  }
+
+  .comp-card a>img {
+    height: 165px;
+  }
+
+  .comp-card a:hover>img {
+    height: 175px;
+  }
+
+  .why__stack {
+    height: 460px;
+  }
+
+  .feel-card {
+    height: auto;
+    min-height: 160px;
+    padding: 26px 20px;
+  }
+
+  .help {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .help-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 14px;
+    margin-top: 50px;
+    margin-bottom: -40px;
+  }
+
+  .help-card {
+    min-height: 0;
+    padding: 32px 24px 44px;
+  }
+
+  .filter__actions {
+    flex-wrap: wrap;
+  }
+
+  .masonry {
+    grid-template-columns: 1fr;
+  }
+
+  .masonry__col:nth-child(2) {
+    display: none;
+  }
+
+  .masonry.is-collapsed {
+    max-height: 1400px;
+  }
+
+  .post__media,
+  .post__media--xl {
+    height: 360px;
+  }
+
+  .talent-card__media {
+    height: 320px;
+  }
+
+  .logo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 8px;
+  }
+
+  .logo {
+    height: 110px;
+    padding: 16px;
+  }
+
+  .logo img {
+    max-width: 100%;
+    width: min(var(--w, 140px), 100%);
+  }
+
+  .impact {
+    height: 70vh;
+    min-height: 460px;
+  }
+
+  .impact__content {
+    padding-left: 0;
+    gap: 18px;
+  }
+
+  .impact__arrow {
+    top: 38%;
+  }
+
+  .cta {
+    padding-bottom: 46vw;
+  }
+
+  .cta__actions {
+    gap: 12px;
+  }
+
+  .footer__logo {
+    width: 160px;
+    margin-bottom: 40px;
+  }
+
+  .footer__cols {
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 40px;
+  }
+
+  .footer__col h4 {
+    font-size: 18px;
+  }
+
+  .footer__legal {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .float-card {
+    display: none;
+  }
+
+  .ask.is-open .ask__form {
+    width: calc(100vw - 40px);
+  }
+
+  .mega__tile {
+    height: 180px;
+  }
+
+  .logo img {
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__content {
+    padding-top: 26vh;
+  }
+
+  .btn {
+    padding-left: 18px;
+    padding-right: 18px;
+    letter-spacing: 0.14em;
+  }
+
+  .why__stack {
+    height: 400px;
+  }
+
+  .comp-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer__cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 12px;
+  }
+
+  .footer__col--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Very large screens: stop the page from stretching beyond the design */
+@media (min-width: 1921px) {
+  .hero {
+    height: 1165px;
+  }
+
+  .impact {
+    height: 902px;
+  }
+}
+
+/* =========================================================
+   MOBILE — Figma "mobile-homepage" (node 111:1645)
+   Authored at 320 wide with 24px gutters and a 272 content
+   column. Values below are the design's own px values; this
+   block sits last so it wins over the generic 1024/768/480
+   rules above.
+   ========================================================= */
+@media (max-width: 768px) {
+  :root {
+    --gutter: 24px;
+    --fs-hero: 48px;
+    --fs-h2: 36px;
+    --fs-h3: 28px;
+    --fs-card-title: 24px;
+    --fs-eyebrow: 14px;
+  }
+
+  /* ---- Type scale ---- */
+  .h2,
+  .h2--tight {
+    line-height: 1;
+  }
+
+  .eyebrow {
+    font-size: var(--fs-eyebrow);
+    line-height: 1.5;
+    letter-spacing: 0.33em;
+  }
+
+  .eyebrow--sm {
+    font-size: var(--fs-eyebrow);
+  }
+
+  .lead,
+  .philosophy__lead {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .section-head {
+    gap: 20px;
+  }
+
+  /* ---- Hero: 48px at the 320 artboard = 15vw, tracked -1.8px ---- */
+  .hero-banner .inner-row h1.heading,
+  .hero-banner .inner-row .text-wrp {
+    font-size: clamp(40px, 15vw, 60px);
+    line-height: 0.9;
+    letter-spacing: -0.0375em;
+  }
+
+  .hero-banner.hero {
+    min-height: calc(455px + var(--hero-curve, 0px));
+  }
+
+  /* ---- Nav: the design's mobile bar is a 300x40 pill holding only the
+     logo and the burger; the Contact CTA moves into the drawer. ---- */
+  .site-header {
+    padding-top: 12px;
+  }
+
+  .nav-wrap {
+    width: calc(100% - 20px);
+  }
+
+  .nav {
+    height: 40px;
+    padding: 0 20px;
+  }
+
+  .nav__logo img {
+    width: 80px;
+  }
+
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__burger {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav__burger span {
+    left: 4px;
+    right: 4px;
+    top: 6px;
+  }
+
+  .nav__burger span:nth-child(2) {
+    top: 11px;
+  }
+
+  .nav__burger span:nth-child(3) {
+    top: 16px;
+  }
+
+  .site-header.drawer-open .nav__cta {
+    display: inline-flex;
+    margin-top: 16px;
+  }
+
+  .site-header.drawer-open .nav__burger {
+    top: 10px;
+    right: 16px;
+  }
+
+  /* ---- Intro ---- */
+  .intro__text {
+    font-size: 19px;
+    line-height: 1.4;
+  }
+
+  .intro__tagline {
+    font-size: 19px;
+    line-height: 1.4;
+  }
+
+  /* ---- Philosophy: three stacked cards, copy left-aligned ----
+     Each orb becomes a 10px-radius card on the design's vertical
+     #f3f3f5 wash, 36px/20px padding, 40px apart. */
+  .philosophy__stage {
+    gap: 40px;
+  }
+
+  .phil-orb {
+    align-items: stretch;
+    max-width: none;
+    padding: 36px 20px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(243, 243, 245, 0) 0%, #f3f3f5 100%);
+  }
+
+  .phil-orb__frame,
+  .phil-orb--hi-ai .phil-orb__frame,
+  .phil-orb--xfactors .phil-orb__frame,
+  .phil-orb--orian .phil-orb__frame {
+    width: min(204px, 64vw);
+    align-self: center;
+    margin-bottom: 32px;
+  }
+
+  .phil-orb__info,
+  .phil-orb--hi-ai .phil-orb__info,
+  .phil-orb--xfactors .phil-orb__info,
+  .phil-orb--orian .phil-orb__info {
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+  }
+
+  .phil-orb__title {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .phil-orb__desc {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .phil-orb__btn {
+    margin-top: 20px;
+    /* design: 40px below the copy block */
+    height: 40px;
+    padding: 0 24px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+  }
+
+  /* Industries mobile lives in industries.css, which loads after this file. */
+
+  /* ---- Competencies: horizontal scroller, next card peeking ---- */
+  .comp-row {
+    display: flex;
+    grid-template-columns: none;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* full-bleed track so the row can run past the gutters */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  .comp-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mouse/pen drag-to-scroll (js/interactions.js). A pointer drag never
+     scrolls an overflow container on its own, so without this the rail is
+     unswipeable in a desktop browser resized to phone width and on
+     touch-screen laptops. Real touch scrolls natively and never reaches it. */
+  .comp-row {
+    cursor: grab;
+  }
+
+  .comp-row.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+    /* a drag must track the pointer exactly */
+    user-select: none;
+  }
+
+  /* the browser's own image drag would otherwise steal the gesture */
+  .comp-card img,
+  .comp-card a {
+    -webkit-user-drag: none;
+  }
+
+  .comp-card {
+    flex: 0 0 191px;
+    scroll-snap-align: start;
+  }
+
+  .comp-card a {
+    height: 306px;
+    padding-top: 28px;
+  }
+
+  .comp-card a>img,
+  .comp-card a:hover>img {
+    height: 200px;
+  }
+
+  .comp-card__title {
+    font-size: 21px;
+  }
+
+  /* ---- Why leaders ---- */
+  .why__stack {
+    height: 600px;
+  }
+
+  .feel-card {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .feel-card h3 {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .feel-card p {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  /* ---- How can we help ---- */
+  .help-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .help-card {
+    padding: 24px;
+    min-height: 0;
+  }
+
+  .help-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.06;
+    margin-bottom: 12px;
+  }
+
+  .help-card p {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  /* ---- Insights ---- */
+  .masonry {
+    grid-template-columns: 1fr;
+  }
+
+  .masonry__col {
+    gap: 40px;
+  }
+
+  .post__media,
+  .post__media--xl,
+  .post__media--tall,
+  .post__media--short {
+    height: auto;
+    aspect-ratio: 272 / 315;
+  }
+
+  .post__title {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .post__excerpt {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .post__date {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .filter__label {
+    font-size: 14px;
+    letter-spacing: 0.33em;
+  }
+
+  /* ---- Careers: media runs full-bleed, only the copy is inset 24px ---- */
+  .talent-card {
+    padding: 0;
+  }
+
+  .talent-card__media {
+    height: 273px;
+  }
+
+  .talent-card__body {
+    padding: 24px;
+  }
+
+  .talent-card__body .h2 {
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .talent-card__body .lead {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  /* ---- Education band ---- */
+  .impact {
+    height: auto;
+    min-height: 503px;
+  }
+
+  .impact__title {
+    font-size: 36px;
+    line-height: 0.78;
+  }
+
+  .impact__content {
+    text-align: center;
+    align-items: center;
+  }
+
+  /* ---- Footer: one column, not two ---- */
+  .footer__cols {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  .footer__col h4 {
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .footer__col li a {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .footer__legal {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .footer__logo {
+    width: 173px;
+  }
+}
+
+
+
+@media(max-width:576px) {
+  .hero-banner .inner-row.hero__content {
+    padding-top: 0;
+    min-height: 50svh;
+    max-height: 80svh;
+  }
+
+  .hero-banner .div-block {
+    min-height: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .hero-banner.hero {
+    min-height: 651px;
+    height: auto;
+  }
+
+  .phil-orb--hi-ai .phil-orb__frame .hide {
+    display: block;
+  }
+
+  .phil-orb--hi-ai .phil-orb__frame .hide:first-of-type {
+    position: absolute;
+    left: 0;
+    top: 90px;
+    font-family: 'Gambarino';
+  }
+
+  .phil-orb--hi-ai .phil-orb__frame .hide:first-of-type {
+    font-size: 25.7838px;
+    line-height: 95%;
+    color: #427F4C;
+
+  }
+
+  .phil-orb--hi-ai .phil-orb__frame .hide:last-child {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    left: auto;
+    color: #1A5F90;
+    font-size: 25.7838px;
+    line-height: 95%;
+
+    font-family: 'Gambarino';
+  }
+
+  .why__copy {
+    text-align: center;
+  }
+
+  .why__copy p.lead.reveal {
+    letter-spacing: 0.33em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .help-card {
+    text-align: left;
+  }
+
+  .help-card__arrow {
+    opacity: 0;
+    right: 20px;
+    left: auto;
+  }
+
+  .help-card:hover span.help-card__arrow {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+@media (max-width: 480px) {
+
+  /* the 480 block above splits the footer back into two columns */
+  .footer__cols {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer__col--wide {
+    grid-column: auto;
+  }
+
+  .comp-row {
+    grid-template-columns: none;
+  }
+}
+
+
+
+
+/* =========================================================
+   MOBILE — Figma "mobile-homepage" pass 2
+   CTA · Education arrows/scrim · Insights filter dropdown ·
+   Competencies slider. Authored at the 320 artboard
+   (24px gutters, 272 content column). Mobile only — this
+   block is last so it wins over the generic rules above and
+   nothing here touches the desktop layout.
+   ========================================================= */
+@media (max-width: 768px) {
+
+  /* ---------------- HOME HERO BANNER ----------------
+     The board's banner is 400 tall, not the 651 the <=576 rule forced: the
+     headline sits 95 from the top and roughly 175 of photograph runs below it
+     to the arc. Both numbers are pinned here — the old svh-based inner row
+     re-centred the headline on every viewport height, so the gap under the
+     copy only matched the board on a 640-tall screen. */
+  .hero-banner.hero {
+    /* 372 of photograph + the page-below curve that overlaps its base, so the
+       white arc lands ~395 down exactly as the board draws it. */
+    height: calc(500px + var(--hero-curve));
+    min-height: calc(372px + var(--hero-curve));
+    max-height: none;
+  }
+
+  .hero-banner .inner-row.hero__content {
+    min-height: 0;
+    max-height: none;
+    align-items: flex-start;
+    padding-top: 95px;
+  }
+
+  /* the wrapper's own align-self would win over the row's flex-start */
+  .hero-banner .inner-row .text-wrp {
+    align-self: flex-start;
+  }
+
+  /* ---------------- CTA ----------------
+     Design: 520 tall band, title 64 from the top in the 272
+     column, one 40px pill 40 below it, the rest of the band is
+     the landscape photograph. */
+  .cta {
+    min-height: 520px;
+    padding: 64px 0 230px;
+  }
+
+  .cta__title {
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    max-width: none;
+  }
+
+  /* The mobile board sets the accented word in white — on the sky
+     the green used at desktop sizes is not what the frame shows. */
+  .cta__title .accent {
+    color: #fff;
+  }
+
+  .cta__actions {
+    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cta__actions .btn {
+    height: 40px;
+  }
+
+  /* ---------------- EDUCATION / IMPACT ----------------
+     Arrows drop out of the vertical middle and sit in the two
+     bottom corners; the copy block clears them. */
+  .impact {
+    height: auto;
+    min-height: 520px;
+  }
+
+  .impact__arrow {
+    top: auto;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .impact__arrow--prev {
+    left: 8px;
+  }
+
+  .impact__arrow--next {
+    right: 8px;
+  }
+
+  /* Contrast: the radial vignette alone leaves the copy sitting on
+     the bright part of the photo. A top-and-bottom scrim plus a
+     deeper text shadow keeps the title, eyebrow and pill legible. */
+  .impact__slide::after {
+    background:
+      radial-gradient(80% 60% at 50% 34%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.35) 100%),
+      linear-gradient(180deg,
+        rgba(0, 0, 0, 0.42) 0%,
+        rgba(0, 0, 0, 0.14) 26%,
+        rgba(0, 0, 0, 0.52) 62%,
+        rgba(0, 0, 0, 0.80) 100%);
+  }
+
+  .impact__content {
+    bottom: 104px;
+    gap: 24px;
+    padding-left: 0;
+  }
+
+  .impact__title {
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.55);
+  }
+
+  .impact__sub {
+    max-width: 240px;
+    line-height: 1.9;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  /* ---------------- INSIGHTS ----------------
+     The pill rail unwraps into a stack: the two CTAs first, then a
+     collapsed "Filter" bar that opens a panel of full-width tags. */
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    margin-top: 20px;
+    padding: 0;
+    gap: 0;
+    background: none;
+    border-radius: 0;
+  }
+
+  .filter__label {
+    display: none;
+  }
+
+  .filter__actions {
+    order: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .filter__actions .btn {
+    height: 40px;
+  }
+
+  .filter__toggle {
+    order: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 8px;
+    background: #f1f1f1;
+    color: var(--ink-3);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.33em;
+    text-transform: uppercase;
+    transition: background 0.3s var(--ease-out), border-radius 0.3s var(--ease-out);
+  }
+
+  .filter__icon {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 15px;
+  }
+
+  .filter.is-open .filter__toggle {
+    background: #f7f7f7;
+    border-radius: 8px 8px 0 0;
+    box-shadow: inset 0 -1px 0 var(--line);
+  }
+
+  /* Panel — hidden until the bar is tapped */
+  .filter__tags {
+    order: 3;
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px 20px 20px;
+    border-radius: 0 0 8px 8px;
+    background: #f1f1f1;
+  }
+
+  .filter.is-open .filter__tags {
+    display: flex;
+  }
+
+  .filter__tags>li {
+    width: 100%;
+  }
+
+  /* the clear-filter row collapses with its button so the 16px
+     rhythm above it does not leave a blank slot */
+  .filter__tags>li:has(> [hidden]) {
+    display: none;
+  }
+
+  .filter__tags .tag {
+    position: relative;
+    width: 100%;
+    height: 19px;
+    min-height: 19px;
+    /* the 1024 block lifts every tag to 30; the board keeps the panel pills at 19 */
+    padding: 0 24px;
+    font-size: 9.2px;
+    letter-spacing: 0.06em;
+  }
+
+  .filter__tags .tag:hover {
+    transform: none;
+  }
+
+  .filter__tags .tag__x {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    translate: 0 -50%;
+    margin: 0;
+  }
+
+  .filter__clear {
+    width: 100%;
+    margin: 8px 0 0;
+    text-align: center;
+    font-size: 9.2px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Post cards: the mobile board shows the artwork in colour — the desktop
+     grayscale-until-hover treatment has no hover to undo it on touch. */
+  .post__media img {
+    filter: none;
+  }
+
+  .masonry {
+    margin-top: 24px;
+  }
+
+  /* ---------------- COMPETENCIES ----------------
+     Horizontal rail: 191px cards, 16px apart, first card flush with
+     the 24px gutter — the next card sits half in view. */
+  .comp-row {
+    display: flex;
+    grid-template-columns: none;
+    justify-content: flex-start;
+    /* centring would clip the first card once the row overflows */
+    max-width: none;
+    perspective: none;
+    gap: 16px;
+    margin-top: 32px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--gutter);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* full-bleed track so the row can run past the gutters */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  .comp-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .comp-card {
+    flex: 0 0 191px;
+    scroll-snap-align: start;
+  }
+
+  /* the desktop hover expand/dim would fire on tap and reflow the rail */
+  .comp-card:hover,
+  .comp-row:hover .comp-card:not(:hover) {
+    flex-grow: 0;
+  }
+
+  .comp-card:hover a,
+  .comp-row:hover .comp-card:not(:hover) a {
+    box-shadow: 0 14px 30px -22px rgba(0, 0, 0, 0.3);
+  }
+
+  .comp-card:hover a>img,
+  .comp-row:hover .comp-card:not(:hover) a>img {
+    transform: none;
+    filter: saturate(0.92);
+  }
+
+  .comp-card:hover .comp-card__title,
+  .comp-row:hover .comp-card:not(:hover) .comp-card__title {
+    transform: none;
+    letter-spacing: normal;
+    color: var(--ink);
+  }
+
+  .comp-card a {
+    height: 306px;
+    padding: 50px 14px 0;
+  }
+
+  .comp-card a>img,
+  .comp-card a:hover>img {
+    height: 170px;
+  }
+
+  .comp-card__title {
+    font-size: 20.6px;
+  }
+}
+
+
+aside#float-card {
+  display: none;
+}
+
+img.mob_img {
+  display: none;
+}
+
+h2.h2.h2--tight.display.mobile-show {
+  display: none;
+}
+
+@media(max-width: 768px) {
+  .why__track {
+    padding: 0px 20px;
+  }
+
+  .container.why__grid {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .why__copy {
+    padding: 0px 20px;
+    margin-bottom: 40px;
+  }
+
+  .hero-banner__bg {
+    transform: unset !important;
+  }
+
+  .intro__tagline {
+    color: #1D1F1F;
+  }
+
+  .help__bg:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(248, 249, 249, 0.00) 0%, #F8F9F9 37.5%);
+    position: absolute;
+    top: -100px;
+    left: 0;
+  }
+
+  .help__bg img {
+    display: none;
+  }
+
+  .help__bg img {
+    display: none;
+  }
+
+  .help__bg img.mob_img {
+    display: block;
+  }
+
+  /* Mobile image */
+  .help__bg img.mob_img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    object-fit: cover;
+    object-position: center;
+    /* change focal point here, e.g. center 40% */
+    z-index: 0;
+    /* below the gradient */
+  }
+
+  .help__bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .help__bg::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(248, 249, 249, 0.00) 0%, #F8F9F9 37.5%);
+    position: absolute;
+    top: -80px;
+    left: 0;
+    z-index: 1;
+    /* gradient sits above the image */
+    pointer-events: none;
+  }
+
+  /* Desktop parallax image hidden on mobile */
+  .help__bg img {
+    display: none;
+  }
+
+  /* Mobile image */
+  .help__bg img.mob_img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    object-fit: cover;
+    object-position: center;
+    /* change focal point here, e.g. center 40% */
+    z-index: 0;
+    display: none;
+    /* below the gradient */
+  }
+
+  .help__bg img.mob_img {
+    display: block;
+    object-position: 100% -20%;
+  }
+
+  .help-grid {
+    margin-top: 140px;
+  }
+
+  .curve.curve--bottom.help__curve {
+    display: none;
+  }
+
+  .insights h2.h2.h2--tight.display {
+    display: none;
+  }
+
+  section#intro {
+    padding-bottom: 50px;
+  }
+
+  h2.h2.h2--tight.display.mobile-show {
+    display: block;
+  }
+
+  .phil-orb--hi-ai .phil-orb__frame {
+    margin-bottom: 0;
+  }
+
+  section#competencies {
+    margin-top: 40px;
+    background: #f8f9f9;
+  }
+
+  .industries-section__arc {
+    display: none;
+  }
+
+  .hero-banner .div-block {
+    display: none;
+  }
+}
+
+@media(min-width:768px) {
+
+  h2.h2.h2--tight.display.help__title br,
+  p.industries-section__eyebrow.reveal br {
+    display: none;
+  }
+
+}
+
+@media(min-width:1600px) {
+  .phil-orb--xfactors .phil-orb__video {
+    width: 345px;
+    height: 345px;
+    left: 46%;
+    top: 30px;
+  }
+
+  .phil-orb--xfactors .phil-orb__glow {
+    top: 8.405%;
+    height: 43.568%;
+  }
+
+  .phil-orb--hi-ai .phil-orb__glow {
+    top: 6.405%;
+    height: 45.568%;
+  }
+}
