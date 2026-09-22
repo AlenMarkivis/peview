@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xoriant — House of X-Factors</title>
+  <meta name="description" content="Xoriant's global home for Human Ingenuity — where we grow the human side of tech: judgment, creativity, empathy and collaboration on top of our engineering and AI skills.">
+
+  <!-- Fonts: DM Sans (Google) + Gambarino (Fontshare) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap" rel="stylesheet">
+
+  <!-- Styles (split by concern) -->
+  <link rel="stylesheet" href="css/base.css?v=6">
+  <link rel="stylesheet" href="css/header.css?v=6">
+  <link rel="stylesheet" href="css/footer.css?v=6">
+  <link rel="stylesheet" href="css/hoax.css?v=6">
+  <link rel="stylesheet" href="css/responsive.css?v=6">
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body>
+
+  <!-- Page blur overlay used by the mega menu -->
+  <div class="page-dim" aria-hidden="true"></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="site-header">
+    <div class="nav-wrap">
+      <nav class="nav glass" aria-label="Primary">
+        <a class="nav__logo" href="#" aria-label="Xoriant — New Horizons">
+          <img src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="137" height="47">
+        </a>
+
+        <ul class="nav__menu">
+          <li class="nav__item">
+            <a class="nav__toggle" href="#" aria-label="Human Ingenuity / Artificial Intelligence">
+              <span>HI</span>
+              <img src="assets/icons/hi-ai-toggle.png" alt="" width="30" height="30">
+              <span>AI</span>
+            </a>
+          </li>
+          <li class="nav__item has-menu" data-menu="industries">
+            <a class="nav__link" href="#">Industries</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="competencies">
+            <a class="nav__link" href="#">Competencies</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="about">
+            <a class="nav__link is-active" href="#">About</a>
+          </li>
+        </ul>
+
+        <div class="nav__right">
+          <a class="nav__link has-menu" data-menu="insights" href="#">Insights</a>
+          <a class="nav__link" href="#">Careers</a>
+          <a class="nav__cta" href="#">Contact</a>
+          <button class="nav__burger" type="button" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- ===== Mega menu panels ===== -->
+      <div class="mega" id="mega" aria-hidden="true">
+        <div class="mega__inner container">
+          <!-- Industries -->
+          <section class="mega__panel" data-panel="industries">
+            <div class="mega__intro">
+              <h3>Industries</h3>
+              <p>Turning ideas into solutions that keep delivering real‑world value in a fast‑changing world.</p>
+            </div>
+            <ul class="mega__tiles">
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-financial.png" alt="Financial Services"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-technology.png" alt="Technology"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-consumer.png" alt="Consumer"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-industrials.png" alt="Industrials"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-healthcare.png" alt="Healthcare"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ind-other.png" alt="Other"></a></li>
+            </ul>
+          </section>
+
+          <!-- Competencies -->
+          <section class="mega__panel" data-panel="competencies">
+            <div class="mega__intro">
+              <h3>Competencies</h3>
+              <p>Discover how our left and right brain training, amplified by specialized skills sets create synergy.</p>
+            </div>
+            <ul class="mega__tiles mega__tiles--7">
+              <li><a href="#" class="mega__tile mega__tile--labelled"><span>Engineering</span><img src="assets/images/menu/menu-comp-engineering.png" alt=""></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled"><span>Cloud &amp; Security</span><img src="assets/images/menu/menu-comp-cloud.png" alt=""></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled"><span>Quality</span><img src="assets/images/menu/menu-comp-quality.png" alt=""></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled"><span>Data</span><img src="assets/images/menu/menu-comp-data.png" alt=""></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled"><span>AI</span><img src="assets/images/menu/menu-comp-ai.png" alt=""></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled"><span>Consulting</span><img src="assets/images/menu/menu-comp-consulting.png" alt=""></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled"><span>Salesforce</span><img src="assets/images/menu/menu-comp-salesforce.png" alt=""></a></li>
+            </ul>
+          </section>
+
+          <!-- Insights -->
+          <section class="mega__panel" data-panel="insights">
+            <div class="mega__intro">
+              <h3>Insights</h3>
+              <p>Ideas, stories, and expert views — shaped by AI and engineering — driving measurable business outcomes.</p>
+            </div>
+            <ul class="mega__tiles">
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ins-success.png" alt="Success Stories"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ins-blog.png" alt="Blog"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ins-infographics.png" alt="Infographics"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ins-webinar.png" alt="Webinar &amp; Podcast"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ins-brochures.png" alt="Brochures"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-ins-whitepapers.png" alt="White Papers"></a></li>
+            </ul>
+          </section>
+
+          <!-- About -->
+          <section class="mega__panel" data-panel="about">
+            <div class="mega__intro">
+              <h3>About</h3>
+              <p>The people, partnerships and principles behind how we work.</p>
+            </div>
+            <ul class="mega__tiles mega__tiles--5">
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-about-story.png" alt="Our Story"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-about-values.png" alt="Values"></a></li>
+              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-about-partner.png" alt="Partner Ecosystem"></a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero hero--hoax" id="hero">
+      <div class="hero__bg">
+        <img class="hero__photo" src="assets/images/hoax-hero.jpg" alt="Xoriant people standing together across an open field at sunrise">
+        <div class="hero__tint"></div>
+      </div>
+      <div class="hero__content">
+        <h1 class="hero__title display" data-split="lines">House of Xfactors</h1>
+        <p class="hero__eyebrow">New Horizons</p>
+      </div>
+    </section>
+
+    <div class="page-below">
+      <div class="page-below__curve" aria-hidden="true">
+        <svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z" fill="#ffffff"/></svg>
+      </div>
+
+      <!-- ================= INTRO ================= -->
+      <section class="intro" id="intro">
+        <div class="container">
+          <h2 class="hoax-h2 hoax-h2--tight intro__head" data-split="chars">Xoriant’s global home for <span class="accent">Human</span> Ingenuity</h2>
+          <div class="intro__copy">
+            <p class="reveal">It’s where we develop the people skills that turn expertise and AI into real impact for clients.</p>
+            <p class="reveal">In a world powered by AI, technology alone is no longer enough. The House of X‑Factors (HOXF) is where we grow the human side of tech: judgment, creativity, empathy and collaboration on top of our engineering and AI skills. It brings every country, every acquired company and every practice into one shared space, so we stay ahead in a time of continuous change.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= LEFT BRAIN / RIGHT BRAIN ================= -->
+      <section class="brain" id="brain">
+        <div class="container">
+          <h2 class="hoax-h2 brain__head" data-split="chars">Left brain &amp; right brain,<br>working <span class="accent">together</span></h2>
+          <p class="brain__body reveal">HOXF is built on balance. On one side, we sharpen left‑brain capabilities – architecture, testing, platforms, security, data and AI tools, so our people stay technically exceptional. On the other, we deliberately develop right‑brain strengths: listening, storytelling, facilitation, creative problem‑defining and design thinking, the skills machines can’t copy.</p>
+
+          <div class="brain__stage">
+            <div class="brain__panel" aria-hidden="true"></div>
+
+            <div class="brain__col brain__col--left">
+              <h3 class="brain__col-title">Left Brain Skills</h3>
+              <ul class="brain__list">
+                <li>Logical</li>
+                <li>Analytical</li>
+                <li>Sequential</li>
+                <li>Detail Focussed</li>
+                <li>Clear Verbal Language</li>
+              </ul>
+            </div>
+
+            <img class="brain__img" src="assets/images/brain-flowers.png" alt="A brain rendered half as stone circuitry and half as wildflowers and butterflies" width="320" height="463">
+
+            <div class="brain__col brain__col--right">
+              <h3 class="brain__col-title">Right Brain Skills</h3>
+              <ul class="brain__list">
+                <li>Empathy</li>
+                <li>Imagination</li>
+                <li>Creative Problem Definition</li>
+                <li>Creative Problem Solving</li>
+                <li>Taste</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HOW IT DEVELOPS FUTURE PARTNERS ================= -->
+      <section class="future" id="future">
+        <div class="container">
+          <h2 class="hoax-h2 future__head" data-split="chars">How it develops your <span class="accent">future</span> partners</h2>
+          <p class="future__body reveal">Each House is a safe space away from project pressure where people can step back, learn and experiment. Engineers learn to tell better business stories, consultants pick up new technical patterns, leaders from new acquisitions bring fresh colors and ways of working; ideas and people constantly “pollinate” across Houses.</p>
+
+          <button class="video-card reveal" type="button" aria-label="Play the Human Ingenuity film">
+            <img class="video-card__img" src="assets/images/hoax-video-poster.jpg" alt="">
+            <span class="video-card__tint"></span>
+            <span class="video-card__title display">Human<br>Ingenuity</span>
+            <span class="video-card__play">
+              <svg viewBox="0 0 137 141" fill="none" aria-hidden="true"><path d="M137 70.5 0 141V0l137 70.5Z" fill="#ffffff"/></svg>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= POWER HOUSE COMPETENCIES ================= -->
+      <section class="power" id="power">
+        <div class="container">
+          <h2 class="hoax-h2 power__head" data-split="chars">Our Power House Competencies</h2>
+          <p class="eyebrow eyebrow--muted power__eyebrow reveal">Our Houses of XFactors</p>
+          <p class="power__body reveal">We use this ecosystem to prepare talent in every competence – from Digital Engineering to Cloud, Data &amp; AI and Security – so when Xoriant teams walk into your organization, they bring both sharp expertise and mature Human Ingenuity, ready to become an extension of your own.</p>
+
+          <div class="power__row">
+            <article class="comp-tile reveal-up">
+              <h3 class="comp-tile__label">Engineering</h3>
+              <img class="comp-tile__img" src="assets/images/comp-engineering.png" alt="">
+            </article>
+            <article class="comp-tile reveal-up">
+              <h3 class="comp-tile__label">Cloud &amp; Security</h3>
+              <img class="comp-tile__img" src="assets/images/comp-cloud.png" alt="">
+            </article>
+            <article class="comp-tile reveal-up">
+              <h3 class="comp-tile__label">Quality</h3>
+              <img class="comp-tile__img" src="assets/images/comp-quality2.png" alt="">
+            </article>
+            <article class="comp-tile reveal-up">
+              <h3 class="comp-tile__label">Data &amp; AI</h3>
+              <img class="comp-tile__img" src="assets/images/comp-data-ai.png" alt="">
+            </article>
+            <article class="comp-tile reveal-up">
+              <h3 class="comp-tile__label">Customer Experience</h3>
+              <img class="comp-tile__img" src="assets/images/comp-customer-exp.png" alt="">
+            </article>
+            <article class="comp-tile reveal-up">
+              <h3 class="comp-tile__label">Supply Chain</h3>
+              <img class="comp-tile__img" src="assets/images/comp-supply-chain.png" alt="">
+            </article>
+          </div>
+
+          <div class="note-card reveal">
+            <img class="note-card__img" src="assets/images/hiai-yinyang.png" alt="">
+            <div class="note-card__copy">
+              <p class="note-card__title">Overarching philosophy of HI/AI.</p>
+              <a class="note-card__link" href="#">Explore how we power Human Ingenuity with AI (HI/AI) &gt;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CULTURAL ENGINE ================= -->
+      <section class="culture" id="culture">
+        <div class="edge edge--top" aria-hidden="true">
+          <svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,0 L1920,0 L1920,85 Q960,5 0,85 Z" fill="#ffffff"/></svg>
+        </div>
+        <div class="container">
+          <h2 class="hoax-h2 hoax-h2--tight culture__head" data-split="chars">Our <span class="accent">Cultural</span> Engine</h2>
+          <p class="eyebrow culture__eyebrow reveal">HOXF Initiatives</p>
+
+          <div class="culture__grid">
+            <div class="culture__list" role="tablist" aria-label="HOXF initiatives">
+              <button class="culture__item is-active reveal" type="button" role="tab" aria-selected="true"
+                data-title="DaVinci Academy"
+                data-text="Where AI innovation meets impact, creativity meets results. Partnership with leading educational institutions, including Harvard programs."
+                data-img="assets/images/hoax-davinci.jpg">DaVinci Academy</button>
+              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+                data-title="Ideathon"
+                data-text="A company-wide call for raw ideas. Teams from every geography and practice pitch the problems worth solving before anyone writes a line of code."
+                data-img="assets/images/hoax-davinci.jpg">Ideathon</button>
+              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+                data-title="Nextme"
+                data-text="A personal growth track where engineers, consultants and leaders design the next version of their own craft, with mentorship from across the Houses."
+                data-img="assets/images/hoax-davinci.jpg">Nextme</button>
+              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+                data-title="Imagine"
+                data-text="Deliberate creative practice — storytelling, facilitation and design thinking — so technical depth arrives with the human skills that make it land."
+                data-img="assets/images/hoax-davinci.jpg">Imagine</button>
+              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+                data-title="Happy Place to Work"
+                data-text="The rituals, spaces and safeguards that make Xoriant somewhere people want to stay — measured, reviewed and improved every year."
+                data-img="assets/images/hoax-davinci.jpg">Happy Place to Work</button>
+              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+                data-title="Corporate Social Responsibility"
+                data-text="Putting our engineering and AI capability behind education, sustainability and community programs in every country we operate in."
+                data-img="assets/images/hoax-davinci.jpg">Corporate Social Responsibility</button>
+            </div>
+
+            <article class="culture__panel reveal" id="culture-panel">
+              <div class="culture__media"><img src="assets/images/hoax-davinci.jpg" alt=""></div>
+              <div class="culture__copy">
+                <h3 class="culture__title">DaVinci Academy</h3>
+                <p class="culture__text">Where AI innovation meets impact, creativity meets results. Partnership with leading educational institutions, including Harvard programs.</p>
+              </div>
+              <button class="culture__more" type="button" aria-label="Read more">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CTA ================= -->
+      <section class="cta-hoax" id="contact">
+        <div class="edge edge--top" aria-hidden="true">
+          <svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,0 L1920,0 L1920,85 Q960,5 0,85 Z" fill="#f5f7f7"/></svg>
+        </div>
+        <div class="cta-hoax__inner container">
+          <h2 class="hoax-h2 hoax-h2--tight cta-hoax__head" data-split="chars">Start a <span class="accent">Conversation</span> about your next horizon</h2>
+          <div class="cta-hoax__actions reveal">
+            <button class="btn" type="button">Schedule a quick call
+              <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="btn btn--dark" type="button">Contact
+              <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="cta-hoax__hills"><img src="assets/images/cta-landscape.jpg" alt=""></div>
+        <div class="edge edge--bottom" aria-hidden="true">
+          <svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z" fill="#ffffff"/></svg>
+        </div>
+      </section>
+
+    </div><!-- /.page-below -->
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <a href="#" class="footer__logo"><img src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="212" height="73"></a>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Industries</h4>
+          <ul><li><a href="#">Financial Services</a></li><li><a href="#">Technology</a></li><li><a href="#">Consumer</a></li><li><a href="#">Industrials</a></li><li><a href="#">Healthcare</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>Competencies</h4>
+          <ul><li><a href="#">Engineering</a></li><li><a href="#">Cloud &amp; Security</a></li><li><a href="#">Quality</a></li><li><a href="#">Data</a></li><li><a href="#">AI</a></li><li><a href="#">Customer Experience</a></li><li><a href="#">Supply Chain</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>About</h4>
+          <ul><li><a href="#">Our Story</a></li><li><a href="#">Human Powered AI</a></li><li><a href="#">House of X-Factors</a></li><li><a href="#">Partner Ecosystem</a></li><li><a href="#">Values</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <ul><li><a href="#">Careers</a></li><li><a href="#">Insights</a></li><li><a href="#">Contact</a></li><li><a href="#">Locations</a></li></ul>
+        </div>
+        <div class="footer__col footer__col--wide">
+          <h4>Explore new horizons</h4>
+          <button class="btn btn--soft" type="button">Subscribe to our newsletter
+            <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="social">
+            <li><a href="#" aria-label="LinkedIn"><img src="assets/icons/social-linkedin.png" alt=""></a></li>
+            <li><a href="#" aria-label="Instagram"><img src="assets/icons/social-instagram.png" alt=""></a></li>
+            <li><a href="#" aria-label="Facebook"><img src="assets/icons/social-facebook.png" alt=""></a></li>
+            <li><a href="#" aria-label="X"><img src="assets/icons/social-twitter.png" alt=""></a></li>
+            <li><a href="#" aria-label="YouTube"><img src="assets/icons/social-youtube.png" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <div class="footer__bar-inner">
+        <ul class="certs">
+          <li><img src="assets/icons/cert-iso.png" alt="ISO certified"></li>
+          <li><img src="assets/icons/cert-psi.png" alt="PSI"></li>
+          <li><img src="assets/icons/cert-soc.png" alt="SOC"></li>
+          <li><img src="assets/icons/cert-cdp.png" alt="CDP"></li>
+        </ul>
+        <p class="footer__legal">Terms of Use | Cookie Policy | Privacy Policy | Edit Cookies | Sitemap | Ethics | Brand Policy © 2026 - All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= FLOATING UI ================= -->
+  <div class="ask" id="ask">
+    <button class="ask__pill glass-light" type="button" aria-expanded="false" aria-controls="ask-form">
+      <span class="ask__label">ask me</span>
+    </button>
+    <form class="ask__form glass-light" id="ask-form" action="#" role="search" onsubmit="return false;">
+      <span class="ask__spark" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#1d1f1f" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5c.6 3.6 2.9 5.9 6.5 6.5-3.6.6-5.9 2.9-6.5 6.5-.6-3.6-2.9-5.9-6.5-6.5C5.1 7.4 7.4 5.1 8 1.5Z"/><path d="M13 1v3M11.5 2.5h3M3 11v1.5M2.25 11.75h1.5"/></svg>
+      </span>
+      <span class="ask__divider"></span>
+      <input type="search" name="q" placeholder="Find case studies in Fintech..." aria-label="Ask Xoriant">
+      <button class="ask__submit" type="submit" aria-label="Search">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8h7M8 4.5 11.5 8 8 11.5"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/split-text.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/hoax.js"></script>
+</body>
+</html>

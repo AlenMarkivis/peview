@@ -1,0 +1,797 @@
+/* =========================================================
+   Xoriant — House of X-Factors (HOXF)
+   Depends on base.css (tokens), header.css, footer.css
+   Design frame is 1920 wide; vw values below are (px / 19.2).
+   ========================================================= */
+
+/* ---------- Sticky-hero mechanics (same pattern as home / HI-AI) ---------- */
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: clamp(600px, 49.3vw, 946px);
+  min-height: 560px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1f4f7a 0%, #0d2740 100%);
+  color: #fff;
+}
+
+.page-below {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+
+/* Shallow 85px curve (Figma 1:3672) — no drop shadow, the design has none. */
+.page-below__curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: -1px;
+  height: clamp(40px, 4.43vw, 85px);
+  pointer-events: none;
+}
+
+.page-below__curve svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero__title .split-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+/* Shared curve overlays used between full-bleed sections */
+.edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: clamp(28px, 4.43vw, 85px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.edge svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.edge--top {
+  top: -1px;
+}
+
+.edge--bottom {
+  bottom: -1px;
+}
+
+/* ---------- HERO ---------- */
+.hero--hoax .hero__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero--hoax .hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  will-change: transform;
+}
+
+/* Figma 1:3668 — flat 40% black scrim over the photo. */
+.hero--hoax .hero__tint {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.40);
+}
+
+.hero--hoax .hero__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(16px, 1.6vw, 32px);
+  padding: clamp(60px, 6vw, 110px) var(--gutter) 0;
+}
+
+.hero--hoax .hero__title {
+  color: #fff;
+  font-size: clamp(44px, 5.2vw, 100px);
+  line-height: 1;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
+}
+
+.hero--hoax .hero__eyebrow {
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(14px, 1.25vw, 24px);
+  letter-spacing: 0.33em;
+  text-transform: uppercase;
+  line-height: 1.36;
+}
+
+/* ---------- Shared display heading ---------- */
+.hoax-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-align: center;
+  /* The Figma headings sit in a ~820px column at 1920 (≈11em of the 75px
+     display face). An em measure keeps the same line breaks at every step of
+     the fluid scale, which a px or ch cap would not. */
+  max-width: 11em;
+  margin-inline: auto;
+}
+
+.hoax-h2--tight {
+  line-height: 1;
+}
+
+/* Keep the char-split reveal from clipping descenders. */
+[data-split] .split-word {
+  display: inline-block;
+}
+
+[data-split] .split-char {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ---------- INTRO ---------- */
+.intro {
+  padding: clamp(28px, 2.6vw, 50px) 0 clamp(40px, 4vw, 80px);
+}
+
+.intro__head {
+  max-width: 11.4em;
+}
+
+.intro__copy {
+  max-width: 1272px;
+  margin: clamp(24px, 2.2vw, 44px) auto 0;
+  text-align: center;
+  font-weight: 300;
+  font-size: clamp(19px, 1.67vw, 32px);
+  line-height: 2;
+  color: var(--grey);
+}
+
+.intro__copy p+p {
+  margin-top: 1.4em;
+}
+
+/* ---------- LEFT BRAIN / RIGHT BRAIN ---------- */
+.brain {
+  padding-bottom: clamp(16px, 2vw, 36px);
+}
+
+.brain__body {
+  max-width: 893px;
+  margin: clamp(20px, 2.4vw, 46px) auto 0;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.brain__stage {
+  position: relative;
+  margin-top: clamp(30px, 3.2vw, 62px);
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 320px) 1fr;
+  align-items: center;
+  column-gap: clamp(12px, 2vw, 40px);
+}
+
+/* Figma 1:3666 — a soft panel that fades in from the top and sits behind the
+   skill columns. The brain deliberately overhangs it top and bottom, so the
+   panel is sized as a share of the stage (= the brain's height) rather than a
+   vw clamp, which would drift out of step once the brain hits its cap. */
+.brain__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 52%;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(243, 243, 245, 0) 0%, #f3f3f5 100%);
+  z-index: 0;
+}
+
+.brain__img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  justify-self: center;
+}
+
+.brain__col {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.brain__col-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(15px, 1.11vw, 21.4px);
+  line-height: 2;
+  color: #000;
+  margin-bottom: 0.4em;
+}
+
+.brain__list {
+  font-size: clamp(15px, 1.11vw, 21.4px);
+  line-height: 2;
+  color: #000;
+}
+
+/* ---------- HOW IT DEVELOPS / VIDEO ---------- */
+.future {
+  padding-bottom: clamp(70px, 7.3vw, 140px);
+}
+
+.future__body {
+  max-width: 893px;
+  margin: clamp(20px, 2.4vw, 46px) auto 0;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.video-card {
+  position: relative;
+  margin-top: clamp(30px, 3.4vw, 65px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 1437 / 669;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.video-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.video-card__tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.12) 55%, rgba(0, 0, 0, 0) 100%);
+}
+
+.video-card__title {
+  position: absolute;
+  left: clamp(24px, 7.3vw, 140px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(30px, 3.9vw, 75px);
+  line-height: 1;
+  text-align: left;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
+}
+
+.video-card__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: clamp(58px, 7.1vw, 137px);
+  height: clamp(58px, 7.1vw, 137px);
+  display: grid;
+  place-items: center;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.video-card__play svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.35));
+}
+
+.video-card:hover .video-card__play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* ---------- POWER HOUSE COMPETENCIES ---------- */
+.power {
+  padding-bottom: clamp(16px, 1.8vw, 32px);
+}
+
+.power__eyebrow {
+  margin-top: clamp(14px, 1.9vw, 37px);
+  text-align: center;
+  font-size: clamp(11px, 0.71vw, 13.6px);
+}
+
+.power__body {
+  max-width: 893px;
+  margin: clamp(16px, 1.7vw, 33px) auto 0;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.power__row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 192px));
+  justify-content: center;
+  gap: 16px;
+  margin-top: clamp(30px, 3.4vw, 65px);
+}
+
+.comp-tile {
+  position: relative;
+  height: clamp(240px, 15.9vw, 306px);
+  border-radius: 8.5px;
+  background: var(--bg-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: clamp(30px, 2.6vw, 50px);
+  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+
+.comp-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(29, 31, 31, 0.10);
+}
+
+.comp-tile__label {
+  font-weight: 700;
+  font-size: clamp(14px, 1.07vw, 20.6px);
+  line-height: 1.15;
+  color: var(--ink);
+  text-align: center;
+  padding: 0 10px;
+}
+
+.comp-tile__img {
+  margin-top: auto;
+  width: 100%;
+  height: clamp(140px, 10.9vw, 209px);
+  object-fit: contain;
+  object-position: bottom center;
+  transition: height var(--dur) var(--ease-out);
+}
+
+.comp-tile:hover .comp-tile__img {
+  height: clamp(150px, 11.6vw, 222px);
+}
+
+/* Note card (Figma 1:3713) — white, r10, very soft wide shadow */
+.note-card {
+  margin-top: clamp(24px, 3vw, 58px);
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 100px rgba(29, 31, 31, 0.10);
+  min-height: clamp(140px, 10.3vw, 197px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 1.2vw, 24px);
+  padding: clamp(22px, 2vw, 38px) var(--gutter);
+}
+
+.note-card__img {
+  width: clamp(90px, 8.4vw, 162px);
+  height: auto;
+  flex: none;
+}
+
+.note-card__title {
+  font-weight: 700;
+  font-size: clamp(16px, 1.11vw, 21.4px);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.note-card__link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: clamp(15px, 1.04vw, 20px);
+  line-height: 1.2;
+  color: var(--green);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.note-card__link:hover {
+  transform: translateX(4px);
+}
+
+/* ---------- CULTURAL ENGINE ---------- */
+.culture {
+  position: relative;
+  background: #f5f7f7;
+  padding: clamp(28px, 3.2vw, 56px) 0 clamp(60px, 6vw, 110px);
+  margin-top: 0;
+}
+
+.culture__eyebrow {
+  margin-top: clamp(14px, 1.7vw, 32px);
+  text-align: center;
+}
+
+.culture__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 501px) minmax(0, 584px);
+  justify-content: space-between;
+  align-items: start;
+  gap: clamp(30px, 6vw, 117px);
+  margin-top: clamp(36px, 4.2vw, 80px);
+}
+
+.culture__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.6vw, 31px);
+}
+
+.culture__item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: clamp(19px, 1.46vw, 28px);
+  line-height: 1.15;
+  color: var(--grey);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+
+.culture__item:hover {
+  color: var(--ink-3);
+  transform: translateX(4px);
+}
+
+.culture__item.is-active {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.culture__panel {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 18px 60px rgba(29, 31, 31, 0.08);
+}
+
+.culture__media {
+  aspect-ratio: 584 / 277;
+  overflow: hidden;
+}
+
+.culture__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.culture__copy {
+  padding: clamp(22px, 2.1vw, 40px) clamp(22px, 2.8vw, 53px) clamp(26px, 2.6vw, 50px);
+}
+
+.culture__title {
+  font-weight: 700;
+  font-size: clamp(16px, 1.04vw, 20px);
+  line-height: 1.2;
+  color: #000;
+}
+
+.culture__text {
+  margin-top: clamp(10px, 1.1vw, 21px);
+  font-size: clamp(15px, 0.89vw, 17px);
+  line-height: 1.6;
+  color: var(--grey);
+}
+
+.culture__more {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f6f6f6;
+  margin: clamp(14px, 1.1vw, 22px) clamp(22px, 2.8vw, 53px) clamp(22px, 2.4vw, 46px) auto;
+  transition: background var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+
+.culture__more:hover {
+  background: var(--green);
+  transform: translateX(3px);
+}
+
+.culture__more svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--ink);
+  transition: stroke var(--dur) var(--ease-out);
+}
+
+.culture__more:hover svg {
+  stroke: #fff;
+}
+
+/* Cross-fade used when the panel content is swapped */
+.culture__panel.is-swapping .culture__media img,
+.culture__panel.is-swapping .culture__copy {
+  opacity: 0;
+}
+
+.culture__media img,
+.culture__copy {
+  transition: opacity 0.28s var(--ease-out);
+}
+
+/* ---------- CTA ---------- */
+.cta-hoax {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(90px, 10.9vw, 209px) 0 clamp(150px, 19vw, 365px);
+  background: linear-gradient(180deg, #cfe6f4 0%, #e8f2ea 100%);
+  text-align: center;
+}
+
+.cta-hoax__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-hoax__head {
+  max-width: 11.6em;
+}
+
+.cta-hoax__actions {
+  margin-top: clamp(26px, 2.7vw, 52px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.3vw, 25px);
+  flex-wrap: wrap;
+}
+
+/* Figma 1:3773 — one photo (sky through to hills) backs the whole section,
+   with the heading sitting over the sky. */
+/* Overhangs the section top and bottom so the scrubbed ±6% parallax never
+   exposes an edge. */
+.cta-hoax__hills {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8%;
+  height: 116%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cta-hoax__hills img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+  will-change: transform;
+}
+
+/* ---------- Reveal start states (JS clears these) ---------- */
+.no-js .reveal,
+.no-js .reveal-up {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================
+   Responsive — page-specific. The shared breakpoints in
+   responsive.css cover the nav, footer and hero only.
+   ========================================================= */
+.brain__panel {
+  transform: translate(0%, 0%) translate(0px, -0.047px) !important;
+  opacity: 1;
+}
+
+@media (max-width: 1200px) {
+
+  /* Six 192px tracks stop fitting the container well before the tiles
+     themselves need to shrink. */
+  .power__row {
+    grid-template-columns: repeat(3, minmax(0, 192px));
+  }
+}
+
+@media (max-width: 1024px) {
+
+  /* The brain is 661px of fixed art; below this the three-up stage has no
+     room left for the skill columns beside it, so everything stacks. */
+  .brain__stage {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(18px, 3vw, 34px);
+    justify-items: center;
+  }
+
+  .brain__img {
+    order: 1;
+    max-width: min(300px, 85%);
+  }
+
+  .brain__col--left {
+    order: 2;
+  }
+
+  .brain__col--right {
+    order: 3;
+  }
+
+  /* Re-anchor the panel so it backs the stacked lists instead of the art. */
+  .brain__panel {
+    top: auto;
+    bottom: 0;
+    transform: none;
+    height: 58%;
+  }
+
+  .culture__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 40px);
+  }
+
+  .culture__list {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .power__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .comp-tile {
+    height: 250px;
+    padding-top: 26px;
+  }
+
+  .comp-tile__img {
+    height: 150px;
+  }
+
+  .comp-tile:hover .comp-tile__img {
+    height: 158px;
+  }
+
+  .intro {
+    padding-top: clamp(50px, 12vw, 80px);
+  }
+
+  .intro__copy {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .intro__head {
+    max-width: 100%;
+  }
+
+  .brain__panel {
+    height: 62%;
+  }
+
+  .brain__col-title,
+  .brain__list {
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  /* At phone widths the title and the triangle collide, so the title moves
+     to the top-left and the triangle takes the centre. */
+  .video-card {
+    aspect-ratio: 4 / 3;
+  }
+
+  .video-card__title {
+    top: 28px;
+    transform: none;
+    left: 22px;
+    font-size: 32px;
+  }
+
+  .video-card__play {
+    left: 50%;
+  }
+
+  .video-card__tint {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.12) 60%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  .note-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+    padding: 26px 22px;
+  }
+
+  .note-card__img {
+    width: 96px;
+  }
+
+  .culture__item {
+    font-size: 19px;
+  }
+
+  .culture__more {
+    margin-right: 22px;
+  }
+
+  .cta-hoax {
+    padding-bottom: clamp(120px, 42vw, 220px);
+  }
+
+  .cta-hoax__head {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .power__row {
+    gap: 10px;
+  }
+
+  .comp-tile {
+    height: 220px;
+  }
+
+  .comp-tile__img {
+    height: 124px;
+  }
+
+  .comp-tile__label {
+    font-size: 14px;
+  }
+}
+
+/* ---------- Layout fixes ---------- */
+/* Remove the unintended vertical gap before the Culture section. */
+.culture {
+  margin-top: 0;
+}
+
+/* Keep the action/arrow control perfectly centered. */
+.culture__more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.culture__more svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  flex: 0 0 14px;
+}
