@@ -435,3 +435,14 @@
     visibility: visible;
     display: block;
 }
+
+
+.site-header.new img.stickyLogo {
+    opacity: 0;
+    display: none;
+}
+
+.site-header.new.is-light img.stickyLogo {
+    opacity: 1;
+    display: block;
+}

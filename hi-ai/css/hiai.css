@@ -314,6 +314,9 @@
 .way {
   padding: clamp(60px, 4.74vw, 91px) 0 clamp(70px, 6.25vw, 120px);
   text-align: center;
+  /* The flywheel turns as you scroll; its rotated corners must not widen the
+     page on narrow screens. Clip sideways only so .way__note keeps its shadow. */
+  overflow-x: clip;
 }
 .way__body {
   margin: clamp(28px, 3.07vw, 59px) auto 0;
@@ -323,8 +326,15 @@
   color: #000;
 }
 .way__flywheel {
+  display: block;
   width: min(614px, 92%);
+  height: auto;
   margin: clamp(40px, 3.75vw, 72px) auto clamp(50px, 4.53vw, 87px);
+  /* Spin about the hub, and keep the rotation on its own compositor layer so
+     the scroll-linked turn stays smooth. */
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .way__note {
   display: flex;

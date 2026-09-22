@@ -140,14 +140,58 @@
       .to(aiItems, step(), '>');
   }
 
-  /* ---------- Flywheel: fades in as it enters (no rotation) ---------- */
+  /* ---------- Flywheel: fades in, then turns with the scroll ---------- */
   function flywheel() {
     var fw = document.querySelector('.way__flywheel');
     if (!fw) return;
+
+    // Fade/scale in once, so the wheel has arrived before it starts turning.
     gsap.fromTo(fw, { scale: 0.9, opacity: 0 }, {
-      scale: 1, opacity: 1, duration: 1.6, ease: 'power3.out',
-      scrollTrigger: { trigger: fw, start: 'top 82%', once: true }
+      scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out',
+      scrollTrigger: { trigger: fw, start: 'top 85%', once: true }
     });
+
+    // Rotation is mapped straight onto scroll position: a small left-to-right
+    // tilt over the wheel's travel through the viewport, so it is upright in the
+    // middle of the section and the labels stay readable throughout. `scrub: 1`
+    // gives the tween ~1s to catch up with the scrollbar, which is what turns a
+    // flicked wheel or trackpad into a smooth turn rather than a jump. Sizes are
+    // read fresh on refresh so the mapping survives resize and orientation change.
+    gsap.fromTo(fw, { rotation: -12 }, {
+      rotation: 12, ease: 'none',
+      scrollTrigger: {
+        trigger: fw,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    // Settle the section centred. This range runs from 'wheel centre at the
+    // bottom of the viewport' to 'wheel centre at the top', so progress 0.5 is
+    // exactly the wheel sitting in the middle of the screen — which is also the
+    // midpoint of the tilt above, so it settles upright. The snap only bites once
+    // the reader has stopped within ~16% of that point; anywhere else the
+    // progress is handed back untouched, so scrolling straight past the section
+    // is never hijacked. Touch-only devices are skipped because momentum
+    // scrolling fights a snap — drop the isTouch check to enable it there too.
+    if (ScrollTrigger.isTouch !== 1) {
+      ScrollTrigger.create({
+        trigger: fw,
+        start: 'center bottom',
+        end: 'center top',
+        invalidateOnRefresh: true,
+        snap: {
+          snapTo: function (progress) {
+            return Math.abs(progress - 0.5) < 0.16 ? 0.5 : progress;
+          },
+          duration: { min: 0.2, max: 0.55 },
+          delay: 0.1,
+          ease: 'power2.inOut'
+        }
+      });
+    }
   }
 
   /* ---------- Background parallax + slow zoom ---------- */
