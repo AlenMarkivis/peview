@@ -16,9 +16,16 @@
 
   gsap.defaults({ ease: 'power3.out', duration: 1 });
 
-  // How far below the top of the viewport the flywheel comes to rest: once its
-  // top edge reaches this point the scroll-linked rotation stops.
-  var FLYWHEEL_STOP = 50;
+  /* ---- Flywheel turn -------------------------------------------------------
+     The wheel turns as the section climbs the screen and is straight again well
+     before the section's top edge reaches the top of the window, so it is never
+     seen tilted while you are actually reading the section. FLYWHEEL_TURN is how
+     far it is tipped over when it first appears, in degrees; it always unwinds
+     to 0, and FLYWHEEL_STRAIGHT_BY is the point it has finished by, written as a
+     ScrollTrigger position on the section ('top 10%' = its top edge a tenth of
+     the way down the screen, i.e. just before it reaches the top). */
+  var FLYWHEEL_TURN = -24;
+  var FLYWHEEL_STRAIGHT_BY = 'top 10%';
 
   function splitAll() {
     document.querySelectorAll('[data-split]').forEach(function (el) {
@@ -144,7 +151,7 @@
       .to(aiItems, step(), '>');
   }
 
-  /* ---------- Flywheel: fades in, turns with the scroll, then holds ---------- */
+  /* ---------- Flywheel: fades in, unwinds as it arrives, then holds ---------- */
   function flywheel() {
     var fw = document.querySelector('.way__flywheel');
     if (!fw) return;
@@ -152,24 +159,34 @@
     // Fade/scale in once, so the wheel has arrived before it starts turning.
     gsap.fromTo(fw, { scale: 0.9, opacity: 0 }, {
       scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out',
-      scrollTrigger: { trigger: fw, start: 'top 85%', once: true }
+      scrollTrigger: { trigger: fw, start: 'top 90%', once: true }
     });
 
-    // Rotation is mapped straight onto scroll position, and the range runs out
-    // at the top of the screen: it ends once the wheel's top edge sits
-    // FLYWHEEL_STOP px below the viewport top. Past the end of a scrubbed range
-    // the tween simply holds its end value, so the wheel settles upright there
-    // and stays put for the rest of the scroll. `scrub: 1` gives the tween ~1s
-    // to catch up with the scrollbar, which is what turns a flicked wheel or
-    // trackpad into a smooth turn rather than a jump. Sizes are read fresh on
-    // refresh so the mapping survives resize and orientation change.
-    gsap.fromTo(fw, { rotation: -24 }, {
+    // The turn is anchored at both ends, and deliberately to two different
+    // elements. It STARTS off the wheel's own box, as it clears the bottom of
+    // the screen, because a turn that plays out below the fold is a turn nobody
+    // sees — anchoring the start to the section instead put the whole 24° into
+    // the ~390px of heading and body copy that sit above the wheel, so by the
+    // time the wheel appeared it had already almost finished. It ENDS off the
+    // section, just before its top edge reaches the top of the window, because
+    // what matters at that end is that the wheel has stopped moving by the time
+    // the reader is actually looking at the section. Past the end of a scrubbed
+    // range the tween holds its end value, so scrolling on never turns it again.
+    //
+    // `scrub: 0.3` gives the tween ~0.3s to catch up with the scrollbar, which
+    // is what turns a flicked wheel or trackpad into a smooth turn rather than a
+    // jump; it is kept short so the turn has finished, not merely started, by
+    // the time the section has arrived. Nothing here touches the scroll position
+    // itself: an earlier version scripted a scroll to centre the wheel and that
+    // fought the reader's own scrolling, which is what caused the jerk.
+    gsap.fromTo(fw, { rotation: FLYWHEEL_TURN }, {
       rotation: 0, ease: 'none',
       scrollTrigger: {
         trigger: fw,
         start: 'top bottom',
-        end: 'top ' + FLYWHEEL_STOP + 'px',
-        scrub: 1,
+        endTrigger: '.way',
+        end: FLYWHEEL_STRAIGHT_BY,
+        scrub: 0.3,
         invalidateOnRefresh: true
       }
     });

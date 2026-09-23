@@ -508,4 +508,20 @@ img.hiai__yy {
   /* ---- CTA ---- */
   .cta-hiai__body { margin-top: 28px; }
   .cta-hiai__btn { margin-top: 36px; }
+  .way__note-copy {
+    text-align: left;
+}
+.way__note-title br {
+    display: block;
+}
+p.way__note-title {
+    font-size: 20px;
+    line-height: 114%;
+}
+
+a.way__note-link {
+    font-size: 16px;
+    line-height: 150%;
+    padding-right: 40px;
+}
 }
