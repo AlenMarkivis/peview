@@ -5,11 +5,15 @@
    ========================================================= */
 
 /* ---------- Sticky-hero mechanics (same pattern as the home page) ---------- */
+/* Viewport-height banner, like the home page's. The curve is anchored to the
+   hero's bottom edge and overlaps it, so at exactly one viewport the arc reads
+   at the bottom of the screen on load with the rest of it just below the fold —
+   and the banner never stops short and exposes a strip of white beneath it. */
 .hero {
   position: sticky;
   top: 0;
   z-index: 0;
-  height: clamp(600px, 49.3vw, 946px);
+  height: 100vh;
   min-height: 560px;
   overflow: hidden;
   background: linear-gradient(180deg, #2a5f52 0%, #123b32 100%);
@@ -248,6 +252,25 @@
   color: #000;
   margin-top: clamp(40px, 5.16vw, 99px);
 }
+/* Small grey "i" mark beside each equation (mobile frame). Decorative, so it is
+   hidden from assistive tech; the desktop composition has no badge, so it only
+   appears at the mobile breakpoint that calls for it. */
+.hiai__eq-i {
+  display: none;
+  width: 1.3em;
+  height: 1.3em;
+  margin-left: 0.55em;
+  border-radius: 50%;
+  background: #9a9a9a;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.72em;
+  line-height: 1;
+  vertical-align: 0.12em;
+  place-items: center;
+  user-select: none;
+}
 .hiai__caption {
   font-size: 17px;
   line-height: 1.5;
@@ -259,7 +282,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 730px;
+  max-width: 530px;
   margin-inline: auto;
   will-change: transform;
 }
@@ -438,6 +461,54 @@
   .quote .edge--bottom, .cta-hiai .edge--bottom { bottom: -1px; }
 
   .hiai-h2 { font-size: 36px; line-height: 1; }
+
+  /* ---- HI / AI stage (mobile frame) ----
+     The phone design keeps HI, the yin-yang and AI on one row, then stacks the
+     two equations full width beneath it — not the single column the tablet
+     rules produce. `display: contents` dissolves the two `.hiai__col`
+     wrappers so their letter/label/equation/caption become grid items in their
+     own right and can be placed into that arrangement. */
+  .hiai__stage {
+    /* `minmax(0, 1fr)` on the side tracks: with a plain `1fr` the longest word
+       ("Intelligence") sets a min-content floor that widens the AI column and
+       shoves the yin-yang off centre on a 360px screen. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 32%) minmax(0, 1fr);
+    grid-template-areas:
+      "hi-letter  yy  ai-letter"
+      "hi-label   yy  ai-label"
+      "hi-eq      hi-eq      hi-eq"
+      "hi-cap     hi-cap     hi-cap"
+      "ai-eq      ai-eq      ai-eq"
+      "ai-cap     ai-cap     ai-cap";
+    column-gap: 10px;
+    align-items: center;
+    padding-inline: var(--gutter);
+  }
+  .hiai__col { display: contents; }
+  /* The wrappers carried the stacking context that lifts the copy above the
+     grey gradient panel; with them dissolved each item carries its own. */
+  .hiai__stage > * > *,
+  .hiai__yy { position: relative; z-index: 1; }
+
+  .hiai__yy { grid-area: yy; max-width: none; margin-bottom: 0; align-self: center; }
+  .hiai__col--hi .hiai__letter { grid-area: hi-letter; align-self: end; }
+  .hiai__col--hi .hiai__label { grid-area: hi-label; align-self: start; }
+  .hiai__col--hi .hiai__eq { grid-area: hi-eq; }
+  .hiai__col--hi .hiai__caption { grid-area: hi-cap; }
+  .hiai__col--ai .hiai__letter { grid-area: ai-letter; align-self: end; }
+  .hiai__col--ai .hiai__label { grid-area: ai-label; align-self: start; }
+  .hiai__col--ai .hiai__eq { grid-area: ai-eq; }
+  .hiai__col--ai .hiai__caption { grid-area: ai-cap; }
+
+  .hiai__letter { font-size: clamp(52px, 17vw, 72px); }
+  .hiai__label { font-size: clamp(15px, 4.4vw, 18px); line-height: 1.2; }
+  .hiai__eq { font-size: clamp(15px, 4.2vw, 18px); }
+  .hiai__caption { font-size: 13px; max-width: 280px; margin-top: 6px; }
+  .hiai__eq-i { display: inline-grid; }
+  /* Breathing room between the letter row and the first equation, and between
+     each caption and the equation that follows it. */
+  .hiai__col--hi .hiai__eq { margin-top: 40px; }
+  .hiai__col--ai .hiai__eq { margin-top: 28px; }
 
   .applied { padding: 40px 0 41px; }
   .applied__eyebrow { margin-top: 36px; font-size: 15px; line-height: 1.5; max-width: 243px; margin-inline: auto; }

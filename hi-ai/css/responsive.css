@@ -212,7 +212,9 @@
   .site-header { padding-top: 12px; }
   .nav { height: 60px; padding: 0 16px; }
   .nav__logo img { width: 110px; }
-  .hero { height: 88vh; min-height: 520px; }
+  /* `svh` is the visible viewport on mobile; `vh` is the largest, which would
+     leave the banner short of the fold under the browser chrome. */
+  .hero { height: 100svh; min-height: 520px; }
   .hero__content { padding-top: 28vh; }
   .hero__curve { height: 60px; }
   .intro__text { font-size: 18px; line-height: 1.8; }
@@ -272,7 +274,7 @@
 
 /* Very large screens: stop the page from stretching beyond the design */
 @media (min-width: 1921px) {
-  .hero { height: 1165px; }
+  .hero { height: max(1165px, 100vh); }
   .impact { height: 902px; }
 }
 

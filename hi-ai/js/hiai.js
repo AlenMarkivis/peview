@@ -56,10 +56,10 @@
     // slow one-way zoom
     gsap.to(fern, { scale: 1.22, duration: 12, ease: 'power1.out', delay: 0.6 });
 
-    // scroll parallax
+    // Scroll parallax on the background only. The hero copy is deliberately left
+    // alone so it stays pinned in place while the page scrolls up over it.
     gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
-      .to(fern, { yPercent: 8, ease: 'none' }, 0)
-      .to('.hero__content', { yPercent: 30, opacity: 0, ease: 'none' }, 0);
+      .to(fern, { yPercent: 8, ease: 'none' }, 0);
   }
 
   /* ---------- Generic reveals ---------- */
