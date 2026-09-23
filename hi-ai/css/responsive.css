@@ -447,3 +447,65 @@
   .footer__col--wide { grid-column: auto; }
   .comp-row { grid-template-columns: none; }
 }
+
+
+@media(min-width:1200px){
+img.hiai__yy {
+    top: 80px;
+}
+.hiai__stage {
+    padding-bottom: 30px;
+}
+
+}
+/* =========================================================
+   MOBILE — HI/AI page breathing room
+   Desktop and tablet are untouched: the 600 block mirrors the
+   breakpoint the page's mobile design values live at in
+   hiai.css, and this file loads after it, so these win.
+   ========================================================= */
+@media (max-width: 768px) {
+  /* Same bottom-padding rule the home page's `.cta` uses on phones, so the
+     landscape keeps its proportions instead of taking the desktop 300px floor. */
+  .cta-hiai { padding-bottom: 46vw; }
+}
+
+@media (max-width: 600px) {
+  /* ---- Applied intro ---- */
+  .applied { padding: 56px 0 56px; }
+
+  /* ---- Key aspects ---- */
+  .aspects { padding: 64px 0 104px; }
+  .aspects .hiai-h2 { margin-bottom: 44px; }
+  /* Cards were 20px apart, which reads as one long column rather than three
+     cards; the extra 8px is enough to separate them. */
+  .aspects__grid { gap: 28px; }
+  .aspect-card__body { padding: 0 24px 44px; }
+  .aspect-card__title { margin: 52px auto 24px; }
+
+  /* ---- HI / AI stage ----
+     The stacked mobile arrangement puts each caption directly above the next
+     equation, so those two need more air between them than the letters do. */
+  .hiai { padding-bottom: 64px; }
+  .hiai .hiai-h2 { margin-bottom: 32px; }
+  .hiai__stage { row-gap: 4px; padding-bottom: 32px; }
+  .hiai__label { margin-top: 8px; }
+  .hiai__caption { margin-top: 10px; }
+  .hiai__col--ai .hiai__eq { margin-top: 36px; }
+  .hiai__cta { margin-top: 44px; }
+
+  /* ---- Quote ---- */
+  .quote { padding-bottom: 80px; }
+  .quote__card { padding: 44px 26px 40px; }
+  .quote__by { margin-top: 16px; }
+
+  /* ---- The Xoriant Way ---- */
+  .way { padding: 64px 0 80px; }
+  .way__flywheel { margin: 44px auto 56px; }
+  .way__note { gap: 24px; padding: 32px 24px; }
+  .way__note-link { margin-top: 12px; }
+
+  /* ---- CTA ---- */
+  .cta-hiai__body { margin-top: 28px; }
+  .cta-hiai__btn { margin-top: 36px; }
+}

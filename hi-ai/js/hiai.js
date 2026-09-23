@@ -16,6 +16,10 @@
 
   gsap.defaults({ ease: 'power3.out', duration: 1 });
 
+  // How far below the top of the viewport the flywheel comes to rest: once its
+  // top edge reaches this point the scroll-linked rotation stops.
+  var FLYWHEEL_STOP = 50;
+
   function splitAll() {
     document.querySelectorAll('[data-split]').forEach(function (el) {
       SplitText.split(el, el.dataset.split);
@@ -140,7 +144,7 @@
       .to(aiItems, step(), '>');
   }
 
-  /* ---------- Flywheel: fades in, then turns with the scroll ---------- */
+  /* ---------- Flywheel: fades in, turns with the scroll, then holds ---------- */
   function flywheel() {
     var fw = document.querySelector('.way__flywheel');
     if (!fw) return;
@@ -151,47 +155,24 @@
       scrollTrigger: { trigger: fw, start: 'top 85%', once: true }
     });
 
-    // Rotation is mapped straight onto scroll position: a small left-to-right
-    // tilt over the wheel's travel through the viewport, so it is upright in the
-    // middle of the section and the labels stay readable throughout. `scrub: 1`
-    // gives the tween ~1s to catch up with the scrollbar, which is what turns a
-    // flicked wheel or trackpad into a smooth turn rather than a jump. Sizes are
-    // read fresh on refresh so the mapping survives resize and orientation change.
-    gsap.fromTo(fw, { rotation: -12 }, {
-      rotation: 12, ease: 'none',
+    // Rotation is mapped straight onto scroll position, and the range runs out
+    // at the top of the screen: it ends once the wheel's top edge sits
+    // FLYWHEEL_STOP px below the viewport top. Past the end of a scrubbed range
+    // the tween simply holds its end value, so the wheel settles upright there
+    // and stays put for the rest of the scroll. `scrub: 1` gives the tween ~1s
+    // to catch up with the scrollbar, which is what turns a flicked wheel or
+    // trackpad into a smooth turn rather than a jump. Sizes are read fresh on
+    // refresh so the mapping survives resize and orientation change.
+    gsap.fromTo(fw, { rotation: -24 }, {
+      rotation: 0, ease: 'none',
       scrollTrigger: {
         trigger: fw,
         start: 'top bottom',
-        end: 'bottom top',
+        end: 'top ' + FLYWHEEL_STOP + 'px',
         scrub: 1,
         invalidateOnRefresh: true
       }
     });
-
-    // Settle the section centred. This range runs from 'wheel centre at the
-    // bottom of the viewport' to 'wheel centre at the top', so progress 0.5 is
-    // exactly the wheel sitting in the middle of the screen — which is also the
-    // midpoint of the tilt above, so it settles upright. The snap only bites once
-    // the reader has stopped within ~16% of that point; anywhere else the
-    // progress is handed back untouched, so scrolling straight past the section
-    // is never hijacked. Touch-only devices are skipped because momentum
-    // scrolling fights a snap — drop the isTouch check to enable it there too.
-    if (ScrollTrigger.isTouch !== 1) {
-      ScrollTrigger.create({
-        trigger: fw,
-        start: 'center bottom',
-        end: 'center top',
-        invalidateOnRefresh: true,
-        snap: {
-          snapTo: function (progress) {
-            return Math.abs(progress - 0.5) < 0.16 ? 0.5 : progress;
-          },
-          duration: { min: 0.2, max: 0.55 },
-          delay: 0.1,
-          ease: 'power2.inOut'
-        }
-      });
-    }
   }
 
   /* ---------- Background parallax + slow zoom ---------- */
@@ -208,11 +189,21 @@
       gsap.from(quoteCard, { y: 40, opacity: 0, duration: 1.1,
         scrollTrigger: { trigger: quoteCard, start: 'top 85%', once: true } });
     }
-    var hills = document.querySelector('.cta-hiai__hills img');
-    if (hills) {
-      gsap.fromTo(hills, { yPercent: -6 }, {
-        yPercent: 6, ease: 'none',
-        scrollTrigger: { trigger: '.cta-hiai', start: 'top bottom', end: 'bottom top', scrub: true }
+    // CTA background: the home page's pairing (animations.js `bgParallax` +
+    // `bgZoom`) — a scrub-linked vertical drift, plus a slow one-way zoom that
+    // plays once as the section arrives. Scale only on the zoom, so it never
+    // fights the translate the parallax writes to the same transform.
+    document.querySelectorAll('[data-parallax-bg]').forEach(function (img) {
+      gsap.fromTo(img, { yPercent: -8 }, {
+        yPercent: 8, ease: 'none',
+        scrollTrigger: { trigger: img.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+    var ctaBg = document.querySelector('.cta-hiai__bg img');
+    if (ctaBg) {
+      gsap.fromTo(ctaBg, { scale: 1 }, {
+        scale: 1.12, duration: 10, ease: 'power1.out',
+        scrollTrigger: { trigger: '.cta-hiai', start: 'top 75%', once: true }
       });
     }
   }

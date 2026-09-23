@@ -392,13 +392,25 @@
 }
 .way__note-link:hover { text-decoration: underline; }
 
-/* ---------- SECTION: CTA ---------- */
+/* ---------- SECTION: CTA ----------
+   Background image and its motion are the home page's `.cta` implementation
+   (sections.css + animations.js): a full-bleed landscape bled 8% past the top
+   so the scroll parallax has travel to play with, anchored to its bottom edge
+   so the hills stay in frame, and clipped by the section. */
 .cta-hiai {
   position: relative;
+  min-height: clamp(560px, 50.6vw, 971px);
+  padding: clamp(90px, 7.6vw, 146px) 0 clamp(300px, 30vw, 520px);
   overflow: hidden;
+  isolation: isolate;
   text-align: center;
-  padding: clamp(90px, 7.6vw, 146px) 0 0;
-  background: linear-gradient(180deg, #dcedf8 0%, #e9f4fb 60%, #f1f8fb 100%);
+}
+.cta-hiai__bg { position: absolute; inset: -8% 0 0; z-index: -1; }
+.cta-hiai__bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  will-change: transform;
 }
 .cta-hiai__inner { position: relative; z-index: 2; max-width: 1052px; margin: 0 auto; padding: 0 var(--gutter); }
 .cta-hiai .hiai-h2 { color: #090909; }
@@ -410,27 +422,7 @@
   color: #1d1f1f;
 }
 .cta-hiai__btn { margin-top: clamp(30px, 3.07vw, 59px); }
-.cta-hiai__hills {
-  position: relative;
-  z-index: 1;
-  margin-top: clamp(26px, 2.71vw, 52px);
-  height: clamp(180px, 17.4vw, 334px);
-  overflow: hidden;
-}
-/* The stock photo is sky-heavy: anchor to the bottom and enlarge so the green
-   hills fill the band like the Figma video frame. */
-.cta-hiai__hills img {
-  position: absolute;
-  left: -20%;
-  bottom: -4%;
-  width: 140%;
-  max-width: none;
-  height: auto;
-  will-change: transform;
-  /* fade the photo's sky into the section's blue so the horizon sits naturally */
-  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 28%);
-          mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 28%);
-}
+
 
 /* ---------- Responsive ---------- */
 @media (max-width: 980px) {
