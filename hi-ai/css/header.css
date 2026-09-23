@@ -32,7 +32,10 @@
 .nav-wrap {
   width: min(1336px, 100% - var(--gutter) * 2);
   margin-inline: auto;
-  position: relative;
+  /* Deliberately NOT positioned: .mega is a descendant but spans the whole
+     viewport, so it has to resolve against .site-header rather than be
+     trapped in this 1336px box. Re-adding `position: relative` here would
+     snap the mega menu back to the nav width. */
 }
 
 .nav {
@@ -185,26 +188,52 @@
 
 .mega {
   position: absolute;
-  top: -24px;
-  left: 50%;
-  translate: -50% 0;
-  width: min(1337px, 100%);
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Full-bleed wrapper: the panel spans the viewport and .mega__inner is what
+     lines up with the header. Its containing block is .site-header, whose
+     padding box starts at the top of the viewport. */
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.3);
-  padding-top: 94px;
-  clip-path: inset(0px 0px 100% 0px round 10px);
+  /* The bottom shape sits in this padding, and content-box keeps the white
+     fill out of it — so the SVG's curve is the panel's real bottom edge and
+     the blurred page shows through beneath it. The ratio is mega-shape.svg's
+     own 1920x55, and the percentage resolves against the wrapper's width, so
+     it tracks the image's rendered height at every viewport size. */
+  padding-bottom: calc(100% * 55 / 1920);
+  background-clip: content-box;
+  clip-path: inset(0px 0px 100% 0px);
   opacity: 0;
   z-index: 2;
   transition: clip-path 0.6s var(--ease-out), opacity 0.3s;
   pointer-events: none;
 }
-.mega.is-open { clip-path: inset(0px 0px 0% 0px round 10px); opacity: 1; pointer-events: auto; }
+.mega.is-open { clip-path: inset(0px 0px 0% 0px); opacity: 1; pointer-events: auto; }
+/* Pinned into the padding reserved above. The intrinsic 1920x55 ratio gives
+   the height, so the curve scales with the viewport on its own. */
+.mega__shape {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
 .mega.is-open ~ .nav, .site-header.menu-open .nav { color: var(--ink); background: transparent; border-color: transparent; box-shadow: none; }
 .site-header.menu-open .nav__logo img { filter: none; }
 .site-header.menu-open .nav__toggle { background: rgba(0,0,0,0.05); }
 
-.mega__inner { padding: 12px 32px 50px; width: 100%; }
+/* The container. Same width and centring as .nav-wrap, and the 23px matches
+   .nav's own padding, so the panel's content lines up with the logo on the
+   left and the Contact button on the right. --mega-top clears the fixed
+   header (24px offset + 70px nav); it lives here rather than on .mega
+   because content-box clipping would leave a .mega padding-top unpainted. */
+.mega__inner {
+  --mega-top: 106px;
+  width: min(1336px, 100% - var(--gutter) * 2);
+  margin-inline: auto;
+  padding: var(--mega-top) 23px 50px;
+}
 .mega__panel {
   display: none;
   grid-template-columns: 234px 1fr;
@@ -221,7 +250,7 @@
   gap: 16px;
   justify-content: end;
 }
-.mega__tiles--7 { grid-template-columns: repeat(7, 132px); gap: 15px; }
+.mega__tiles--7 { grid-template-columns: repeat(5, 184px); gap: 15px; }
 .mega__tiles--5 { grid-template-columns: repeat(5, 184px); gap: 23px; }
 
 .mega__tile {

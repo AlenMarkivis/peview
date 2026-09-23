@@ -5,7 +5,7 @@
 @media (max-width: 1500px) {
   .comp-row { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .mega__tiles { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .mega__tiles--7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .mega__tiles--7 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .mega__tiles--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .logo-grid { grid-template-columns: repeat(4, minmax(0, 254px)); }
 }
@@ -19,7 +19,7 @@
   .help-card { padding: 28px 22px; min-height: 320px; }
   .masonry { grid-template-columns: repeat(3, 1fr); }
   .masonry__col:nth-child(4) { display: none; }
-  .mega__inner { padding: 12px 24px 40px; }
+  .mega__inner { padding: var(--mega-top) 24px 40px; }
   .mega__panel { gap: 24px; }
   .footer__bar-inner { padding: 8px 32px; }
 }

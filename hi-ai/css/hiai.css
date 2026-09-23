@@ -14,7 +14,16 @@
   top: 0;
   z-index: 0;
   height: 100vh;
-  min-height: 560px;
+  /* The floor keeps the banner from collapsing on a short window, but it must
+     never push the hero taller than the window itself: the curve rides on the
+     hero's bottom edge, so the moment the hero outgrows the viewport the curve
+     drops below the fold and disappears. That is what happened at 175%+ browser
+     zoom, where the window is shorter than the 560px floor. `min()` lets the
+     floor give way rather than overflow, and `max-height` caps anything else
+     that sets a taller height — notably the >=1921px rule in responsive.css,
+     which did the same thing at 80% zoom on a wide screen. */
+  min-height: min(560px, 100vh);
+  max-height: 100vh;
   overflow: hidden;
   background: linear-gradient(180deg, #2a5f52 0%, #123b32 100%);
   color: #fff;

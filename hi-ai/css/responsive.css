@@ -5,7 +5,7 @@
 @media (max-width: 1500px) {
   .comp-row { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .mega__tiles { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .mega__tiles--7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .mega__tiles--7 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .mega__tiles--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .logo-grid { grid-template-columns: repeat(4, minmax(0, 254px)); }
 }
@@ -19,7 +19,7 @@
   .help-card { padding: 28px 22px; min-height: 320px; }
   .masonry { grid-template-columns: repeat(3, 1fr); }
   .masonry__col:nth-child(4) { display: none; }
-  .mega__inner { padding: 12px 24px 40px; }
+  .mega__inner { padding: var(--mega-top) 24px 40px; }
   .mega__panel { gap: 24px; }
   .footer__bar-inner { padding: 8px 32px; }
 }
@@ -214,7 +214,9 @@
   .nav__logo img { width: 110px; }
   /* `svh` is the visible viewport on mobile; `vh` is the largest, which would
      leave the banner short of the fold under the browser chrome. */
-  .hero { height: 100svh; min-height: 520px; }
+  /* Same reasoning as the base rule: the floor gives way rather than let the
+     hero outgrow the window and carry the curve below the fold. */
+  .hero { height: 100svh; min-height: min(520px, 100svh); }
   .hero__content { padding-top: 28vh; }
   .hero__curve { height: 60px; }
   .intro__text { font-size: 18px; line-height: 1.8; }
