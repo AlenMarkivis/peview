@@ -13,11 +13,10 @@
   <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap" rel="stylesheet">
 
   <!-- Styles (split by concern) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
   <link rel="stylesheet" href="css/base.css?v=6">
   <link rel="stylesheet" href="css/header.css?v=6">
   <link rel="stylesheet" href="css/footer.css?v=6">
-  <link rel="stylesheet" href="css/hoax.css?v=6">
+  <link rel="stylesheet" href="css/hoax.css?v=7">
   <link rel="stylesheet" href="css/responsive.css?v=6">
   <script>document.documentElement.classList.remove('no-js');</script>
 </head>
@@ -224,32 +223,19 @@
           <p class="eyebrow eyebrow--muted power__eyebrow reveal">Our Houses of XFactors</p>
           <p class="power__body reveal">We use this ecosystem to prepare talent in every competence – from Digital Engineering to Cloud, Data &amp; AI and Security – so when Xoriant teams walk into your organization, they bring both sharp expertise and mature Human Ingenuity, ready to become an extension of your own.</p>
 
-          <div class="power__row">
-            <article class="comp-tile reveal-up">
-              <h3 class="comp-tile__label">Engineering</h3>
-              <img class="comp-tile__img" src="assets/images/comp-engineering.png" alt="">
-            </article>
-            <article class="comp-tile reveal-up">
-              <h3 class="comp-tile__label">Cloud &amp; Security</h3>
-              <img class="comp-tile__img" src="assets/images/comp-cloud.png" alt="">
-            </article>
-            <article class="comp-tile reveal-up">
-              <h3 class="comp-tile__label">Quality</h3>
-              <img class="comp-tile__img" src="assets/images/comp-quality2.png" alt="">
-            </article>
-            <article class="comp-tile reveal-up">
-              <h3 class="comp-tile__label">Data &amp; AI</h3>
-              <img class="comp-tile__img" src="assets/images/comp-data-ai.png" alt="">
-            </article>
-            <article class="comp-tile reveal-up">
-              <h3 class="comp-tile__label">Customer Experience</h3>
-              <img class="comp-tile__img" src="assets/images/comp-customer-exp.png" alt="">
-            </article>
-            <article class="comp-tile reveal-up">
-              <h3 class="comp-tile__label">Supply Chain</h3>
-              <img class="comp-tile__img" src="assets/images/comp-supply-chain.png" alt="">
-            </article>
-          </div>
+          <!-- Same cards as the home page Competencies row (home page/index.html). -->
+          <ul class="power__row comp-row">
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Engineering</span><img
+                  src="assets/images/comp-engineering.png" alt=""></a></li>
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Cloud &amp; Security</span><img
+                  src="assets/images/comp-cloud.png" alt=""></a></li>
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Quality</span><img
+                  src="assets/images/comp-quality2.png" alt=""></a></li>
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Data &amp; AI</span><img
+                  src="assets/images/comp-data-ai.png" alt=""></a></li>
+            <li class="comp-card reveal-up"><a href="#"><span class="comp-card__title">Enterprise</span><img
+                  src="assets/images/comp-supply-chain.png" alt=""></a></li>
+          </ul>
 
           <div class="note-card reveal">
             <img class="note-card__img" src="assets/images/hiai-yinyang.png" alt="">
@@ -409,10 +395,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
   <script src="js/split-text.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/interactions.js"></script>
-  <script src="js/hoax.js"></script>
+  <script src="js/hoax.js?v=7"></script>
 </body>
 </html>

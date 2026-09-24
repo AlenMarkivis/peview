@@ -421,59 +421,84 @@
   line-height: 1.8;
 }
 
-/* Figma 149:3644 — the card group measures 1180 on a 20px gutter. The design
-   lays out five cards in it; this page carries six, so they divide the same
-   1180 rather than widening the row. */
-.power__row {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 20px;
-  max-width: 1180px;
-  margin: clamp(30px, 5vw, 96px) auto 0;
+/* ---------- Competency cards ----------
+   Ported from the home page Competencies row (home page/css/sections.css and
+   the matching responsive.css rules) so the two pages share one card: same
+   markup, sizes, hover expand/spotlight and phone rail. Keep them in step. */
+.comp-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  max-width: 1190px;      /* 5×192 + 4×16 */
+  margin-inline: auto;
+  perspective: 1400px;    /* depth for the stack-in entrance */
 }
 
-.comp-tile {
-  position: relative;
-  height: clamp(240px, 15.9vw, 306px);
-  border-radius: 8.5px;
-  background: var(--bg-card);
-  overflow: hidden;
+/* The Power section's own run from the body copy down to the cards. */
+.power__row {
+  margin-top: clamp(30px, 5vw, 96px);
+}
+
+.comp-card {
+  flex: 1 1 92px;        /* non-zero basis: never collapses even if grow resolves to 0 */
+  min-width: 0;
+  transition: flex-grow 0.5s var(--ease-out);
+}
+
+.comp-card:hover { flex-grow: 1.4; }   /* hovered card expands, siblings compress */
+
+.comp-card a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: clamp(30px, 2.6vw, 50px);
-  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
-}
-
-.comp-tile:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(29, 31, 31, 0.10);
-}
-
-/* Figma 149:3647 sits the label 50px down and opens 56px before the photo.
-   Two of this page's six labels wrap at 180px ("Cloud & Security", "Customer
-   Experience"), so the label reserves both lines — otherwise the photos below
-   start at different heights and the row stops lining up. */
-.comp-tile__label {
-  font-weight: 700;
-  font-size: clamp(14px, 1.07vw, 20.6px);
-  line-height: 1.15;
-  min-height: 2.3em;
-  color: var(--ink);
-  text-align: center;
-  padding: 0 10px;
-  margin-bottom: clamp(16px, 2.08vw, 40px);
-}
-
-/* Figma 149:3648 — the photo fills the card's full width and runs to its
-   bottom edge. It takes whatever height is left rather than carrying one of
-   its own, so the six differently-proportioned source files all land flush. */
-.comp-tile__img {
   width: 100%;
-  flex: 1;
-  min-height: 0;
-  object-fit: cover;
+  height: 306px;
+  padding: 50px 14px 0;
+  background: var(--bg-card);
+  border-radius: 8.6px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 14px 30px -22px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.55s var(--ease-out), background 0.4s, opacity 0.45s var(--ease-out);
 }
+
+.comp-card__title {
+  font-size: 20.6px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--ink);
+  padding: 0 4px;
+  position: relative;
+  z-index: 1;
+  transition: letter-spacing 0.55s var(--ease-out), transform 0.55s var(--ease-out), color 0.4s var(--ease-out);
+}
+
+.comp-card a > img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center 40%;
+  border-radius: 0 0 8.6px 8.6px;
+  transform: scale(1);
+  transform-origin: center bottom;
+  /* transform + filter only — both GPU-composited, no per-frame layout. */
+  transition: transform 0.6s var(--ease-out), filter 0.6s;
+  filter: saturate(0.92);
+}
+
+.comp-card:hover a { box-shadow: 0 40px 52px -26px rgba(0, 0, 0, 0.45); }
+.comp-card:hover a > img { transform: scale(1.05); filter: saturate(1.14); }
+.comp-card:hover .comp-card__title { transform: translateY(-3px); letter-spacing: 0.01em; color: var(--green); }
+
+/* Spotlight — hovering one card dims the rest so focus lands where the cursor is */
+.comp-row:hover .comp-card:not(:hover) a { box-shadow: 0 14px 30px -22px rgba(0, 0, 0, 0.15); }
+.comp-row:hover .comp-card:not(:hover) a > img { filter: saturate(0.35) brightness(0.98); }
+.comp-row:hover .comp-card:not(:hover) .comp-card__title { color: var(--grey); }
 
 /* Note card (Figma 1:3712) — no fill of its own; the page white shows through
    and a single very soft drop shadow lifts it. 20px of vertical inset keeps the
@@ -747,16 +772,24 @@
    responsive.css cover the nav, footer and hero only.
    ========================================================= */
 
-@media (max-width: 1200px) {
-
-  /* Six 192px tracks stop fitting the container well before the tiles
-     themselves need to shrink. */
-  .power__row {
-    grid-template-columns: repeat(3, minmax(0, 192px));
-  }
-}
-
 @media (max-width: 1024px) {
+
+  /* Competency cards — home page tablet layout: three to a row, no hover
+     expand (a grid track can't grow). */
+  .comp-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: none;
+    perspective: none;
+  }
+
+  .comp-card {
+    flex: 0 1 auto;
+  }
+
+  .comp-card:hover {
+    flex-grow: 0;
+  }
 
   /* The brain is 661px of fixed art; below this the three-up stage has no
      room left for the skill columns beside it, so everything stacks. */
@@ -798,31 +831,84 @@
 }
 
 @media (max-width: 768px) {
-  .power__row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+  /* Competency cards — home page phone rail: 191px cards, 16px apart, first
+     card flush with the gutter and the next one half in view. Native
+     scroll-snap with the scrollbar hidden; mouse/pen drag is added by
+     the drag-to-scroll block at the end of hoax.js. */
+  .power .comp-row {
+    display: flex;
+    grid-template-columns: none;
+    justify-content: flex-start;
+    /* centring would clip the first card once the row overflows */
+    max-width: none;
+    perspective: none;
+    gap: 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--gutter);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* full-bleed track so the row can run past the gutters */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    cursor: grab;
   }
 
-  .comp-tile {
-    height: 250px;
-    padding-top: 26px;
+  .power .comp-row::-webkit-scrollbar {
+    display: none;
   }
 
-  /* Tablet/phone keep their own fixed photo heights, so opt back out of the
-     desktop rule's flex-fill. */
-  .comp-tile__img {
-    flex: none;
-    margin-top: auto;
-    height: 150px;
+  .power .comp-row.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+    /* a drag must track the pointer exactly */
+    user-select: none;
   }
 
-  .comp-tile:hover .comp-tile__img {
-    height: 158px;
+  /* the browser's own image drag would otherwise steal the gesture */
+  .power .comp-card img,
+  .power .comp-card a {
+    -webkit-user-drag: none;
   }
 
-  .comp-tile__label {
-    min-height: 0;
-    margin-bottom: 0;
+  .power .comp-card {
+    flex: 0 0 191px;
+    scroll-snap-align: start;
+  }
+
+  /* the desktop hover expand/dim would fire on tap and reflow the rail */
+  .power .comp-card:hover,
+  .power .comp-row:hover .comp-card:not(:hover) {
+    flex-grow: 0;
+  }
+
+  .power .comp-card:hover a,
+  .power .comp-row:hover .comp-card:not(:hover) a {
+    box-shadow: 0 14px 30px -22px rgba(0, 0, 0, 0.3);
+  }
+
+  .power .comp-card:hover a > img,
+  .power .comp-row:hover .comp-card:not(:hover) a > img {
+    transform: none;
+    filter: saturate(0.92);
+  }
+
+  .power .comp-card:hover .comp-card__title,
+  .power .comp-row:hover .comp-card:not(:hover) .comp-card__title {
+    transform: none;
+    letter-spacing: normal;
+    color: var(--ink);
+  }
+
+  .power .comp-card a {
+    height: 306px;
+    padding: 50px 14px 0;
+  }
+
+  .power .comp-card a > img,
+  .power .comp-card a:hover > img {
+    height: 170px;
   }
 
   .intro {
@@ -1061,6 +1147,12 @@
     height: auto;
     aspect-ratio: 572 / 1437;
     max-width: none;
+    /* The slice's baked drop shadow runs right to the bottom of its canvas,
+       so it stopped in a hard grey line across the wash, just above the
+       flowers. Feathering the last tenth (below the brain itself) lets the
+       shadow melt into the wash as it does in Figma. */
+    -webkit-mask-image: linear-gradient(180deg, #000 88%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 88%, transparent 100%);
   }
 
   .brain__stage::before {
@@ -1156,70 +1248,18 @@
     margin-top: 36px;
   }
 
-  /* Figma 1:3985 — a Slick carousel (hoax.js powerSlider()): 192px cards on a
-     16px gutter, indented 24 and bled to the right edge, so just under half of
-     the second card shows. No native scrollbar: the row clips and Slick
-     handles the swipe. The card width is 60vw rather than a fixed 192 so that
-     "1.5 per view" holds as the phone gets wider.
-     Before Slick starts the cards sit in a plain clipped strip, so nothing
-     jumps when it does. */
+  /* The rail itself is the 768px rule above. This page's phone container runs
+     a 24px gutter rather than --gutter's 20px floor, so the bleed and the
+     first card's inset follow it; the spacing above keeps the Power
+     section's existing 60px. */
   .power__row {
-    display: flex;
-    grid-template-columns: none;
-    justify-content: flex-start;
-    overflow: hidden;
-    gap: 16px;
-    margin: 60px -24px 0;
-    padding: 0 0 6px 24px;
+    margin-top: 60px;
   }
 
-  .power__row.slick-initialized {
-    display: block;
-    gap: 0;
-    overflow: visible;
-    padding: 0 0 6px;
-  }
-
-  /* The indent lives on the list so the cards still slide under it. */
-  .power__row .slick-list {
-    padding-left: 24px;
-  }
-
-  .comp-tile {
-    flex: 0 0 60vw;           /* 192 at 320 */
-    width: 60vw;
-    height: auto;
-    aspect-ratio: 192 / 306;
-    padding-top: 15.625vw;    /* 50 */
-  }
-
-  /* slick.css sets every slide to display:block; the card needs its flex
-     column back to keep the photo pinned to the bottom. */
-  .power__row .comp-tile.slick-slide {
-    display: flex;
-    height: auto;
-    margin-right: 16px;
-  }
-
-  /* Hover lift is a pointer effect; on touch it sticks after a swipe. */
-  .comp-tile:hover {
-    transform: none;
-    box-shadow: none;
-  }
-
-  /* The design reserves two lines here — "Cloud & Security" and "Customer
-     Experience" wrap at this width and the photos have to stay level. */
-  .comp-tile__label {
-    font-size: 20px;
-    min-height: 2.3em;
-    margin-bottom: 9.6875vw;  /* 31 → photo top lands on the design's 127 */
-  }
-
-  .comp-tile__img {
-    flex: 1;
-    min-height: 0;
-    margin-top: 0;
-    height: auto;
+  .power .comp-row {
+    scroll-padding-left: 24px;
+    margin-inline: -24px;
+    padding-inline: 24px;
   }
 
   /* Figma 1:3986 — 24px inset all round, the mark at 162, and the copy at the

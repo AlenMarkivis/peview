@@ -62,12 +62,12 @@
   }
   videoPlayer();
 
-  if (!window.gsap || !window.ScrollTrigger) { revealFallback(); cultureTabs(); powerSlider(); return; }
+  if (!window.gsap || !window.ScrollTrigger) { revealFallback(); cultureTabs(); return; }
   gsap.registerPlugin(ScrollTrigger);
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // `?noanim` renders the final static state (used for design QA screenshots)
-  if (reduce || /noanim/.test(location.search)) { revealFallback(); cultureTabs(); powerSlider(); return; }
+  if (reduce || /noanim/.test(location.search)) { revealFallback(); cultureTabs(); return; }
 
   gsap.defaults({ ease: 'power3.out', duration: 1 });
 
@@ -126,18 +126,7 @@
       });
     });
 
-    var groups = ['.power__row'];
-    groups.forEach(function (sel) {
-      document.querySelectorAll(sel).forEach(function (group) {
-        var items = group.querySelectorAll('.reveal-up');
-        if (!items.length) return;
-        gsap.fromTo(items, { opacity: 0, y: 60, scale: 0.98 }, {
-          opacity: 1, y: 0, scale: 1, duration: 1.05, stagger: 0.12, ease: 'power3.out',
-          immediateRender: false, clearProps: 'transform',
-          scrollTrigger: { trigger: group, start: 'top 82%', once: true }
-        });
-      });
-    });
+    // The competency cards have their own entrance — see competencies().
 
     document.querySelectorAll('[data-split="chars"]').forEach(function (el) {
       // The CTA heading shares cta()'s trigger so it plays with that sequence.
@@ -394,47 +383,55 @@
     else if (phone.addListener) phone.addListener(onChange);
   }
 
-  /* ---------- Power House Competencies: Slick carousel on phones ----------
-     Only the phone layout slides; wider screens keep the six-up grid, so the
-     carousel is built and torn down as the 480px breakpoint is crossed. Works
-     with or without GSAP. */
-  function powerSlider() {
-    var $ = window.jQuery;
-    if (!$ || !$.fn || !$.fn.slick) return;
-    var $row = $('.power__row');
-    if (!$row.length) return;
-    var phone = window.matchMedia('(max-width: 480px)');
-
-    function sync() {
-      var on = $row.hasClass('slick-initialized');
-      if (phone.matches && !on) {
-        $row.slick({
-          rows: 0,              // no extra wrapper div around each card
-          variableWidth: true,  // card widths come from the CSS (60vw)
-          infinite: false,
-          arrows: false,
-          dots: false,
-          swipeToSlide: true,
-          speed: 400,
-          cssEase: 'cubic-bezier(0.22, 1, 0.36, 1)'
-        });
-      } else if (!phone.matches && on) {
-        $row.slick('unslick');
-      }
-    }
-
-    sync();
-    if (phone.addEventListener) phone.addEventListener('change', sync);
-    else if (phone.addListener) phone.addListener(sync);
+  /* ---------- Competency cards: stack in one by one ----------
+     Same entrance as the home page Competencies row (home page/js/animations.js
+     competencies()). */
+  function competencies() {
+    var cards = gsap.utils.toArray('.comp-row .comp-card');
+    if (!cards.length) return;
+    var trigger = { trigger: '.comp-row', start: 'top 80%', once: true };
+    // Cards rise and sharpen into focus in a left-to-right wave (blur + scale settle).
+    gsap.fromTo(cards,
+      { opacity: 0, yPercent: 26, scale: 0.9, filter: 'blur(9px)' },
+      {
+        opacity: 1, yPercent: 0, scale: 1, filter: 'blur(0px)',
+        duration: 1.0, ease: 'expo.out',
+        stagger: { each: 0.09, from: 'start' },
+        immediateRender: false,
+        // Clear inline transform/filter so the CSS hover state isn't blocked.
+        clearProps: 'transform,filter',
+        scrollTrigger: trigger
+      });
+    // The image inside each card slides up and un-zooms slightly behind the card's
+    // clipped edge, giving the reveal depth. Lands a touch after the card.
+    var imgs = gsap.utils.toArray('.comp-card a > img');
+    gsap.fromTo(imgs,
+      { yPercent: 18, scale: 1.14 },
+      {
+        yPercent: 0, scale: 1, duration: 1.15, ease: 'expo.out',
+        stagger: { each: 0.09, from: 'start' }, delay: 0.12, immediateRender: false,
+        clearProps: 'transform',
+        scrollTrigger: trigger
+      });
+    // Titles fade up last for a crisp finish.
+    var titles = gsap.utils.toArray('.comp-card__title');
+    gsap.fromTo(titles,
+      { opacity: 0, y: 14 },
+      {
+        opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+        stagger: { each: 0.09, from: 'start' }, delay: 0.22, immediateRender: false,
+        clearProps: 'transform,opacity',
+        scrollTrigger: trigger
+      });
   }
 
   function init() {
     splitAll();
-    powerSlider();
     hero();
     reveals();
     brain();
     videoCard();
+    competencies();
     culture();
     cta();
     backgrounds();
@@ -446,4 +443,101 @@
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(init); }
   else { window.addEventListener('load', init); }
   window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+
+/* ============================================================
+   COMPETENCIES — drag to scroll the phone rail.
+   Ported from the home page (home page/js/interactions.js).
+
+   Below 768 the row becomes a horizontal snap strip (css/hoax.css).
+   Touch scrolls it natively, but a pointer drag never scrolls an overflow
+   container in any browser, so with a mouse or pen — including a desktop
+   window resized to phone width, and touch-screen laptops — the rail looks
+   frozen.
+
+   The guard is whether the row actually overflows, not a media query, so it
+   is inert while the desktop five-up row is laid out and switches itself on
+   across a resize or orientation change without re-reading a breakpoint.
+   ============================================================ */
+(function () {
+  var row = document.querySelector('.comp-row');
+  if (!row || !window.PointerEvent) return;
+
+  var THRESHOLD = 5;     // px of travel before a press counts as a drag
+  var THROW_MS  = 120;   // how far a flick coasts, as ms of its exit velocity
+
+  var id = null, startX = 0, startScroll = 0, dragged = false;
+  var lastX = 0, lastT = 0, velocity = 0;
+
+  function scrollable() { return row.scrollWidth - row.clientWidth > 1; }
+
+  row.addEventListener('pointerdown', function (e) {
+    // Touch already scrolls natively, with momentum no script matches.
+    if (e.pointerType === 'touch') return;
+    if (e.button !== 0 || !scrollable()) return;
+
+    id = e.pointerId;
+    startX = lastX = e.clientX;
+    startScroll = row.scrollLeft;
+    lastT = e.timeStamp;
+    velocity = 0;
+    dragged = false;
+    // Capture is deliberately deferred to the threshold below: capturing on
+    // pointerdown retargets the click to the row, so a plain click would no
+    // longer land on the card's link.
+  });
+
+  row.addEventListener('pointermove', function (e) {
+    if (id === null || e.pointerId !== id) return;
+
+    var dx = e.clientX - startX;
+    if (!dragged) {
+      if (Math.abs(dx) < THRESHOLD) return;   // still a click; let it be one
+      dragged = true;
+      row.classList.add('is-dragging');
+      row.setPointerCapture(id);
+      // scroll-snap:x mandatory re-snaps on every scrollLeft assignment, which
+      // makes a manual drag stutter. Off while dragging, handed back to the
+      // stylesheet on release so letting go still settles on a card.
+      row.style.scrollSnapType = 'none';
+    }
+
+    var dt = e.timeStamp - lastT;
+    if (dt > 0) velocity = (e.clientX - lastX) / dt;   // px per ms
+    lastX = e.clientX;
+    lastT = e.timeStamp;
+
+    row.scrollLeft = startScroll - dx;
+    e.preventDefault();
+  });
+
+  function endDrag(e) {
+    if (id === null || (e && e.pointerId !== id)) return;
+    if (row.hasPointerCapture(id)) row.releasePointerCapture(id);
+    id = null;
+    if (!dragged) return;
+
+    row.classList.remove('is-dragging');
+    row.style.scrollSnapType = '';
+
+    var thrown = velocity * THROW_MS;
+    if (Math.abs(thrown) > 10) {
+      row.scrollTo({ left: row.scrollLeft - thrown, behavior: 'smooth' });
+    }
+  }
+
+  row.addEventListener('pointerup', endDrag);
+  row.addEventListener('pointercancel', endDrag);
+
+  // A drag ends in a click on whichever card is under the pointer. Capture
+  // phase so it lands before the link, and only after real travel, so an
+  // ordinary tap still follows the card.
+  row.addEventListener('click', function (e) {
+    if (!dragged) return;
+    e.preventDefault();
+    e.stopPropagation();
+    dragged = false;
+  }, true);
+
+  row.addEventListener('dragstart', function (e) { e.preventDefault(); });
 })();
