@@ -1244,12 +1244,6 @@
     max-width: none;
   }
 
-  /* The mobile board sets the accented word in white — on the sky
-     the green used at desktop sizes is not what the frame shows. */
-  .cta__title .accent {
-    color: #fff;
-  }
-
   .cta__actions {
     margin-top: 40px;
     flex-direction: column;
