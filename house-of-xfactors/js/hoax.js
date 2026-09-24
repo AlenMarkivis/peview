@@ -129,11 +129,7 @@
     // The competency cards have their own entrance — see competencies().
 
     document.querySelectorAll('[data-split="chars"]').forEach(function (el) {
-      // The CTA heading shares cta()'s trigger so it plays with that sequence.
-      var ctaSection = el.closest('.cta-hoax');
-      revealChars(el, ctaSection
-        ? { each: 0.03, triggerEl: ctaSection, start: 'top 70%' }
-        : { each: 0.03 });
+      revealChars(el, { each: 0.03 });
     });
   }
 
@@ -231,46 +227,42 @@
     }
   }
 
-  /* ---------- Background parallax ---------- */
-  // Same two-layer treatment as the home page CTA: a scrubbed ±8% drift plus a
-  // slow one-shot zoom. Scale and translate live on separate tweens so they
-  // never fight each other on the same image.
+  /* ---------- Background parallax + slow zoom (home page bgParallax / bgZoom) ---------- */
   function backgrounds() {
-    var hills = document.querySelector('.cta-hoax__hills img');
-    if (hills) {
-      gsap.fromTo(hills, { yPercent: -8 }, {
+    document.querySelectorAll('[data-parallax-bg]').forEach(function (img) {
+      gsap.fromTo(img, { yPercent: -8 }, {
         yPercent: 8, ease: 'none',
-        scrollTrigger: { trigger: '.cta-hoax', start: 'top bottom', end: 'bottom top', scrub: true }
+        scrollTrigger: { trigger: img.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true }
       });
-      gsap.fromTo(hills, { scale: 1 }, {
+    });
+    var ctaBg = document.querySelector('.cta__bg img');
+    if (ctaBg) {
+      gsap.fromTo(ctaBg, { scale: 1 }, {
         scale: 1.12, duration: 10, ease: 'power1.out',
-        scrollTrigger: { trigger: '.cta-hoax', start: 'top 75%', once: true }
+        scrollTrigger: { trigger: '.cta', start: 'top 75%', once: true }
       });
     }
   }
 
-  /* ---------- CTA: plays once the section scrolls into view ----------
-     The landscape rises and fades in, then the two buttons pop up in turn.
-     The heading's char reveal comes from reveals(), retargeted here to the
-     same trigger so the three read as one sequence. The hills wrapper is
-     animated rather than its img, which already carries the parallax and
-     zoom tweens. */
+  /* ---------- CTA: same sequence as the home page (animations.js cta()) ---------- */
   function cta() {
-    var section = document.querySelector('.cta-hoax');
-    if (!section) return;
-    var hills = section.querySelector('.cta-hoax__hills');
-    var btns = section.querySelectorAll('.cta-hoax__actions .btn');
+    var block = document.querySelector('.cta .cta__inner');
+    if (!block) return;
+    var lines = block.querySelectorAll('.cta__title .split-inner');
+    var rest = block.querySelectorAll('.cta__body, .cta__actions');
 
-    if (hills) gsap.set(hills, { opacity: 0, y: 80 });
-    if (btns.length) gsap.set(btns, { opacity: 0, y: 30, scale: 0.9 });
+    if (lines.length) gsap.set(lines, { yPercent: 110 });
+    if (rest.length) gsap.set(rest, { opacity: 0, y: 20 });
 
-    var tl = gsap.timeline({ scrollTrigger: { trigger: section, start: 'top 70%', once: true } });
-    if (hills) tl.to(hills, { opacity: 1, y: 0, duration: 1.6, ease: 'power3.out' }, 0);
-    if (btns.length) {
-      tl.to(btns, {
-        opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.12, ease: 'back.out(1.6)',
-        clearProps: 'opacity,transform'
-      }, 0.7);
+    var tl = gsap.timeline({ paused: true });
+    if (lines.length) tl.to(lines, { yPercent: 0, duration: 1.1, stagger: 0.12, ease: 'power4.out' }, 0);
+    if (rest.length) tl.to(rest, { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 }, lines.length ? 0.25 : 0);
+
+    ScrollTrigger.create({ trigger: block, start: 'top 75%', once: true, onEnter: function () { tl.play(); } });
+
+    var curve = document.querySelector('.cta__curve');
+    if (curve) {
+      gsap.from(curve, { yPercent: 30, ease: 'none', scrollTrigger: { trigger: curve, start: 'top bottom', end: 'bottom bottom', scrub: true } });
     }
   }
 

@@ -249,7 +249,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 586px;
+  max-width: 466px;
   height: auto;
   justify-self: center;
 }
@@ -322,8 +322,7 @@
 
 .video-card__title {
   position: absolute;
-  /* Figma 1:3688 sits flush to the card's left edge, not inset. */
-  left: 0;
+  left: clamp(24px, 3.5vw, 64px);
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
@@ -691,73 +690,54 @@
   transition: opacity 0.28s var(--ease-out);
 }
 
-/* ---------- CTA ---------- */
-/* Figma hands the grey band straight to the blue at a flat edge — there is no
-   arc between Culture and the CTA, so this section's top curve is dropped and
-   the Culture band simply ends. */
-.cta-hoax > .edge--top {
-  display: none;
-}
-
-.cta-hoax {
+/* ---------- CTA (same as home page sections.css / responsive.css) ---------- */
+.cta {
   position: relative;
+  min-height: clamp(560px, 50.6vw, 971px);
+  padding: clamp(120px, 10.8vw, 207px) 0 clamp(300px, 30vw, 520px);
   overflow: hidden;
-  /* Figma 1:3717: 209px above the heading, 485px from the buttons down to the
-     footer arc — the landscape needs that room to read. */
-  padding: clamp(90px, 10.9vw, 209px) 0 clamp(150px, 25.26vw, 485px);
-  background: linear-gradient(180deg, #cfe6f4 0%, #e8f2ea 100%);
+  isolation: isolate;
   text-align: center;
 }
-
-/* Figma 1:3777 / 1:3780 — both CTA buttons are green; only the labels differ. */
-.cta-hoax .btn--dark {
-  background: var(--green);
+.cta__bg { position: absolute; inset: -8% 0 0; z-index: -1; }
+.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; will-change: transform; }
+.cta__title { max-width: 831px; margin-inline: auto; line-height: 1; }
+.cta__body {
+  max-width: 831px;
+  margin: 28px auto 0;
+  font-size: clamp(17px, 1.25vw, 24px);
+  line-height: 1.6;
+  color: var(--ink);
 }
-
-.cta-hoax .btn--dark:hover {
-  background: var(--green-dark);
-}
-
-.cta-hoax__inner {
-  position: relative;
-  z-index: 2;
-}
-
-.cta-hoax__head {
-  max-width: 11.6em;
-}
-
-.cta-hoax__actions {
-  margin-top: clamp(26px, 2.7vw, 52px);
+.cta__actions {
+  margin-top: 48px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: clamp(12px, 1.3vw, 25px);
+  gap: 24px;
   flex-wrap: wrap;
 }
+.cta__curve { height: clamp(30px, 4.4vw, 85px); z-index: 2; }
 
-/* Figma 1:3773 — one photo (sky through to hills) backs the whole section,
-   with the heading sitting over the sky. */
-/* Overhangs the section top and bottom so the scrubbed 8% parallax and the
-   slow zoom never expose an edge. */
-.cta-hoax__hills {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -10%;
-  height: 120%;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.cta-hoax__hills img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
-  display: block;
-  will-change: transform;
+@media (max-width: 768px) {
+  .cta {
+    min-height: 520px;
+    padding: 64px 0 230px;
+  }
+  .cta__title {
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    max-width: none;
+  }
+  .cta__title .accent { color: #fff; }
+  .cta__body { margin-top: 20px; font-size: 16px; }
+  .cta__actions {
+    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .cta__actions .btn { height: 40px; }
 }
 
 /* ---------- Reveal start states (JS clears these) ---------- */
@@ -980,13 +960,6 @@
     margin-right: 22px;
   }
 
-  .cta-hoax {
-    padding-bottom: clamp(120px, 42vw, 220px);
-  }
-
-  .cta-hoax__head {
-    max-width: 100%;
-  }
 }
 
 @media (max-width: 480px) {
@@ -1404,31 +1377,6 @@
 
   .culture__more {
     margin: 6px 24px 24px auto;
-  }
-
-  /* ---------- CTA ---------- */
-  /* Figma 1:3910 — the band runs 6107→6771 on the 320 frame: 150 above the
-     heading, 60 down to the button, and 277 of landscape beneath it. */
-  .cta-hoax {
-    padding: 150px 0 277px;
-  }
-
-  /* Figma's mobile CTA keeps only one, green "Contact" button. */
-  .cta-hoax__actions {
-    margin-top: 60px;
-    flex-direction: column;
-  }
-
-  .cta-hoax__actions .btn:first-child {
-    display: none;
-  }
-
-  .cta-hoax__actions .btn--dark {
-    background: var(--green);
-  }
-
-  .cta-hoax__actions .btn--dark:hover {
-    background: var(--green-dark);
   }
 }
 

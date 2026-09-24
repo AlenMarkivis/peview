@@ -216,12 +216,34 @@
         scrollTrigger: { trigger: img.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true }
       });
     });
-    var ctaBg = document.querySelector('.cta-hiai__bg img');
+    var ctaBg = document.querySelector('.cta__bg img');
     if (ctaBg) {
       gsap.fromTo(ctaBg, { scale: 1 }, {
         scale: 1.12, duration: 10, ease: 'power1.out',
-        scrollTrigger: { trigger: '.cta-hiai', start: 'top 75%', once: true }
+        scrollTrigger: { trigger: '.cta', start: 'top 75%', once: true }
       });
+    }
+  }
+
+  /* ---------- CTA: same sequence as the home page (animations.js cta()) ---------- */
+  function cta() {
+    var block = document.querySelector('.cta .cta__inner');
+    if (!block) return;
+    var lines = block.querySelectorAll('.cta__title .split-inner');
+    var rest = block.querySelectorAll('.cta__body, .cta__actions');
+
+    if (lines.length) gsap.set(lines, { yPercent: 110 });
+    if (rest.length) gsap.set(rest, { opacity: 0, y: 20 });
+
+    var tl = gsap.timeline({ paused: true });
+    if (lines.length) tl.to(lines, { yPercent: 0, duration: 1.1, stagger: 0.12, ease: 'power4.out' }, 0);
+    if (rest.length) tl.to(rest, { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 }, lines.length ? 0.25 : 0);
+
+    ScrollTrigger.create({ trigger: block, start: 'top 75%', once: true, onEnter: function () { tl.play(); } });
+
+    var curve = document.querySelector('.cta__curve');
+    if (curve) {
+      gsap.from(curve, { yPercent: 30, ease: 'none', scrollTrigger: { trigger: curve, start: 'top bottom', end: 'bottom bottom', scrub: true } });
     }
   }
 
@@ -245,6 +267,7 @@
     columns();
     flywheel();
     backgrounds();
+    cta();
     footer();
     ScrollTrigger.refresh();
   }

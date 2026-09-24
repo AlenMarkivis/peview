@@ -59,7 +59,6 @@
 .edge--bottom { bottom: -1px; }
 /* Figma drops each curve a little past its section edge (1:3267, 1:3320). */
 .quote .edge--bottom { bottom: min(-1px, -1.82vw); }
-.cta-hiai .edge--bottom { bottom: min(-1px, -1.09vw); }
 
 /* ---------- HERO ---------- */
 .hero--hiai .hero__bg { position: absolute; inset: 0; overflow: hidden; }
@@ -401,36 +400,55 @@
 }
 .way__note-link:hover { text-decoration: underline; }
 
-/* ---------- SECTION: CTA ----------
-   Background image and its motion are the home page's `.cta` implementation
-   (sections.css + animations.js): a full-bleed landscape bled 8% past the top
-   so the scroll parallax has travel to play with, anchored to its bottom edge
-   so the hills stay in frame, and clipped by the section. */
-.cta-hiai {
+/* ---------- CTA (same as home page sections.css / responsive.css) ---------- */
+.cta {
   position: relative;
   min-height: clamp(560px, 50.6vw, 971px);
-  padding: clamp(90px, 7.6vw, 146px) 0 clamp(300px, 30vw, 520px);
+  padding: clamp(120px, 10.8vw, 207px) 0 clamp(300px, 30vw, 520px);
   overflow: hidden;
   isolation: isolate;
   text-align: center;
 }
-.cta-hiai__bg { position: absolute; inset: -8% 0 0; z-index: -1; }
-.cta-hiai__bg img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
-  will-change: transform;
+.cta__bg { position: absolute; inset: -8% 0 0; z-index: -1; }
+.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; will-change: transform; }
+.cta__title { max-width: 831px; margin-inline: auto; line-height: 1; }
+.cta__body {
+  max-width: 831px;
+  margin: 28px auto 0;
+  font-size: clamp(17px, 1.25vw, 24px);
+  line-height: 1.6;
+  color: var(--ink);
 }
-.cta-hiai__inner { position: relative; z-index: 2; max-width: 1052px; margin: 0 auto; padding: 0 var(--gutter); }
-.cta-hiai .hiai-h2 { color: #090909; }
-.cta-hiai__body {
-  margin: clamp(24px, 3.07vw, 59px) auto 0;
-  max-width: 1052px;
-  font-size: clamp(18px, 1.56vw, 30px);
-  line-height: 2;
-  color: #1d1f1f;
+.cta__actions {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
 }
-.cta-hiai__btn { margin-top: clamp(30px, 3.07vw, 59px); }
+.cta__curve { height: clamp(30px, 4.4vw, 85px); z-index: 2; }
+
+@media (max-width: 768px) {
+  .cta {
+    min-height: 520px;
+    padding: 64px 0 230px;
+  }
+  .cta__title {
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    max-width: none;
+  }
+  .cta__title .accent { color: #fff; }
+  .cta__body { margin-top: 20px; font-size: 16px; }
+  .cta__actions {
+    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .cta__actions .btn { height: 40px; }
+}
 
 .way__note-title br {
     display: none;
@@ -461,7 +479,7 @@
   .hero--hiai .hero__title { font-size: 48px; line-height: 0.9; letter-spacing: -0.0375em; }
   .page-below__curve, .edge { height: clamp(14px, 4.43vw, 85px); }
   .page-below__curve { margin-bottom: -1px; }
-  .quote .edge--bottom, .cta-hiai .edge--bottom { bottom: -1px; }
+  .quote .edge--bottom { bottom: -1px; }
 
   .hiai-h2 { font-size: 36px; line-height: 1; }
 

@@ -229,10 +229,21 @@
    header (24px offset + 70px nav); it lives here rather than on .mega
    because content-box clipping would leave a .mega padding-top unpainted. */
 .mega__inner {
-  --mega-top: 106px;
+  --mega-top: 134px;
+  position: relative;
   width: min(1336px, 100% - var(--gutter) * 2);
   margin-inline: auto;
   padding: var(--mega-top) 23px 50px;
+}
+/* Grey rule under the nav bar (24px offset + 70px nav), inset to the nav's padding. */
+.mega__inner::before {
+  content: '';
+  position: absolute;
+  top: 94px;
+  left: 23px;
+  right: 23px;
+  height: 1px;
+  background: var(--line);
 }
 .mega__panel {
   display: none;
@@ -257,7 +268,7 @@
   display: block;
   position: relative;
   height: 220px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--bg-card);
   overflow: hidden;
   transform: translateY(0);
@@ -269,9 +280,9 @@
 
 .mega__tile--labelled span {
   position: absolute;
-  top: 26px; left: 6px; right: 6px;
+  top: 32px; left: 6px; right: 6px;
   text-align: center;
-  font-size: 14.5px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.2;
   color: var(--ink);
@@ -280,7 +291,6 @@
 .mega__tile--labelled > img { position: absolute; left: 0; right: 0; bottom: 0; height: 66%; object-fit: cover; object-position: top; }
 .mega__tile--labelled > img.contain { object-fit: contain; padding: 8px 16px; height: 62%; }
 .mega__tile--labelled > img.cover { height: 100%; top: 0; object-position: center; opacity: 0.95; }
-.mega__tile--wide span { top: 32px; font-size: 15.9px; }
 .mega__tile--wide > img.cover ~ span, .mega__tile--wide.has-cover span { color: #fff; }
 
 /* Staggered tile entrance */

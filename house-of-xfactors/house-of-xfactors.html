@@ -14,10 +14,10 @@
 
   <!-- Styles (split by concern) -->
   <link rel="stylesheet" href="css/base.css?v=6">
-  <link rel="stylesheet" href="css/header.css?v=6">
+  <link rel="stylesheet" href="css/header.css?v=7">
   <link rel="stylesheet" href="css/footer.css?v=6">
-  <link rel="stylesheet" href="css/hoax.css?v=7">
-  <link rel="stylesheet" href="css/responsive.css?v=6">
+  <link rel="stylesheet" href="css/hoax.css?v=9">
+  <link rel="stylesheet" href="css/responsive.css?v=9">
   <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
@@ -48,13 +48,15 @@
           <li class="nav__item has-menu" data-menu="competencies">
             <a class="nav__link" href="#">Competencies</a>
           </li>
+          <li class="nav__item has-menu" data-menu="insights">
+            <a class="nav__link" href="#">Insights</a>
+          </li>
           <li class="nav__item has-menu" data-menu="about">
             <a class="nav__link is-active" href="#">About</a>
           </li>
         </ul>
 
         <div class="nav__right">
-          <a class="nav__link has-menu" data-menu="insights" href="#">Insights</a>
           <a class="nav__link" href="#">Careers</a>
           <a class="nav__cta" href="#">Contact</a>
           <button class="nav__burger" type="button" aria-label="Open menu" aria-expanded="false">
@@ -119,12 +121,20 @@
           <section class="mega__panel" data-panel="about">
             <div class="mega__intro">
               <h3>About</h3>
-              <p>The people, partnerships and principles behind how we work.</p>
+              <p>Discover the impact of our HI/AI‑powered competencies on what you New Horizon.</p>
             </div>
             <ul class="mega__tiles mega__tiles--5">
-              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-about-story.png" alt="Our Story"></a></li>
-              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-about-values.png" alt="Values"></a></li>
-              <li><a href="#" class="mega__tile"><img src="assets/images/menu/menu-about-partner.png" alt="Partner Ecosystem"></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Our
+                    Story</span><img src="assets/images/menu/menu-about-story.png" alt="" class="cover"></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Human Powered
+                    AI</span><img src="assets/images/hiai-yinyang.png" alt="" class="contain"></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled mega__tile--wide"><span>House of
+                    X-Factors</span><img src="assets/images/brain-flowers.png" alt="" class="contain"></a></li>
+              <li><a href="#" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Partner
+                    Ecosystem</span><img src="assets/images/menu/menu-about-partner.png" alt="" class="contain"></a>
+              </li>
+              <li><a href="#" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Values</span><img
+                    src="assets/images/menu/menu-about-values.png" alt="" class="contain"></a></li>
             </ul>
           </section>
         </div>
@@ -299,23 +309,16 @@
       </section>
 
       <!-- ================= CTA ================= -->
-      <section class="cta-hoax" id="contact">
-        <div class="edge edge--top" aria-hidden="true">
-          <svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,0 L1920,0 L1920,85 Q960,5 0,85 Z" fill="#f5f7f7"/></svg>
-        </div>
-        <div class="cta-hoax__inner container">
-          <h2 class="hoax-h2 hoax-h2--tight cta-hoax__head" data-split="chars">Start a <span class="accent">Conversation</span> about your next horizon</h2>
-          <div class="cta-hoax__actions">
-            <button class="btn" type="button">Schedule a quick call
-              <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button class="btn btn--dark" type="button">Contact
-              <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
+      <section class="cta" id="contact">
+        <div class="cta__bg"><img src="assets/images/cta-landscape.jpg" alt="" data-parallax-bg></div>
+        <div class="container cta__inner">
+          <h2 class="h2 display cta__title" data-split="lines">Start a <span class="accent">Conversation</span> about your next horizon</h2>
+          <div class="cta__actions">
+            <a href="#" class="btn">Schedule a quick call <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="#" class="btn">Contact <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
-        <div class="cta-hoax__hills"><img src="assets/images/cta-landscape.jpg" alt=""></div>
-        <div class="edge edge--bottom" aria-hidden="true">
+        <div class="curve curve--bottom cta__curve" aria-hidden="true">
           <svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z" fill="#ffffff"/></svg>
         </div>
       </section>
@@ -335,7 +338,7 @@
         </div>
         <div class="footer__col">
           <h4>Competencies</h4>
-          <ul><li><a href="#">Engineering</a></li><li><a href="#">Cloud &amp; Security</a></li><li><a href="#">Quality</a></li><li><a href="#">Data</a></li><li><a href="#">AI</a></li><li><a href="#">Customer Experience</a></li><li><a href="#">Supply Chain</a></li></ul>
+          <ul><li><a href="#">Engineering</a></li><li><a href="#">Cloud &amp; Security</a></li><li><a href="#">Quality</a></li><li><a href="#">Data &amp; AI</a></li><li><a href="#">Enterprise</a></li></ul>
         </div>
         <div class="footer__col">
           <h4>About</h4>
@@ -396,8 +399,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="js/split-text.js"></script>
-  <script src="js/nav.js"></script>
+  <script src="js/nav.js?v=8"></script>
   <script src="js/interactions.js"></script>
-  <script src="js/hoax.js?v=7"></script>
+  <script src="js/hoax.js?v=8"></script>
 </body>
 </html>
