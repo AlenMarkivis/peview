@@ -13,6 +13,7 @@
   <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap" rel="stylesheet">
 
   <!-- Styles (split by concern) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
   <link rel="stylesheet" href="css/base.css?v=6">
   <link rel="stylesheet" href="css/header.css?v=6">
   <link rel="stylesheet" href="css/footer.css?v=6">
@@ -154,7 +155,7 @@
       <!-- ================= INTRO ================= -->
       <section class="intro" id="intro">
         <div class="container">
-          <h2 class="hoax-h2 hoax-h2--tight intro__head" data-split="chars">Xoriant’s global home for <span class="accent">Human</span> Ingenuity</h2>
+          <h2 class="hoax-h2 hoax-h2--tight intro__head" data-split="chars">Xoriant’s global home for<br class="br-mobile"> <span class="accent">Human</span> Ingenuity</h2>
           <div class="intro__copy">
             <p class="reveal">It’s where we develop the people skills that turn expertise and AI into real impact for clients.</p>
             <p class="reveal">In a world powered by AI, technology alone is no longer enough. The House of X‑Factors (HOXF) is where we grow the human side of tech: judgment, creativity, empathy and collaboration on top of our engineering and AI skills. It brings every country, every acquired company and every practice into one shared space, so we stay ahead in a time of continuous change.</p>
@@ -209,7 +210,7 @@
             <span class="video-card__tint"></span>
             <span class="video-card__title display">Human<br>Ingenuity</span>
             <button class="video-card__play" type="button" aria-label="Play the Human Ingenuity film">
-              <svg viewBox="0 0 137 141" fill="none" aria-hidden="true"><path d="M137 70.5 0 141V0l137 70.5Z" fill="#ffffff"/></svg>
+              <img src="assets/icons/play-triangle.svg" alt="" aria-hidden="true" width="98" height="108">
             </button>
             <div class="video-card__frame" hidden></div>
           </div>
@@ -271,33 +272,33 @@
 
           <div class="culture__grid">
             <div class="culture__list" role="tablist" aria-label="HOXF initiatives">
-              <button class="culture__item is-active reveal" type="button" role="tab" aria-selected="true"
+              <button class="culture__item is-active is-open" type="button" role="tab" aria-selected="true"
                 data-title="DaVinci Academy"
                 data-text="Where AI innovation meets impact, creativity meets results. Partnership with leading educational institutions, including Harvard programs."
                 data-img="assets/images/hoax-davinci.jpg">DaVinci Academy</button>
-              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+              <button class="culture__item" type="button" role="tab" aria-selected="false"
                 data-title="Ideathon"
                 data-text="A company-wide call for raw ideas. Teams from every geography and practice pitch the problems worth solving before anyone writes a line of code."
                 data-img="assets/images/hoax-davinci.jpg">Ideathon</button>
-              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+              <button class="culture__item" type="button" role="tab" aria-selected="false"
                 data-title="Nextme"
                 data-text="A personal growth track where engineers, consultants and leaders design the next version of their own craft, with mentorship from across the Houses."
                 data-img="assets/images/hoax-davinci.jpg">Nextme</button>
-              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+              <button class="culture__item" type="button" role="tab" aria-selected="false"
                 data-title="Imagine"
                 data-text="Deliberate creative practice — storytelling, facilitation and design thinking — so technical depth arrives with the human skills that make it land."
                 data-img="assets/images/hoax-davinci.jpg">Imagine</button>
-              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+              <button class="culture__item" type="button" role="tab" aria-selected="false"
                 data-title="Happy Place to Work"
                 data-text="The rituals, spaces and safeguards that make Xoriant somewhere people want to stay — measured, reviewed and improved every year."
                 data-img="assets/images/hoax-davinci.jpg">Happy Place to Work</button>
-              <button class="culture__item reveal" type="button" role="tab" aria-selected="false"
+              <button class="culture__item" type="button" role="tab" aria-selected="false"
                 data-title="Corporate Social Responsibility"
                 data-text="Putting our engineering and AI capability behind education, sustainability and community programs in every country we operate in."
                 data-img="assets/images/hoax-davinci.jpg">Corporate Social Responsibility</button>
             </div>
 
-            <article class="culture__panel reveal" id="culture-panel">
+            <article class="culture__panel" id="culture-panel">
               <div class="culture__media"><img src="assets/images/hoax-davinci.jpg" alt=""></div>
               <div class="culture__copy">
                 <h3 class="culture__title">DaVinci Academy</h3>
@@ -318,7 +319,7 @@
         </div>
         <div class="cta-hoax__inner container">
           <h2 class="hoax-h2 hoax-h2--tight cta-hoax__head" data-split="chars">Start a <span class="accent">Conversation</span> about your next horizon</h2>
-          <div class="cta-hoax__actions reveal">
+          <div class="cta-hoax__actions">
             <button class="btn" type="button">Schedule a quick call
               <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
@@ -407,6 +408,8 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
   <script src="js/split-text.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/interactions.js"></script>

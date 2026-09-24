@@ -256,8 +256,30 @@
   .btn { padding-left: 18px; padding-right: 18px; letter-spacing: 0.14em; }
   .why__stack { height: 400px; }
   .comp-row { grid-template-columns: repeat(2, 1fr); }
-  .footer__cols { grid-template-columns: 1fr 1fr; gap: 20px 12px; }
-  .footer__col--wide { grid-column: 1 / -1; }
+  /* Figma's 320px footer stacks every column full-width, one after another,
+     rather than pairing them off two-up. `minmax(0, 1fr)`, not bare `1fr` —
+     a single `1fr` track still sizes to its content's min-content width, and
+     the nowrap newsletter button below is wide enough to blow every column
+     out past the container. */
+  .footer__cols { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .footer__col--wide { grid-column: auto; }
+
+  /* The mobile nav (Figma 1:3813) shows only the logo and the burger — no
+     inline Contact pill. At 320–480px that pill had nowhere to go and
+     overlapped the logo text, so it comes out at this width. */
+  .nav__cta { display: none; }
+
+  /* "Subscribe to our newsletter" fits one line at ~250px in Figma; the
+     1024px breakpoint's `white-space: normal` (needed for longer CTA labels
+     elsewhere) was wrapping it here too. Trimmed gap/padding bring its
+     nowrap width back under the 272px column. */
+  .footer__col--wide .btn--soft {
+    white-space: nowrap;
+    gap: 6px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-size: 12px;
+  }
 }
 
 /* Very large screens: stop the page from stretching beyond the design */

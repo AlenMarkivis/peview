@@ -62,12 +62,12 @@
   }
   videoPlayer();
 
-  if (!window.gsap || !window.ScrollTrigger) { revealFallback(); cultureTabs(); return; }
+  if (!window.gsap || !window.ScrollTrigger) { revealFallback(); cultureTabs(); powerSlider(); return; }
   gsap.registerPlugin(ScrollTrigger);
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // `?noanim` renders the final static state (used for design QA screenshots)
-  if (reduce || /noanim/.test(location.search)) { revealFallback(); cultureTabs(); return; }
+  if (reduce || /noanim/.test(location.search)) { revealFallback(); cultureTabs(); powerSlider(); return; }
 
   gsap.defaults({ ease: 'power3.out', duration: 1 });
 
@@ -140,7 +140,11 @@
     });
 
     document.querySelectorAll('[data-split="chars"]').forEach(function (el) {
-      revealChars(el, { each: 0.03 });
+      // The CTA heading shares cta()'s trigger so it plays with that sequence.
+      var ctaSection = el.closest('.cta-hoax');
+      revealChars(el, ctaSection
+        ? { each: 0.03, triggerEl: ctaSection, start: 'top 70%' }
+        : { each: 0.03 });
     });
   }
 
@@ -222,9 +226,11 @@
     var panel = document.querySelector('.culture__panel');
     if (list) {
       var items = list.querySelectorAll('.culture__item');
+      // This is the rows' only entrance tween — they no longer carry .reveal,
+      // whose separate y-tween fought this one and left a stray x offset.
       gsap.fromTo(items, { opacity: 0, x: -24 }, {
         opacity: 1, x: 0, duration: 0.7, stagger: 0.09, ease: 'power3.out',
-        clearProps: 'transform',
+        clearProps: 'opacity,transform',
         scrollTrigger: { trigger: list, start: 'top 82%', once: true }
       });
     }
@@ -254,6 +260,31 @@
     }
   }
 
+  /* ---------- CTA: plays once the section scrolls into view ----------
+     The landscape rises and fades in, then the two buttons pop up in turn.
+     The heading's char reveal comes from reveals(), retargeted here to the
+     same trigger so the three read as one sequence. The hills wrapper is
+     animated rather than its img, which already carries the parallax and
+     zoom tweens. */
+  function cta() {
+    var section = document.querySelector('.cta-hoax');
+    if (!section) return;
+    var hills = section.querySelector('.cta-hoax__hills');
+    var btns = section.querySelectorAll('.cta-hoax__actions .btn');
+
+    if (hills) gsap.set(hills, { opacity: 0, y: 80 });
+    if (btns.length) gsap.set(btns, { opacity: 0, y: 30, scale: 0.9 });
+
+    var tl = gsap.timeline({ scrollTrigger: { trigger: section, start: 'top 70%', once: true } });
+    if (hills) tl.to(hills, { opacity: 1, y: 0, duration: 1.6, ease: 'power3.out' }, 0);
+    if (btns.length) {
+      tl.to(btns, {
+        opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.12, ease: 'back.out(1.6)',
+        clearProps: 'opacity,transform'
+      }, 0.7);
+    }
+  }
+
   /* ---------- Footer ---------- */
   function footer() {
     gsap.from('.footer__cols .footer__col', {
@@ -277,35 +308,135 @@
     var title = panel.querySelector('.culture__title');
     var text = panel.querySelector('.culture__text');
 
+    // Phones get an accordion: the one panel opens under whichever row is
+    // active (CSS moves it there with `order`) and slides open and shut.
+    // Desktop and tablet keep the tab list with its cross-fade.
+    var phone = window.matchMedia('(max-width: 480px)');
+    var $panel = window.jQuery ? window.jQuery(panel) : null;
+    var SLIDE = 350;
+
+    function fill(item) {
+      title.textContent = item.dataset.title;
+      text.textContent = item.dataset.text;
+      if (item.dataset.img) img.src = item.dataset.img;
+    }
+
+    function activate(item) {
+      items.forEach(function (i) {
+        i.classList.remove('is-active', 'is-open');
+        i.setAttribute('aria-selected', 'false');
+      });
+      item.classList.add('is-active');
+      item.setAttribute('aria-selected', 'true');
+    }
+
+    function slideDown(item) {
+      item.classList.add('is-open');
+      if ($panel) $panel.stop(true).slideDown(SLIDE);
+      else panel.style.display = '';
+    }
+
+    function slideUp(item, done) {
+      item.classList.remove('is-open');
+      if ($panel) $panel.stop(true).slideUp(SLIDE, done);
+      else { panel.style.display = 'none'; if (done) done(); }
+    }
+
+    function phoneClick(item) {
+      var open = panel.style.display !== 'none';
+      if (item.classList.contains('is-active')) {
+        // The open row toggles shut and back open.
+        if (item.classList.contains('is-open')) slideUp(item);
+        else slideDown(item);
+        return;
+      }
+      var current = document.querySelector('.culture__item.is-active');
+      function openNew() {
+        activate(item);
+        fill(item);
+        slideDown(item);
+      }
+      if (open && current) slideUp(current, openNew);
+      else openNew();
+    }
+
+    function desktopClick(item) {
+      if (item.classList.contains('is-active')) return;
+      activate(item);
+      item.classList.add('is-open');
+
+      // Fade the panel out, swap the content, fade it back in.
+      panel.classList.add('is-swapping');
+      window.setTimeout(function () {
+        fill(item);
+        panel.classList.remove('is-swapping');
+      }, 280);
+    }
+
     items.forEach(function (item) {
       item.addEventListener('click', function () {
-        if (item.classList.contains('is-active')) return;
-        items.forEach(function (i) {
-          i.classList.remove('is-active');
-          i.setAttribute('aria-selected', 'false');
-        });
-        item.classList.add('is-active');
-        item.setAttribute('aria-selected', 'true');
-
-        // Fade the panel out, swap the content, fade it back in.
-        panel.classList.add('is-swapping');
-        window.setTimeout(function () {
-          title.textContent = item.dataset.title;
-          text.textContent = item.dataset.text;
-          if (item.dataset.img) img.src = item.dataset.img;
-          panel.classList.remove('is-swapping');
-        }, 280);
+        if (phone.matches) phoneClick(item);
+        else desktopClick(item);
       });
     });
+
+    // Leaving the phone layout with the accordion shut would strand the panel
+    // hidden on desktop, so the slide's inline styles are cleared and the
+    // active row is marked open again.
+    function onChange() {
+      if (phone.matches) return;
+      if ($panel) $panel.stop(true, true);
+      panel.style.display = '';
+      var active = document.querySelector('.culture__item.is-active');
+      if (active) active.classList.add('is-open');
+    }
+    if (phone.addEventListener) phone.addEventListener('change', onChange);
+    else if (phone.addListener) phone.addListener(onChange);
+  }
+
+  /* ---------- Power House Competencies: Slick carousel on phones ----------
+     Only the phone layout slides; wider screens keep the six-up grid, so the
+     carousel is built and torn down as the 480px breakpoint is crossed. Works
+     with or without GSAP. */
+  function powerSlider() {
+    var $ = window.jQuery;
+    if (!$ || !$.fn || !$.fn.slick) return;
+    var $row = $('.power__row');
+    if (!$row.length) return;
+    var phone = window.matchMedia('(max-width: 480px)');
+
+    function sync() {
+      var on = $row.hasClass('slick-initialized');
+      if (phone.matches && !on) {
+        $row.slick({
+          rows: 0,              // no extra wrapper div around each card
+          variableWidth: true,  // card widths come from the CSS (60vw)
+          infinite: false,
+          arrows: false,
+          dots: false,
+          swipeToSlide: true,
+          speed: 400,
+          cssEase: 'cubic-bezier(0.22, 1, 0.36, 1)'
+        });
+      } else if (!phone.matches && on) {
+        $row.slick('unslick');
+      }
+    }
+
+    sync();
+    if (phone.addEventListener) phone.addEventListener('change', sync);
+    else if (phone.addListener) phone.addListener(sync);
   }
 
   function init() {
     splitAll();
+    powerSlider();
     hero();
     reveals();
     brain();
     videoCard();
     culture();
+    cta();
     backgrounds();
     footer();
     cultureTabs();

@@ -98,7 +98,7 @@
 .hero--hoax .hero__tint {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.40);
+  background: rgba(0, 0, 0, 0.10);
 }
 
 .hero--hoax .hero__content {
@@ -172,6 +172,11 @@
   max-width: 11.4em;
 }
 
+/* A line break only the phone layout uses (see the 480px block). */
+.br-mobile {
+  display: none;
+}
+
 .intro__copy {
   max-width: 1272px;
   margin: clamp(24px, 2.2vw, 44px) auto 0;
@@ -187,13 +192,26 @@
 }
 
 /* ---------- LEFT BRAIN / RIGHT BRAIN ---------- */
+/* Figma 1:3666 — the section opens on a flat #f5f7f7 field that holds through
+   the heading and body copy, then washes out to white just as the brain art
+   comes in. The stops are lengths rather than percentages so the wash keeps its
+   distance from the top edge instead of drifting with the section's height,
+   which the art (and the panel below it) drives. */
 .brain {
-  padding-bottom: clamp(16px, 2vw, 36px);
+  background: linear-gradient(180deg,
+      #f5f7f7 0,
+      #f5f7f7 clamp(190px, 28.23vw, 542px),
+      #ffffff clamp(275px, 40.68vw, 781px));
+  padding-top: clamp(48px, 7.14vw, 137px);
+  /* Figma 1:3679 → 1:3680: 77px from the base of the artwork to the top of the
+     Future heading. The art's own PNG leaves ~23px of transparent footer, so
+     the section carries the remaining 54. */
+  padding-bottom: clamp(16px, 2.81vw, 54px);
 }
 
 .brain__body {
   max-width: 893px;
-  margin: clamp(20px, 2.4vw, 46px) auto 0;
+  margin: clamp(28px, 3.59vw, 69px) auto 0;
   text-align: center;
   line-height: 1.8;
 }
@@ -202,7 +220,7 @@
   position: relative;
   margin-top: clamp(30px, 3.2vw, 62px);
   display: grid;
-  grid-template-columns: 1fr minmax(0, 320px) 1fr;
+  grid-template-columns: 1fr minmax(0, 586px) 1fr;
   align-items: center;
   column-gap: clamp(12px, 2vw, 40px);
 }
@@ -216,7 +234,11 @@
   left: 0;
   right: 0;
   top: 50%;
-  transform: translateY(-50%);
+  /* The centring lives on `translate`, not `transform`: the entry tween in
+     hoax.js writes `transform` (scaleY) on this element, so a translate parked
+     there would be wiped the moment the panel animates and the panel would drop
+     to sit on the stage's midline instead of straddling it. */
+  translate: 0 -50%;
   height: 52%;
   border-radius: var(--radius);
   background: linear-gradient(180deg, rgba(243, 243, 245, 0) 0%, #f3f3f5 100%);
@@ -227,7 +249,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 320px;
+  max-width: 586px;
   height: auto;
   justify-self: center;
 }
@@ -255,19 +277,22 @@
 
 /* ---------- HOW IT DEVELOPS / VIDEO ---------- */
 .future {
-  padding-bottom: clamp(70px, 7.3vw, 140px);
+  /* Figma 1:3682 → 1:3689: 126px from the video card to the Power heading. */
+  padding-bottom: clamp(70px, 6.56vw, 126px);
 }
 
 .future__body {
   max-width: 893px;
-  margin: clamp(20px, 2.4vw, 46px) auto 0;
+  /* Figma 1:3680 → 1:3681 */
+  margin: clamp(20px, 3.54vw, 68px) auto 0;
   text-align: center;
   line-height: 1.8;
 }
 
 .video-card {
   position: relative;
-  margin-top: clamp(30px, 3.4vw, 65px);
+  /* Figma 1:3681 → 1:3682 */
+  margin-top: clamp(30px, 5.57vw, 107px);
   border-radius: var(--radius);
   overflow: hidden;
   aspect-ratio: 1437 / 669;
@@ -285,15 +310,20 @@
   will-change: transform;
 }
 
+/* Figma 1:3684 carries no scrim — measured left/right brightness across the
+   still is flat (≈77 vs ≈77), so the poster reads at full strength and the
+   title leans on its own text-shadow. The phone breakpoint re-adds a vertical
+   scrim of its own further down. */
 .video-card__tint {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.12) 55%, rgba(0, 0, 0, 0) 100%);
+  background: none;
 }
 
 .video-card__title {
   position: absolute;
-  left: clamp(24px, 7.3vw, 140px);
+  /* Figma 1:3688 sits flush to the card's left edge, not inset. */
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
@@ -306,28 +336,30 @@
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
 }
 
+/* Figma 1:3687 — 98x107. A triangle's optical centre is a third of the way in
+   from its flat edge, not half, which is why the design offsets it right of the
+   card's midline; translating by -1/3 rather than -1/2 reproduces that. */
 .video-card__play {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-33.333%, -50%);
   z-index: 2;
-  width: clamp(58px, 7.1vw, 137px);
-  height: clamp(58px, 7.1vw, 137px);
+  width: clamp(42px, 5.1vw, 98px);
+  height: clamp(46px, 5.58vw, 107px);
   display: grid;
   place-items: center;
   transition: transform var(--dur) var(--ease-out);
 }
 
-.video-card__play svg {
+.video-card__play img {
   width: 100%;
   height: 100%;
   display: block;
-  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.35));
 }
 
 .video-card:hover .video-card__play {
-  transform: translate(-50%, -50%) scale(1.08);
+  transform: translate(-33.333%, -50%) scale(1.08);
 }
 
 /* ---------- Video card: playing state ---------- */
@@ -370,7 +402,9 @@
 
 /* ---------- POWER HOUSE COMPETENCIES ---------- */
 .power {
-  padding-bottom: clamp(16px, 1.8vw, 32px);
+  /* The white run between the note card and the Culture band is owned by
+     .culture's margin-top, so the section itself closes flush. */
+  padding-bottom: 0;
 }
 
 .power__eyebrow {
@@ -381,17 +415,21 @@
 
 .power__body {
   max-width: 893px;
-  margin: clamp(16px, 1.7vw, 33px) auto 0;
+  /* Figma 1:3691 → 1:3690 */
+  margin: clamp(16px, 3.13vw, 60px) auto 0;
   text-align: center;
   line-height: 1.8;
 }
 
+/* Figma 149:3644 — the card group measures 1180 on a 20px gutter. The design
+   lays out five cards in it; this page carries six, so they divide the same
+   1180 rather than widening the row. */
 .power__row {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 192px));
-  justify-content: center;
-  gap: 16px;
-  margin-top: clamp(30px, 3.4vw, 65px);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1180px;
+  margin: clamp(30px, 5vw, 96px) auto 0;
 }
 
 .comp-tile {
@@ -412,40 +450,44 @@
   box-shadow: 0 18px 40px rgba(29, 31, 31, 0.10);
 }
 
+/* Figma 149:3647 sits the label 50px down and opens 56px before the photo.
+   Two of this page's six labels wrap at 180px ("Cloud & Security", "Customer
+   Experience"), so the label reserves both lines — otherwise the photos below
+   start at different heights and the row stops lining up. */
 .comp-tile__label {
   font-weight: 700;
   font-size: clamp(14px, 1.07vw, 20.6px);
   line-height: 1.15;
+  min-height: 2.3em;
   color: var(--ink);
   text-align: center;
   padding: 0 10px;
+  margin-bottom: clamp(16px, 2.08vw, 40px);
 }
 
+/* Figma 149:3648 — the photo fills the card's full width and runs to its
+   bottom edge. It takes whatever height is left rather than carrying one of
+   its own, so the six differently-proportioned source files all land flush. */
 .comp-tile__img {
-  margin-top: auto;
   width: 100%;
-  height: clamp(140px, 10.9vw, 209px);
-  object-fit: contain;
-  object-position: bottom center;
-  transition: height var(--dur) var(--ease-out);
+  flex: 1;
+  min-height: 0;
+  object-fit: cover;
 }
 
-.comp-tile:hover .comp-tile__img {
-  height: clamp(150px, 11.6vw, 222px);
-}
-
-/* Note card (Figma 1:3713) — white, r10, very soft wide shadow */
+/* Note card (Figma 1:3712) — no fill of its own; the page white shows through
+   and a single very soft drop shadow lifts it. 20px of vertical inset keeps the
+   card at the design's 197px. */
 .note-card {
-  margin-top: clamp(24px, 3vw, 58px);
-  background: #fff;
+  margin-top: clamp(24px, 5.99vw, 115px);
   border-radius: var(--radius);
-  box-shadow: 0 10px 100px rgba(29, 31, 31, 0.10);
+  box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.06);
   min-height: clamp(140px, 10.3vw, 197px);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: clamp(16px, 1.2vw, 24px);
-  padding: clamp(22px, 2vw, 38px) var(--gutter);
+  padding: clamp(16px, 1.04vw, 20px) var(--gutter);
 }
 
 .note-card__img {
@@ -478,8 +520,17 @@
 .culture {
   position: relative;
   background: #f5f7f7;
-  padding: clamp(28px, 3.2vw, 56px) 0 clamp(60px, 6vw, 110px);
-  margin-top: 0;
+  /* The 85px edge curve overlays the top of this section, so the heading needs
+     to clear it by a good margin — at the old 56px it started inside the arc.
+     Bottom is Figma 1:3791 → the CTA band: 148px. */
+  padding: clamp(60px, 11.56vw, 222px) 0 clamp(60px, 7.71vw, 148px);
+}
+
+/* Figma runs 169px of page white between the note card and the top of the grey
+   band. The arc eats the first ~45px of that, so the rest sits here rather than
+   on .power's padding. */
+.culture .container {
+  width: min(1202px, 100% - var(--gutter) * 2);
 }
 
 .culture__eyebrow {
@@ -490,7 +541,10 @@
 .culture__grid {
   display: grid;
   grid-template-columns: minmax(0, 501px) minmax(0, 584px);
-  justify-content: space-between;
+  /* Centred, not spread: the two tracks plus the 117px gutter are the design's
+     full 1202px measure. `space-between` stretched that to the 1440 container
+     and pushed the gap out to ~355px. */
+  justify-content: center;
   align-items: start;
   gap: clamp(30px, 6vw, 117px);
   margin-top: clamp(36px, 4.2vw, 80px);
@@ -510,12 +564,15 @@
   line-height: 1.15;
   color: var(--grey);
   cursor: pointer;
-  transition: color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+  /* The hover nudge uses `translate`, not `transform`: GSAP owns `transform`
+     for the entrance, and a CSS transition on the same property left the
+     first row stuck part-way (translate(-11.72px)). */
+  transition: color var(--dur) var(--ease-out), translate var(--dur) var(--ease-out);
 }
 
 .culture__item:hover {
   color: var(--ink-3);
-  transform: translateX(4px);
+  translate: 4px 0;
 }
 
 .culture__item.is-active {
@@ -541,8 +598,10 @@
   object-fit: cover;
 }
 
+/* Figma 1:3803 — the copy block ends where it ends; the space beneath it is the
+   arrow's own margin, not a second run of padding. */
 .culture__copy {
-  padding: clamp(22px, 2.1vw, 40px) clamp(22px, 2.8vw, 53px) clamp(26px, 2.6vw, 50px);
+  padding: clamp(22px, 2.1vw, 40px) clamp(22px, 2.8vw, 53px) 0;
 }
 
 .culture__title {
@@ -559,30 +618,40 @@
   color: var(--grey);
 }
 
+/* Figma 1:3806 — a 40px rounded square pinned to the panel's bottom-right
+   (26px in, 25px up), not a centred circle. */
 .culture__more {
   display: grid;
   place-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 4px;
   background: #f6f6f6;
-  margin: clamp(14px, 1.1vw, 22px) clamp(22px, 2.8vw, 53px) clamp(22px, 2.4vw, 46px) auto;
+  margin: clamp(14px, 1.4vw, 27px) clamp(18px, 1.35vw, 26px) clamp(14px, 1.3vw, 25px) auto;
   transition: background var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
 }
 
+/* The arrow path is stroked with `currentColor` in the markup, and a
+   presentation attribute outranks the inherited stroke — so the colour has to
+   flip on the button itself, not just on the <svg>, for the icon to go white. */
 .culture__more:hover {
   background: var(--green);
+  color: #fff;
   transform: translateX(3px);
 }
 
+/* Figma 1:3807 points the glyph up and to the right; the markup ships a plain
+   east arrow, so it is turned rather than swapped. */
 .culture__more svg {
   width: 14px;
   height: 14px;
   stroke: var(--ink);
+  transform: rotate(-45deg);
   transition: stroke var(--dur) var(--ease-out);
 }
 
-.culture__more:hover svg {
+.culture__more:hover svg,
+.culture__more:hover svg path {
   stroke: #fff;
 }
 
@@ -598,12 +667,30 @@
 }
 
 /* ---------- CTA ---------- */
+/* Figma hands the grey band straight to the blue at a flat edge — there is no
+   arc between Culture and the CTA, so this section's top curve is dropped and
+   the Culture band simply ends. */
+.cta-hoax > .edge--top {
+  display: none;
+}
+
 .cta-hoax {
   position: relative;
   overflow: hidden;
-  padding: clamp(90px, 10.9vw, 209px) 0 clamp(150px, 19vw, 365px);
+  /* Figma 1:3717: 209px above the heading, 485px from the buttons down to the
+     footer arc — the landscape needs that room to read. */
+  padding: clamp(90px, 10.9vw, 209px) 0 clamp(150px, 25.26vw, 485px);
   background: linear-gradient(180deg, #cfe6f4 0%, #e8f2ea 100%);
   text-align: center;
+}
+
+/* Figma 1:3777 / 1:3780 — both CTA buttons are green; only the labels differ. */
+.cta-hoax .btn--dark {
+  background: var(--green);
+}
+
+.cta-hoax .btn--dark:hover {
+  background: var(--green-dark);
 }
 
 .cta-hoax__inner {
@@ -659,10 +746,6 @@
    Responsive — page-specific. The shared breakpoints in
    responsive.css cover the nav, footer and hero only.
    ========================================================= */
-.brain__panel {
-  transform: translate(0%, 0%) translate(0px, -0.047px) !important;
-  opacity: 1;
-}
 
 @media (max-width: 1200px) {
 
@@ -700,7 +783,7 @@
   .brain__panel {
     top: auto;
     bottom: 0;
-    transform: none;
+    translate: none;
     height: 58%;
   }
 
@@ -725,12 +808,21 @@
     padding-top: 26px;
   }
 
+  /* Tablet/phone keep their own fixed photo heights, so opt back out of the
+     desktop rule's flex-fill. */
   .comp-tile__img {
+    flex: none;
+    margin-top: auto;
     height: 150px;
   }
 
   .comp-tile:hover .comp-tile__img {
     height: 158px;
+  }
+
+  .comp-tile__label {
+    min-height: 0;
+    margin-bottom: 0;
   }
 
   .intro {
@@ -769,8 +861,14 @@
     font-size: 32px;
   }
 
+  /* Keep the phone/tablet play badge on the card's true centre line. */
   .video-card__play {
     left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .video-card:hover .video-card__play {
+    transform: translate(-50%, -50%) scale(1.08);
   }
 
   .video-card__tint {
@@ -806,36 +904,505 @@
 }
 
 @media (max-width: 480px) {
+  /* ---------- Hero ---------- */
+  /* Figma 1:3814 draws the hero 449 tall on a 320 frame and lands its arc at
+     14px — which is the same 4.43vw the desktop arc uses, just without the
+     40px floor that was clamping it up here. Dropping the floor gives 14.2px
+     at 320 and keeps the two ends of the scale on one formula.
+     The .hero.hero--hoax pairing is deliberate: responsive.css loads after
+     this file, so a single-class .hero would lose to its 768px block. */
+  :root {
+    --hero-curve: 4.43vw;
+  }
+
+  .hero.hero--hoax {
+    /* 449 / 320 = 140.3125vw. The svh ceiling only engages on short landscape
+       viewports, where the authored height would otherwise overshoot. */
+    height: min(140.3125vw, 92svh);
+    min-height: 0;
+  }
+
+  .hero.hero--hoax .hero__content {
+    height: calc(min(140.3125vw, 92svh) - var(--hero-curve));
+    min-height: 0;
+    /* Figma seats the title/eyebrow block 11px above the true centre; the
+       bottom padding is what lifts it (Figma cap-top 151, matched). */
+    padding: 0 var(--gutter) 22px;
+  }
+
+  /* Figma's 320px frame runs a 24px gutter, not the 20px floor --gutter
+     clamps to at this width. Scoped to this page's own .container uses.
+     `.culture .container` is listed too so the desktop 1202px measure does
+     not out-specify this at phone widths. */
+  .container,
+  .culture .container {
+    width: min(var(--container), 100% - 48px);
+  }
+
+  /* One consistent mobile H2 size across every section (Figma 1:3813's
+     headings all box out to ~34px/line at this width), replacing the
+     45px 3.9vw-floor value tuned for desktop. */
+  .hoax-h2 {
+    font-size: 34px;
+  }
+
+  /* ---------- Intro ---------- */
+  .intro {
+    padding-top: 40px;
+  }
+
+  .intro__copy {
+    margin-top: 60px;
+  }
+
+  /* Figma 1:3821 breaks "Xoriant's global / home for / Human Ingenuity".
+     Left to wrap on its own, "Human" rides up onto the second line. */
+  .br-mobile {
+    display: inline;
+  }
+
+  /* ---------- Brain ---------- */
+  /* Figma's mobile brain is not the desktop stage recentred. It is two stacked
+     rows, each pairing a skills column with a tall slice of artwork tucked into
+     the opposite corner and bled off that edge of the screen — and the two
+     slices are different files from the desktop composite (Figma 1:3978 and
+     1:3971). The row art is therefore driven off its own mobile assets: the
+     real <img> gets its source swapped with `content`, which keeps the element
+     and its alt text, and the second slice is painted onto a generated box so
+     no node has to be added.
+     Both rows are 379 tall on the 320 frame and overlap by 55, so the columns
+     carry the heights and the art is positioned against the stage. */
+  .brain {
+    background: #fff;
+    padding-top: 69px;
+    /* Stage base to the Future heading (Figma 1:3909 → 1:3823). */
+    padding-bottom: 130px;
+  }
+
+  .brain__body {
+    margin-top: 40px;
+  }
+
+  .brain__stage {
+    position: relative;
+    display: block;
+    grid-template-columns: none;
+    /* The 1024px block's `justify-items: center` is honoured on block
+       containers too in current Chromium, which shrink-wrapped the columns. */
+    justify-items: normal;
+    padding: 0;
+    margin-top: 24px;
+  }
+
+  /* Figma 1:3909 — full-bleed, and the same transparent-to-#f3f3f5 wash the
+     desktop panel uses, not a flat fill. It starts 18px into the stage and
+     runs 30px past its base. */
+  .brain__panel {
+    left: -24px;
+    right: -24px;
+    top: 18px;
+    bottom: -30px;
+    height: auto;
+    translate: none;
+    border-radius: 0;
+    background: linear-gradient(180deg, rgba(243, 243, 245, 0) 0%, #f3f3f5 100%);
+  }
+
+  .brain__col {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Both columns read left-aligned in Figma — every line in the right-hand
+     list starts on the same x (149). */
+  .brain__col--left,
+  .brain__col--right {
+    text-align: left;
+  }
+
+  .brain__col--left {
+    padding-top: 71px;
+    padding-right: 42%;
+    min-height: 118.4375vw;   /* 379 */
+    box-sizing: border-box;
+  }
+
+  .brain__col--right {
+    margin-left: 45.6%;       /* Figma seats this block at x=148 */
+    min-height: 101.25vw;     /* 324 — takes the stage to the design's 703 */
+    box-sizing: border-box;
+  }
+
+  .brain__col-title,
+  .brain__list {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .brain__col-title {
+    line-height: 1.93;
+    margin-bottom: 16px;
+  }
+
+  /* Wrapped lines sit 18px apart, separate entries 27px. */
+  .brain__list li + li {
+    margin-top: 9px;
+  }
+
+  /* Both slices are sized to their slot's width and hang from its top — the
+     design fits them across, it does not crop them to fill the 379. */
+  .brain__img {
+    content: url('../assets/images/brain-mobile-left.webp');
+    position: absolute;
+    z-index: 1;
+    top: 8.125vw;             /* 26 — Figma drops the brain below the row top */
+    right: -24px;             /* out to the screen edge */
+    width: 36.875vw;          /* 118 */
+    height: auto;
+    aspect-ratio: 572 / 1437;
+    max-width: none;
+  }
+
+  .brain__stage::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 101.25vw;            /* 324 */
+    left: calc(-24px - 6.5625vw);  /* 21 past the screen edge */
+    width: 48.4375vw;         /* 155 */
+    aspect-ratio: 760 / 1816;
+    background: url('../assets/images/brain-mobile-right.webp') no-repeat top center / 100% auto;
+  }
+
+  /* ---------- Future / video card ---------- */
+  /* Figma 1:3823 → 1:3827, and 1:3980 → 1:3824. */
+  .future {
+    padding-bottom: 100px;
+  }
+
+  .future__body {
+    margin-top: 40px;
+  }
+
+  /* Figma sits "Human Ingenuity" as its own dark heading above the clip,
+     not overlaid on the poster — the title escapes the card's clipped box
+     via negative positioning into space the card's own margin reserves. */
+  .video-card {
+    /* Figma 1:3980 — 273x194 on the 320 frame. */
+    aspect-ratio: 273 / 194;
+    margin-top: 158px;
+    /* The title escapes above the card on a negative offset, so the clip
+       moves from the card box onto the image/video layers themselves —
+       otherwise .video-card's own overflow:hidden clips it regardless of
+       which direction it's offset. */
+    overflow: visible;
+  }
+
+  .video-card__img,
+  .video-card__frame {
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .video-card__title {
+    position: absolute;
+    top: -98px;
+    left: 0;
+    right: 0;
+    transform: none;
+    color: var(--ink);
+    text-align: center;
+    text-shadow: none;
+    font-size: 34px;
+  }
+
+  .video-card__tint {
+    display: none;
+  }
+
+  /* Here the title is a heading above the card, not a caption on the poster,
+     so it stays put while the film plays (Figma 1:3984). The card's black
+     playing fill is dropped too — with overflow visible it has no clip of its
+     own, and it bled past the frame's rounded corners. */
+  .video-card.is-playing {
+    background: none;
+  }
+
+  .video-card.is-playing .video-card__title {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ---------- Power House Competencies ---------- */
+  /* Figma 1:3985 — a swipeable, edge-to-edge track: 192x306 cards on a 16px
+     gutter, indented 24, which leaves just under half of the second card
+     showing (the design's "1.5 per view"). The width is 60vw rather than a
+     fixed 192 so that ratio holds as the phone gets wider, and the height is
+     locked to the design's 192:306.
+     This is native scroll-snap, not Slick — same swipe, snap and momentum
+     without pulling jQuery into a page that has none. */
+  /* Figma 1:3824 → 1:3825 → 1:3828: 36 either side of the eyebrow, which sets
+     on two lines here (its 50px box is two 25px lines). */
+  /* Paired with .eyebrow so this out-specifies responsive.css's own 768px
+     `.eyebrow` rule, which loads after this file. */
+  .power__eyebrow.eyebrow {
+    margin-top: 36px;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: 0.25em;
+  }
+
+  .power__body {
+    margin-top: 36px;
+  }
+
+  /* Figma 1:3985 — a Slick carousel (hoax.js powerSlider()): 192px cards on a
+     16px gutter, indented 24 and bled to the right edge, so just under half of
+     the second card shows. No native scrollbar: the row clips and Slick
+     handles the swipe. The card width is 60vw rather than a fixed 192 so that
+     "1.5 per view" holds as the phone gets wider.
+     Before Slick starts the cards sit in a plain clipped strip, so nothing
+     jumps when it does. */
   .power__row {
-    gap: 10px;
+    display: flex;
+    grid-template-columns: none;
+    justify-content: flex-start;
+    overflow: hidden;
+    gap: 16px;
+    margin: 60px -24px 0;
+    padding: 0 0 6px 24px;
+  }
+
+  .power__row.slick-initialized {
+    display: block;
+    gap: 0;
+    overflow: visible;
+    padding: 0 0 6px;
+  }
+
+  /* The indent lives on the list so the cards still slide under it. */
+  .power__row .slick-list {
+    padding-left: 24px;
   }
 
   .comp-tile {
-    height: 220px;
+    flex: 0 0 60vw;           /* 192 at 320 */
+    width: 60vw;
+    height: auto;
+    aspect-ratio: 192 / 306;
+    padding-top: 15.625vw;    /* 50 */
+  }
+
+  /* slick.css sets every slide to display:block; the card needs its flex
+     column back to keep the photo pinned to the bottom. */
+  .power__row .comp-tile.slick-slide {
+    display: flex;
+    height: auto;
+    margin-right: 16px;
+  }
+
+  /* Hover lift is a pointer effect; on touch it sticks after a swipe. */
+  .comp-tile:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* The design reserves two lines here — "Cloud & Security" and "Customer
+     Experience" wrap at this width and the photos have to stay level. */
+  .comp-tile__label {
+    font-size: 20px;
+    min-height: 2.3em;
+    margin-bottom: 9.6875vw;  /* 31 → photo top lands on the design's 127 */
   }
 
   .comp-tile__img {
-    height: 124px;
+    flex: 1;
+    min-height: 0;
+    margin-top: 0;
+    height: auto;
   }
 
-  .comp-tile__label {
-    font-size: 14px;
+  /* Figma 1:3986 — 24px inset all round, the mark at 162, and the copy at the
+     same sizes the desktop card uses rather than the mobile clamp floors. */
+  .note-card {
+    margin-top: 70px;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .note-card__img {
+    width: 162px;
+  }
+
+  .note-card__title {
+    font-size: 21.4px;
+    line-height: 1.5;
+  }
+
+  .note-card__link {
+    margin-top: 16px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  /* ---------- Cultural Engine ---------- */
+  /* Figma's mobile frame drops both the arc and the grey band — the section
+     sits on page white — and turns the tab list into a real accordion, with
+     the panel opening directly beneath whichever row is active.
+     `display: contents` lifts the rows out of .culture__list so they and the
+     panel share one flex column, and :has() moves the panel's order to sit
+     right after the open row. Nothing is added to the markup and the same
+     button still drives the same panel — only the paint order changes. */
+  .culture {
+    background: #fff;
+    padding: 70px 0 48px;
+  }
+
+  .culture > .edge--top {
+    display: none;
+  }
+
+  /* The mobile frame carries no eyebrow above the list. */
+  .culture__eyebrow {
+    display: none;
+  }
+
+  .culture__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 122px;
+  }
+
+  .culture__list {
+    display: contents;
+  }
+
+  .culture__item:nth-child(1) { order: 2; }
+  .culture__item:nth-child(2) { order: 4; }
+  .culture__item:nth-child(3) { order: 6; }
+  .culture__item:nth-child(4) { order: 8; }
+  .culture__item:nth-child(5) { order: 10; }
+  .culture__item:nth-child(6) { order: 12; }
+
+  .culture__panel { order: 3; }
+  .culture__grid:has(.culture__item:nth-child(2).is-active) .culture__panel { order: 5; }
+  .culture__grid:has(.culture__item:nth-child(3).is-active) .culture__panel { order: 7; }
+  .culture__grid:has(.culture__item:nth-child(4).is-active) .culture__panel { order: 9; }
+  .culture__grid:has(.culture__item:nth-child(5).is-active) .culture__panel { order: 11; }
+  .culture__grid:has(.culture__item:nth-child(6).is-active) .culture__panel { order: 13; }
+
+  /* Figma 1:4011 → 1:4071: every row is DM Sans Bold 18/22 in black, open or
+     closed — not the desktop grey/ink split. 12px above and below a 40px
+     icon box makes the 64px row (68 when the label wraps, as "Corporate
+     Social Responsibility" does); the label runs 227 wide, so 45px is kept
+     clear on the right for the icon. */
+  .culture__item,
+  .culture__item.is-active {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 64px;
+    padding: 12px 45px 12px 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    color: #000;
+    border-bottom: 1px solid #e2e5e4;
+  }
+
+  .culture__item:hover {
+    translate: none;
+  }
+
+  /* The toggle icon: a 9px plus while the row is closed, a minus once it is
+     open (.is-open, set by hoax.js). Drawn as two 1.5px bars rather than a
+     font glyph so it sits dead-centre in its 40px box (Figma 1:4019) — its
+     centre is 22.5px in from the right edge. The vertical bar collapses to
+     turn the plus into the minus. */
+  .culture__item::before,
+  .culture__item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    width: 9px;
+    height: 1.5px;
+    margin-top: -0.75px;
+    background: #1d1f1f;
+    border-radius: 1px;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .culture__item::after {
+    transform: rotate(90deg);
+  }
+
+  .culture__item.is-open::after {
+    transform: rotate(90deg) scaleX(0);
+  }
+
+  /* Opened and closed with jQuery slideDown/slideUp (hoax.js cultureTabs()),
+     which animates these margins along with the height. */
+  .culture__panel {
+    margin: 10px 0 20px;
+  }
+
+  /* Figma 1:4003 — the open card's still is near-square here (272x277), not
+     the desktop card's 584x277 letterbox. */
+  .culture__media {
+    aspect-ratio: 272 / 277;
+  }
+
+  .culture__copy {
+    padding: 24px 24px 0;
+  }
+
+  .culture__text {
+    margin-top: 18px;
+  }
+
+  .culture__more {
+    margin: 6px 24px 24px auto;
+  }
+
+  /* ---------- CTA ---------- */
+  /* Figma 1:3910 — the band runs 6107→6771 on the 320 frame: 150 above the
+     heading, 60 down to the button, and 277 of landscape beneath it. */
+  .cta-hoax {
+    padding: 150px 0 277px;
+  }
+
+  /* Figma's mobile CTA keeps only one, green "Contact" button. */
+  .cta-hoax__actions {
+    margin-top: 60px;
+    flex-direction: column;
+  }
+
+  .cta-hoax__actions .btn:first-child {
+    display: none;
+  }
+
+  .cta-hoax__actions .btn--dark {
+    background: var(--green);
+  }
+
+  .cta-hoax__actions .btn--dark:hover {
+    background: var(--green-dark);
   }
 }
 
 /* ---------- Layout fixes ---------- */
-/* Remove the unintended vertical gap before the Culture section. */
+/* The white run between the note card and the grey band (Figma: 169px, less
+   the ~45px the arc already covers). */
 .culture {
-  margin-top: 0;
+  margin-top: clamp(30px, 6.46vw, 124px);
 }
 
-/* Keep the action/arrow control perfectly centered. */
 .culture__more {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .culture__more svg {
