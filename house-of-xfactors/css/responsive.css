@@ -287,6 +287,23 @@
   .impact { height: 902px; }
 }
 
+/* ---- Nav: matches the home and hi-ai pages — the design's mobile bar is a
+   300x40 pill holding only the logo and the burger; the Contact CTA moves
+   into the drawer. ---- */
+@media (max-width: 768px) {
+  .site-header { padding-top: 12px; }
+  .nav-wrap { width: calc(100% - 20px); }
+  .nav { height: 40px; padding: 0 20px; }
+  .nav__logo img { width: 80px; }
+  .nav__cta { display: none; }
+  .nav__burger { width: 24px; height: 24px; }
+  .nav__burger span { left: 4px; right: 4px; top: 6px; }
+  .nav__burger span:nth-child(2) { top: 11px; }
+  .nav__burger span:nth-child(3) { top: 16px; }
+  .site-header.drawer-open .nav__cta { display: inline-flex; margin-top: 16px; }
+  .site-header.drawer-open .nav__burger { top: 10px; right: 16px; }
+}
+
 /* ---------- Mobile drawer (Figma 142:946): accordion rows built by nav.js ---------- */
 .nav__sub,
 .nav__sub-toggle { display: none; }
