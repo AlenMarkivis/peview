@@ -1,0 +1,196 @@
+/* ============================================================
+   INDUSTRIES — card grid
+   Figma "Home V03" (516:1968)
+
+   SPEC (desktop, 1920 artboard, 1440 content width)
+   - grid ............. 3 + 2 cards, second row centred, 60 apart
+   - card ............. 440 x 316, radius 10
+   - label ............ DM Sans Bold 20, tracked 20%, uppercase, #FAFAFA,
+                        33 from the left, ~38 from the bottom
+   - scrim ............ bottom 100px, transparent -> rgba(0,0,0,.7) over a
+                        background blur
+   - hover ............ drop shadow -4 18 28 rgba(0,0,0,.25) and the
+                        40x40 arrow badge, 20 in from the bottom-right corner
+
+   Everything is namespaced under .industries-section.
+   ============================================================ */
+
+.industries-section{
+  --ind-max:1440px;
+  --ind-gap:clamp(20px,3.125vw,60px);
+  --ind-radius:10px;
+  --ind-ink:#1D1F1F;
+  --ind-label:#FAFAFA;
+  --ind-ease:cubic-bezier(.22,.61,.36,1);
+
+  position:relative;
+  background:#fff;
+  padding:143px 0 clamp(80px,8.3vw,160px);
+  font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+
+.industries-section__inner{
+  max-width:calc(var(--ind-max) + 48px);   /* 1440 of cards inside the 24px gutters */
+  margin-inline:auto;
+  padding-inline:24px;
+}
+
+/* ---------- heading ------------------------------------------------- */
+.industries-section__head{ text-align:center; margin-bottom:100px; }
+
+.industries-section__title{
+  margin:0;
+  font-family:"Gambarino",Georgia,"Times New Roman",serif;
+  font-weight:400;
+  font-size:clamp(44px,5.2vw,75px);
+  line-height:.78;
+  color:var(--ind-ink);
+}
+
+.industries-section__eyebrow{
+  margin:24px 0 0;
+  font-size:clamp(12px,1.18vw,17px);
+  font-weight:700;
+  line-height:1.36;
+  letter-spacing:.33em;
+  text-transform:uppercase;
+  color:var(--ind-ink);
+}
+
+/* ---------- the grid ------------------------------------------------- */
+.ind-grid{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:var(--ind-gap);
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.ind-card{
+  flex:0 0 calc((100% - var(--ind-gap) * 2) / 3);
+  min-width:0;
+}
+.ind-card--mobile{ display:none; }
+
+.ind-card__link{
+  position:relative;
+  display:block;
+  aspect-ratio:440 / 316;
+  border-radius:var(--ind-radius);
+  overflow:hidden;
+  background:#ccc;
+  text-decoration:none;
+  isolation:isolate;
+  transition:box-shadow .45s var(--ind-ease), transform .45s var(--ind-ease);
+}
+
+.ind-card__img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:var(--focal,center);
+  transition:transform .8s var(--ind-ease);
+}
+
+/* bottom scrim: 100 of 316 = 31.6%. The blur is masked in so its top edge
+   feathers into the photo instead of cutting across it. */
+.ind-card__link::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:31.6%;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.7) 100%);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 45%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 45%);
+  pointer-events:none;
+}
+
+.ind-card__label{
+  position:absolute;
+  left:7.5%; right:72px; bottom:12%;
+  z-index:2;
+  font-size:clamp(14px,1.04vw,20px);
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ind-label);
+}
+
+/* arrow badge — shown on hover */
+.ind-card__arrow{
+  position:absolute;
+  right:20px; bottom:20px;
+  z-index:2;
+  width:40px; height:40px;
+  opacity:0;
+  transform:translate(-6px,6px) scale(.9);
+  transition:opacity .35s var(--ind-ease), transform .35s var(--ind-ease);
+}
+.ind-card__arrow img{ display:block; width:100%; height:100%; }
+
+.ind-card__link:hover,
+.ind-card__link:focus-visible{ box-shadow:-4px 18px 28px rgba(0,0,0,.25); }
+.ind-card__link:hover .ind-card__img,
+.ind-card__link:focus-visible .ind-card__img{ transform:scale(1.04); }
+.ind-card__link:hover .ind-card__arrow,
+.ind-card__link:focus-visible .ind-card__arrow{ opacity:1; transform:none; }
+.ind-card__link:focus-visible{ outline:2px solid var(--green,#14bb30); outline-offset:3px; }
+
+/* no hover on touch — keep the badge visible */
+@media (hover:none){
+  .ind-card__arrow{ opacity:1; transform:none; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1280px){
+  .industries-section{ padding-top:110px; }
+  .industries-section__head{ margin-bottom:72px; }
+}
+
+/* tablet: two up, the odd card centred */
+@media (max-width:1024px){
+  .industries-section{ padding-top:88px; }
+  .industries-section__head{ margin-bottom:56px; }
+  .ind-card{ flex-basis:calc((100% - var(--ind-gap)) / 2); }
+  .ind-card__label{ font-size:16px; }
+}
+
+/* ============================================================
+   PHONE — Figma "mobile-homepage": six full-width cards, 272x290 at
+   the 320 artboard, 10px radius, 16px apart, label centred in title case.
+   ============================================================ */
+@media (max-width:768px){
+  .industries-section{ padding:56px 0 64px; }
+  .industries-section__inner{ padding-inline:var(--gutter); }
+  .industries-section__head{ margin-bottom:30px; }
+
+  .ind-grid{ flex-direction:column; flex-wrap:nowrap; gap:16px; }
+  .ind-card,
+  .ind-card--mobile{ display:block; flex:0 0 auto; width:100%; }
+  .ind-card__link{ aspect-ratio:272 / 290; }
+  .ind-card__link::after{ height:40%; }
+
+  .ind-card__label{
+    left:20px; right:20px; bottom:24px;
+    text-align:center;
+    font-size:20px;
+    line-height:1.2;
+    letter-spacing:0;
+    text-transform:none;
+  }
+  .ind-card__arrow{ width:32px; height:32px; top:14px; right:14px; bottom:auto; opacity:0; }
+  .ind-card__link:hover .ind-card__arrow{ opacity:1; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .industries-section *{ transition-duration:.01ms !important; }
+}

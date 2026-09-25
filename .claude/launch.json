@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "home",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/marki/AppData/Local/Temp/claude/C--Users-marki-OneDrive---Markivis-Private-Limited-Documents-GitHub-peview/8b87fe7d-a988-4955-ba9a-3e8a19f34129/scratchpad/serve.js", "home page", "5510"],
+      "port": 5510
+    },
+    {
+      "name": "version-2",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/marki/AppData/Local/Temp/claude/C--Users-marki-OneDrive---Markivis-Private-Limited-Documents-GitHub-peview/8b87fe7d-a988-4955-ba9a-3e8a19f34129/scratchpad/serve.js", "version 2", "5520"],
+      "port": 5520
+    }
+  ]
+}

@@ -1,0 +1,487 @@
+/* =========================================================
+   Header, navigation, mega menu, floating UI
+   ========================================================= */
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.35);
+}
+.glass-light {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(29px);
+  backdrop-filter: blur(29px);
+  box-shadow: 0 18px 31px -14px rgba(0, 0, 0, 0.25);
+}
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  padding-top: 24px;
+  pointer-events: none;
+   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+.site-header.is-hidden { transform: translateY(-120%); }
+.site-header > * { pointer-events: auto; }
+
+.nav-wrap {
+  width: min(1336px, 100% - var(--gutter) * 2);
+  margin-inline: auto;
+  /* Deliberately NOT positioned: .mega is a descendant but spans the whole
+     viewport, so it has to resolve against .site-header rather than be
+     trapped in this 1336px box. Re-adding `position: relative` here would
+     snap the mega menu back to the nav width. */
+}
+
+.nav {
+  height: 70px;
+  border-radius: 999px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 0 23px;
+  color: #fff;
+  position: relative;
+  z-index: 3;
+  transition: background 0.5s, border-color 0.5s, color 0.5s, box-shadow 0.5s;
+}
+
+.nav__logo img {
+  width: 126px;
+  height: auto;
+  transition: filter 0.5s;
+}
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 38px;
+}
+
+.nav__link {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 21px;
+  position: relative;
+  padding: 24px 0;
+  display: inline-block;
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 26px;
+  height: 1.5px;
+  border-radius: 2px;
+    background: #000;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-out);
+}
+/* header:not(.is-light) .nav__link::after {
+    background: #fff;
+} */
+.nav__link:hover::after,
+.nav__item.is-open > .nav__link::after,
+.nav__link.is-open::after { transform: scaleX(1); }
+
+.nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 41px;
+  padding: 0 17px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  box-shadow: 0 6px 15px -8px rgba(0,0,0,0.4);
+  transition: background 0.4s;
+}
+.nav__toggle:hover { background: rgba(255, 255, 255, 0.2); }
+.nav__toggle img { width: 30px; height: 30px; border-radius: 50%; transition: transform 0.8s var(--ease-in-out); }
+.nav__toggle:hover img { transform: rotate(180deg); }
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  box-shadow: 0 8px 15px -8px rgba(20,187,48,0.7);
+  transition: transform 0.4s var(--ease-out), background 0.3s;
+}
+.nav__cta:hover { background: var(--green-dark); }
+
+.nav__burger {
+  display: none;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  position: relative;
+}
+.nav__burger span {
+  position: absolute;
+  left: 11px; right: 11px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  top: 13px;
+  transition: transform 0.4s var(--ease-out), top 0.4s, opacity 0.25s;
+}
+.nav__burger span:nth-child(2) { top: 19px; }
+.nav__burger span:nth-child(3) { top: 25px; }
+.nav__burger-close {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  transition: opacity 0.25s, transform 0.4s var(--ease-out);
+  pointer-events: none;
+}
+/* Open: bars fade out and the close icon fades in. */
+.nav__burger[aria-expanded="true"] span { opacity: 0; }
+.nav__burger[aria-expanded="true"] .nav__burger-close { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+/* Scrolled / light state */
+/* Grey glass over the white sections; blur comes from .glass. */
+.site-header.is-light .nav {
+  background: rgba(228, 231, 231, 0.30);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: var(--ink);
+  box-shadow: 0 16px 40px -24px rgba(0,0,0,0.35);
+}
+.site-header.is-light .nav__logo img { filter: none; }
+.site-header.is-light .nav__toggle { background: rgba(0,0,0,0.05); }
+.site-header.is-light .nav__toggle:hover { background: rgba(0,0,0,0.08); }
+
+
+.site-header.is-hidden .nav {
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.05);
+    will-change: background;
+}
+/* ---------- Mega menu ---------- */
+.page-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-out);
+}
+.page-dim.is-on { opacity: 1; pointer-events: auto; }
+
+.mega {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Full-bleed wrapper: the panel spans the viewport and .mega__inner is what
+     lines up with the header. Its containing block is .site-header, whose
+     padding box starts at the top of the viewport. */
+  background: #fff;
+  /* The bottom shape sits in this padding, and content-box keeps the white
+     fill out of it — so the SVG's curve is the panel's real bottom edge and
+     the blurred page shows through beneath it. The ratio is mega-shape.svg's
+     own 1920x55, and the percentage resolves against the wrapper's width, so
+     it tracks the image's rendered height at every viewport size. */
+  padding-bottom: calc(100% * 55 / 1920);
+  background-clip: content-box;
+  clip-path: inset(0px 0px 100% 0px);
+  opacity: 0;
+  z-index: 2;
+  transition: clip-path 0.6s var(--ease-out), opacity 0.3s;
+  pointer-events: none;
+}
+.mega.is-open { clip-path: inset(0px 0px 0% 0px); opacity: 1; pointer-events: auto; }
+/* Pinned into the padding reserved above. The intrinsic 1920x55 ratio gives
+   the height, so the curve scales with the viewport on its own. */
+.mega__shape {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+.mega.is-open ~ .nav, .site-header.menu-open .nav { color: var(--ink); background: transparent; border-color: transparent; box-shadow: none; }
+.site-header.menu-open .nav__logo img { filter: none; }
+.site-header.menu-open .nav__toggle { background: rgba(0,0,0,0.05); }
+
+/* The container. Same width and centring as .nav-wrap, and the 23px matches
+   .nav's own padding, so the panel's content lines up with the logo on the
+   left and the Contact button on the right. --mega-top clears the fixed
+   header (24px offset + 70px nav); it lives here rather than on .mega
+   because content-box clipping would leave a .mega padding-top unpainted. */
+.mega__inner {
+  --mega-top: 134px;
+  position: relative;
+  width: min(1336px, 100% - var(--gutter) * 2);
+  margin-inline: auto;
+  padding: var(--mega-top) 23px 50px;
+}
+/* Grey rule under the nav bar (24px offset + 70px nav), inset to the nav's padding. */
+.mega__inner::before {
+  content: '';
+  position: absolute;
+  top: 94px;
+  left: 23px;
+  right: 23px;
+  height: 1px;
+  background: var(--line);
+}
+.mega__panel {
+  display: none;
+  grid-template-columns: 234px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.mega__panel.is-active { display: grid; }
+.mega__intro h3 { font-size: 24px; font-weight: 600; line-height: 21px; color: var(--ink-2); margin-bottom: 24px; }
+.mega__intro p { font-size: 17px; line-height: 1.5; color: var(--ink-2); }
+
+.mega__tiles {
+  display: grid;
+  grid-template-columns: repeat(6, 156px);
+  gap: 16px;
+  justify-content: end;
+}
+.mega__tiles--7 { grid-template-columns: repeat(5, 184px); gap: 15px; }
+.mega__tiles--5 { grid-template-columns: repeat(5, 184px); gap: 23px; }
+
+.mega__tile {
+  display: block;
+  position: relative;
+  height: 220px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+.mega__tile:hover { transform: translateY(-6px); box-shadow: 0 20px 30px -20px rgba(0,0,0,0.35); }
+.mega__tile > img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-out); }
+.mega__tile:hover > img { transform: scale(1.04); }
+
+.mega__tile--labelled span {
+  position: absolute;
+  top: 32px; left: 6px; right: 6px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+  z-index: 1;
+}
+.mega__tile--labelled > img { position: absolute; left: 0; right: 0; bottom: 0; height: 66%; object-fit: cover; object-position: top; }
+.mega__tile--labelled > img.contain { object-fit: contain; padding: 8px 16px; height: 62%; }
+.mega__tile--labelled > img.cover { height: 100%; top: 0; object-position: center; opacity: 0.95; }
+.mega__tile--wide > img.cover ~ span, .mega__tile--wide.has-cover span { color: #fff; }
+
+/* Staggered tile entrance */
+.mega__panel.is-active .mega__tiles li { animation: tileIn 0.6s var(--ease-out) both; }
+.mega__panel.is-active .mega__tiles li:nth-child(1) { animation-delay: 0.05s; }
+.mega__panel.is-active .mega__tiles li:nth-child(2) { animation-delay: 0.1s; }
+.mega__panel.is-active .mega__tiles li:nth-child(3) { animation-delay: 0.15s; }
+.mega__panel.is-active .mega__tiles li:nth-child(4) { animation-delay: 0.2s; }
+.mega__panel.is-active .mega__tiles li:nth-child(5) { animation-delay: 0.25s; }
+.mega__panel.is-active .mega__tiles li:nth-child(6) { animation-delay: 0.3s; }
+.mega__panel.is-active .mega__tiles li:nth-child(7) { animation-delay: 0.35s; }
+.mega__panel.is-active .mega__intro { animation: tileIn 0.5s var(--ease-out) both; }
+@keyframes tileIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Mobile drawer ---------- */
+.nav__drawer-open .nav__menu { display: flex; }
+
+/* ---------- Floating podcast card ---------- */
+.float-card {
+  position: fixed;
+  left: 43px;
+  top: 40%;
+  width: 338px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 0.5px solid #fff;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.25);
+  overflow: hidden;
+  z-index: 80;
+  /* scale(0.6): whole card 40% smaller. Anchored top-left so it keeps its spot. */
+  transform-origin: left top;
+  transform: translateX(-140%) scale(0.6);
+  opacity: 0;
+  transition: transform 0.9s var(--ease-out), opacity 0.6s;
+}
+.float-card.is-visible { transform: translateX(0) scale(0.6); opacity: 1; }
+.float-card.is-dismissed { transform: translateX(-140%) scale(0.6) rotate(-4deg); opacity: 0; pointer-events: none; }
+.float-card__close {
+  position: absolute;
+  top: 7px; right: 11px;
+  width: 29px; height: 29px;
+  z-index: 2;
+  transition: transform 0.3s var(--ease-out);
+}
+.float-card__close:hover { transform: rotate(90deg); }
+.float-card__close img { width: 100%; height: 100%; }
+.float-card__media { display: block; height: 187px; overflow: hidden; }
+.float-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+.float-card:hover .float-card__media img { transform: scale(1.06); }
+.float-card__body { padding: 27px 20px 26px 22px; }
+.float-card__tag {
+  display: inline-flex;
+  align-items: center;
+  height: 12px;
+  padding: 0 13px;
+  border-radius: 20px;
+  background: #424949;
+  color: #fff;
+  font-size: 8.3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 13px;
+}
+.float-card__body h3 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+/* ---------- Ask-me pill ---------- */
+.ask {
+  position: fixed;
+  right: 36px;
+  top: 915px;
+  z-index: 80;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.8s var(--ease-out), opacity 0.5s;
+}
+.ask.is-visible { transform: translateX(0); opacity: 1; }
+.ask.is-docked { top: auto; bottom: 36px; }
+
+.ask__pill {
+  height: 44px;
+  padding: 0 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  transition: transform 0.4s var(--ease-out), opacity 0.3s;
+}
+.ask__pill::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(20,187,48,0.9), rgba(255,255,255,0.2), rgba(20,187,48,0.6));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.ask__pill:hover { transform: translateY(-2px) scale(1.03); }
+.ask__label {
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  color: var(--green);
+  line-height: 1;
+}
+
+.ask__form {
+  position: absolute;
+  right: 0; top: 0;
+  height: 44px;
+  width: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 6px 0 16px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: width 0.6s var(--ease-out), opacity 0.3s;
+}
+.ask.is-open .ask__pill { opacity: 0; pointer-events: none; transform: scale(0.9); }
+.ask.is-open .ask__form { width: min(638px, calc(100vw - 72px)); opacity: 1; pointer-events: auto; }
+.ask__spark { width: 24px; height: 24px; flex: 0 0 24px; display: grid; place-items: center; }
+.ask__spark svg { width: 16px; height: 16px; opacity: 0.83; }
+.ask__divider { width: 1px; height: 24px; background: rgba(0,0,0,0.1); flex: 0 0 1px; }
+.ask__form input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 18px;
+  color: var(--ink);
+  outline: none;
+}
+.ask__form input::placeholder { color: rgba(0,0,0,0.5); }
+.ask__submit {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--green);
+  display: grid;
+  place-items: center;
+  flex: 0 0 32px;
+  box-shadow: 0 6px 15px -6px rgba(20,187,48,0.7);
+  transition: transform 0.3s var(--ease-out);
+}
+.ask__submit:hover { transform: scale(1.08); }
+.ask__submit svg { width: 16px; height: 16px; }
+
+.nav__logo img.animatedLogo {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+
+.site-header.is-light a.nav__logo img.staticLogo {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.site-header.is-light .nav__logo img.animatedLogo {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
