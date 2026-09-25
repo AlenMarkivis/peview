@@ -66,7 +66,7 @@
 
 .nav__link {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 21px;
   position: relative;
@@ -149,15 +149,26 @@
 }
 .nav__burger span:nth-child(2) { top: 19px; }
 .nav__burger span:nth-child(3) { top: 25px; }
-/* Open: outer bars meet in the middle and cross, middle bar fades out. */
-.nav__burger[aria-expanded="true"] span:first-child { top: 19px; transform: rotate(45deg); }
-.nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0.4); }
-.nav__burger[aria-expanded="true"] span:nth-child(3) { top: 19px; transform: rotate(-45deg); }
+.nav__burger-close {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  transition: opacity 0.25s, transform 0.4s var(--ease-out);
+  pointer-events: none;
+}
+/* Open: bars fade out and the close icon fades in. */
+.nav__burger[aria-expanded="true"] span { opacity: 0; }
+.nav__burger[aria-expanded="true"] .nav__burger-close { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 /* Scrolled / light state */
+/* Grey glass over the white sections; blur comes from .glass. */
 .site-header.is-light .nav {
-  background: rgba(255, 255, 255, 0.82);
-  border-color: rgba(0, 0, 0, 0.06);
+  background: rgba(228, 231, 231, 0.62);
+  border-color: rgba(255, 255, 255, 0.7);
   color: var(--ink);
   box-shadow: 0 16px 40px -24px rgba(0,0,0,0.35);
 }

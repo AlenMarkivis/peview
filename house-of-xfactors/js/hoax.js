@@ -165,7 +165,10 @@
     }
 
     var tl = gsap.timeline({ scrollTrigger: { trigger: stage, start: 'top 78%', once: true } });
-    if (panel) tl.to(panel, { opacity: 1, scaleY: 1, duration: 1.1, ease: 'power3.out' }, 0);
+    // clearProps hands positioning back to the stylesheet once the tween ends;
+    // otherwise GSAP's inline copy of the desktop centring (translate -50%)
+    // outlives a resize to the stacked layouts.
+    if (panel) tl.to(panel, { opacity: 1, scaleY: 1, duration: 1.1, ease: 'power3.out', clearProps: 'transform,translate,rotate,scale,transformOrigin' }, 0);
     tl.to(img, { opacity: 1, scale: 1, y: 0, duration: 1.3, ease: 'power3.out' }, 0)
       .to(leftItems, step(), 0.45)
       .to(rightItems, step(), '>');
@@ -185,16 +188,19 @@
     var title = card.querySelector('.video-card__title');
     var play = card.querySelector('.video-card__play');
 
+    // Title and play badge are positioned by CSS transforms that change per
+    // breakpoint, so each tween clears its inline transform when it finishes.
+    var clear = 'transform,translate,rotate,scale';
     gsap.fromTo(card, { scale: 0.94, opacity: 0 }, {
-      scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out',
+      scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out', clearProps: clear,
       scrollTrigger: { trigger: card, start: 'top 85%', once: true }
     });
     gsap.fromTo(title, { opacity: 0, x: -40 }, {
-      opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: 0.25,
+      opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: 0.25, clearProps: clear,
       scrollTrigger: { trigger: card, start: 'top 85%', once: true }
     });
     gsap.fromTo(play, { opacity: 0, scale: 0.7 }, {
-      opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.7)', delay: 0.45,
+      opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.7)', delay: 0.45, clearProps: clear,
       scrollTrigger: { trigger: card, start: 'top 85%', once: true }
     });
     if (img) {

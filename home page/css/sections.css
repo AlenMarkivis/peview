@@ -7,7 +7,7 @@
 /* Height of the white curve that wipes up over the sticky hero. Shared so the
    hero can extend itself by exactly this much and keep the curve below the fold
    on load. */
-:root { --hero-curve: clamp(70px, 10.4vw, 200px); }
+:root { --hero-curve: clamp(40px, 4.43vw, 85px); }
 
 /* ---------------- HERO ---------------- */
 /* .hero {
@@ -27,9 +27,7 @@
   z-index: 1;
   background: #fff;
 }
-/* Sized to match `.hero--hiai`'s curve. At 361px the arc reached 321px into a
-   100vh hero and clipped the last line of the headline; 200px keeps the same
-   proportion of clearance the HI/AI hero has. */
+/* Same curve (shape and height) as the House of Xfactors hero. */
 .page-below__curve {
   position: absolute;
   left: 0;
@@ -38,7 +36,6 @@
   margin-bottom: -1px;
   height: var(--hero-curve);
   pointer-events: none;
-  filter: drop-shadow(0 -10px 30px rgba(0, 0, 0, 0.08));
 }
 .page-below__curve svg { width: 100%; height: 100%; display: block; }
 .hero__bg { position: absolute; inset: 0; }
@@ -780,7 +777,7 @@ filter: drop-shadow(0px 12px 12.9px rgba(0, 0, 0, 0.18));
   text-align: center;
 }
 .cta__bg { position: absolute; inset: -8% 0 0; z-index: -1; }
-.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; will-change: transform; }
+.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
 .cta__title { max-width: 831px; margin-inline: auto; line-height: 1; }
 .cta__actions {
   margin-top: 48px;
@@ -789,7 +786,8 @@ filter: drop-shadow(0px 12px 12.9px rgba(0, 0, 0, 0.18));
   gap: 24px;
   flex-wrap: wrap;
 }
-.cta__curve { height: clamp(30px, 4.4vw, 85px); z-index: 2; }
+/* Same height formula as the hero curves (phone value in responsive.css). */
+.cta__curve { height: clamp(40px, 4.43vw, 85px); z-index: 2; }
 
 
 
@@ -912,9 +910,7 @@ filter: drop-shadow(0px 12px 12.9px rgba(0, 0, 0, 0.18));
 
 
 section#intro {
-    padding-top: 0;
     position: relative;
-    top: -30px;
 }
 
 .feel-card h3 {

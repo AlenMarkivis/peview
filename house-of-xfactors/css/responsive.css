@@ -306,7 +306,8 @@
 
 /* ---------- Mobile drawer (Figma 142:946): accordion rows built by nav.js ---------- */
 .nav__sub,
-.nav__sub-toggle { display: none; }
+.nav__sub-toggle,
+.mega__mobile-only { display: none; }
 
 @media (max-width: 1024px) {
   .site-header.drawer-open { padding-top: 0; }
@@ -314,7 +315,7 @@
   body.menu-open .page-dim { background: rgba(29, 31, 31, 0.45); }
 
   .site-header.drawer-open .nav {
-    padding: 20px 24px 24px;
+    padding: 30px 36px 24px;
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -333,13 +334,19 @@
     pointer-events: none;
   }
 
-  .site-header.drawer-open .nav__logo { padding: 4px 0; }
-  .site-header.drawer-open .nav__burger { top: 22px; right: 16px; }
+  .site-header.drawer-open .nav__logo { display: block; width: fit-content; padding: 0; }
+  .site-header.drawer-open .nav__logo img { display: block; width: 96px; height: auto; }
+  /* The default logo's tagline is white; use the dark-tagline version on the white drawer. */
+  .site-header.drawer-open .nav__logo img.staticLogo { display: none; }
+  .site-header.drawer-open .nav__logo img.animatedLogo,
+  .site-header.drawer-open .nav__logo img.stickyLogo { display: block; opacity: 1; visibility: visible; }
+
+  .site-header.drawer-open .nav__burger { top: 26px; right: 31px; width: 40px; height: 40px; }
 
   .site-header.drawer-open .nav__menu {
     align-items: stretch;
     gap: 0;
-    margin-top: 24px;
+    margin-top: 54px;
   }
   .site-header.drawer-open .nav__menu > .nav__item:first-child { margin-bottom: 12px; }
   .site-header.drawer-open .nav__toggle,
@@ -348,32 +355,34 @@
     height: auto;
     padding: 0;
     margin: 0;
-    gap: 6px;
+    gap: 8px;
     background: none;
     box-shadow: none;
-    font-size: 14px;
+    font-size: 18px;
   }
-  .site-header.drawer-open .nav__toggle img { width: 24px; height: 24px; }
+  .site-header.drawer-open .nav__toggle img { width: 32px; height: 32px; }
   .site-header.drawer-open .nav__item.has-menu { position: relative; }
 
   .site-header.drawer-open .nav__menu .nav__link,
   .site-header.drawer-open .nav__right .nav__link {
     display: block;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
-    line-height: 21px;
-    padding: 11px 40px 11px 0;
+    line-height: 25px;
+    padding: 15px 48px 15px 0;
   }
   .site-header.drawer-open .nav__item.is-expanded > .nav__link {
     text-decoration: underline;
-    text-underline-offset: 4px;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 5px;
   }
 
+  /* Centred on the 55px row, glyph 26px in from the content edge. */
   .site-header.drawer-open .nav__sub-toggle {
     display: block;
     position: absolute;
-    top: 3px;
-    right: -9px;
+    top: 10px;
+    right: 8px;
     width: 36px;
     height: 36px;
     color: var(--ink);
@@ -384,9 +393,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 12px;
+    width: 14px;
     height: 1.5px;
-    margin: -0.75px 0 0 -6px;
+    margin: -0.75px 0 0 -7px;
     border-radius: 2px;
     background: currentColor;
     transition: transform 0.3s var(--ease-out), opacity 0.2s;
@@ -396,14 +405,14 @@
 
   .site-header.drawer-open .nav__item.is-expanded > .nav__sub {
     display: block;
-    padding: 2px 0 12px 12px;
+    padding: 0 0 18px 12px;
   }
   .nav__sub a {
     display: block;
-    padding: 6px 0;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 18px;
+    padding: 10px 0;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 23px;
     color: var(--grey);
     transition: color 0.2s;
   }
@@ -413,6 +422,10 @@
   .site-header.drawer-open .nav__cta {
     display: inline-flex;
     align-self: flex-start;
-    margin-top: 16px;
+    height: 42px;
+    padding: 0 30px;
+    margin-top: 20px;
+    font-size: 17px;
+    letter-spacing: 0;
   }
 }

@@ -410,7 +410,7 @@
   text-align: center;
 }
 .cta__bg { position: absolute; inset: -8% 0 0; z-index: -1; }
-.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; will-change: transform; }
+.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
 .cta__title { max-width: 831px; margin-inline: auto; line-height: 1; }
 .cta__body {
   max-width: 831px;
@@ -426,7 +426,8 @@
   gap: 24px;
   flex-wrap: wrap;
 }
-.cta__curve { height: clamp(30px, 4.4vw, 85px); z-index: 2; }
+/* Same height formula as the hero curves (phone value in the 600px block). */
+.cta__curve { height: clamp(40px, 4.43vw, 85px); z-index: 2; }
 
 @media (max-width: 768px) {
   .cta {
@@ -478,6 +479,12 @@
   .hero--hiai .hero__title { font-size: 48px; line-height: 0.9; letter-spacing: -0.0375em; }
   .page-below__curve, .edge { height: clamp(14px, 4.43vw, 85px); }
   .page-below__curve { margin-bottom: -1px; }
+  .cta__curve { height: clamp(14px, 4.43vw, 85px); }
+  /* Same arc shape as the House of Xfactors hero. */
+  .page-below__curve {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 85' preserveAspectRatio='none'%3E%3Cpath d='M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z' fill='%23fff'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  }
+  .page-below__curve svg { display: none; }
   .quote .edge--bottom { bottom: -1px; }
 
   .hiai-h2 { font-size: 36px; line-height: 1; }

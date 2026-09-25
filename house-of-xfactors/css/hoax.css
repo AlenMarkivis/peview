@@ -233,12 +233,10 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
-  /* The centring lives on `translate`, not `transform`: the entry tween in
-     hoax.js writes `transform` (scaleY) on this element, so a translate parked
-     there would be wiped the moment the panel animates and the panel would drop
-     to sit on the stage's midline instead of straddling it. */
-  translate: 0 -50%;
+  /* Centred with top alone ((100% - 52%) / 2), no transform: GSAP's entry tween
+     would fold a translate into its inline transform and keep it after a resize
+     to the stacked layouts, lifting the panel half its height. */
+  top: 24%;
   height: 52%;
   border-radius: var(--radius);
   background: linear-gradient(180deg, rgba(243, 243, 245, 0) 0%, #f3f3f5 100%);
@@ -301,11 +299,14 @@
   cursor: pointer;
 }
 
+/* 6% overscan top and bottom covers the ±5% scroll drift in hoax.js, which
+   otherwise uncovers a strip of the card at the top or bottom. */
 .video-card__img {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: -6%;
   width: 100%;
-  height: 100%;
+  height: 112%;
   object-fit: cover;
   will-change: transform;
 }
@@ -541,9 +542,12 @@
 }
 
 /* ---------- CULTURAL ENGINE ---------- */
+/* The grey starts below the edge: the edge draws only the grey dome, so the
+   area above the arc stays transparent and the note card's soft shadow shows
+   through instead of being cut off by a white overlay. */
 .culture {
   position: relative;
-  background: #f5f7f7;
+  background: linear-gradient(#f5f7f7, #f5f7f7) no-repeat 0 calc(clamp(28px, 4.43vw, 85px) - 2px) / 100% 100%;
   /* The 85px edge curve overlays the top of this section, so the heading needs
      to clear it by a good margin — at the old 56px it started inside the arc.
      Bottom is Figma 1:3791 → the CTA band: 148px. */
@@ -700,7 +704,7 @@
   text-align: center;
 }
 .cta__bg { position: absolute; inset: -8% 0 0; z-index: -1; }
-.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; will-change: transform; }
+.cta__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
 .cta__title { max-width: 831px; margin-inline: auto; line-height: 1; }
 .cta__body {
   max-width: 831px;
@@ -716,7 +720,9 @@
   gap: 24px;
   flex-wrap: wrap;
 }
-.cta__curve { height: clamp(30px, 4.4vw, 85px); z-index: 2; }
+/* Same height as the hero curve: var(--hero-curve) is this formula, and its
+   phone value, both defined above. */
+.cta__curve { height: var(--hero-curve); z-index: 2; }
 
 @media (max-width: 768px) {
   .cta {
@@ -791,12 +797,23 @@
     order: 3;
   }
 
-  /* Re-anchor the panel so it backs the stacked lists instead of the art. */
+  /* The panel is a grid item spanning both list rows, so it always backs the
+     full lists whatever their height (a % of the stage fell short when the
+     text rendered larger). It still starts under the art so the wash fades in. */
+  .brain__img { grid-row: 1; }
+  .brain__col--left { grid-row: 2; grid-column: 1; }
+  .brain__col--right { grid-row: 3; grid-column: 1; }
+
   .brain__panel {
+    position: relative;
+    grid-row: 2 / 4;
+    grid-column: 1;
+    justify-self: stretch;
+    align-self: stretch;
     top: auto;
-    bottom: 0;
     translate: none;
-    height: 58%;
+    height: auto;
+    margin: -130px 0 -16px;
   }
 
   .culture__grid {
@@ -903,25 +920,19 @@
     max-width: 100%;
   }
 
-  .brain__panel {
-    height: 62%;
-  }
-
   .brain__col-title,
   .brain__list {
     font-size: 16px;
     line-height: 1.9;
   }
 
-  /* At phone widths the title and the triangle collide, so the title moves
-     to the top-left and the triangle takes the centre. */
+  /* The title stays vertically centred on the left; the triangle takes the
+     card's true centre. */
   .video-card {
     aspect-ratio: 4 / 3;
   }
 
   .video-card__title {
-    top: 28px;
-    transform: none;
     left: 22px;
     font-size: 32px;
   }
@@ -937,7 +948,7 @@
   }
 
   .video-card__tint {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.12) 60%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.12) 55%, rgba(0, 0, 0, 0) 100%);
   }
 
   .note-card {
@@ -961,32 +972,32 @@
 
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   /* ---------- Hero ---------- */
-  /* Figma 1:3814 draws the hero 449 tall on a 320 frame and lands its arc at
-     14px — which is the same 4.43vw the desktop arc uses, just without the
-     40px floor that was clamping it up here. Dropping the floor gives 14.2px
-     at 320 and keeps the two ends of the scale on one formula.
+  /* Same breakpoint, height and curve as the HI-AI hero (hiai.css) so the two
+     banners match: Figma 1:3814 draws it 449 tall on a 320 frame (140.3125vw)
+     with a 14px arc (4.43vw).
      The .hero.hero--hoax pairing is deliberate: responsive.css loads after
      this file, so a single-class .hero would lose to its 768px block. */
   :root {
-    --hero-curve: 4.43vw;
+    --hero-curve: clamp(14px, 4.43vw, 85px);
   }
 
   .hero.hero--hoax {
-    /* 449 / 320 = 140.3125vw. The svh ceiling only engages on short landscape
-       viewports, where the authored height would otherwise overshoot. */
-    height: min(140.3125vw, 92svh);
+    height: clamp(400px, 140.3125vw, 620px);
     min-height: 0;
   }
 
   .hero.hero--hoax .hero__content {
-    height: calc(min(140.3125vw, 92svh) - var(--hero-curve));
+    height: calc(clamp(400px, 140.3125vw, 620px) - var(--hero-curve));
     min-height: 0;
     /* Figma seats the title/eyebrow block 11px above the true centre; the
        bottom padding is what lifts it (Figma cap-top 151, matched). */
     padding: 0 var(--gutter) 22px;
   }
+}
+
+@media (max-width: 480px) {
 
   /* Figma's 320px frame runs a 24px gutter, not the 20px floor --gutter
      clamps to at this width. Scoped to this page's own .container uses.
@@ -1056,6 +1067,8 @@
      desktop panel uses, not a flat fill. It starts 18px into the stage and
      runs 30px past its base. */
   .brain__panel {
+    position: absolute;
+    margin: 0;
     left: -24px;
     right: -24px;
     top: 18px;
@@ -1166,6 +1179,13 @@
   .video-card__frame {
     border-radius: var(--radius);
     overflow: hidden;
+  }
+
+  /* No overscan here: the card doesn't clip at this size, so the image must
+     keep to the card's own box. */
+  .video-card__img {
+    top: 0;
+    height: 100%;
   }
 
   .video-card__title {
