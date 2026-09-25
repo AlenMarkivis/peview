@@ -167,7 +167,7 @@
 /* Scrolled / light state */
 /* Grey glass over the white sections; blur comes from .glass. */
 .site-header.is-light .nav {
-  background: rgba(228, 231, 231, 0.62);
+  background: rgba(228, 231, 231, 0.30);
   border-color: rgba(255, 255, 255, 0.7);
   color: var(--ink);
   box-shadow: 0 16px 40px -24px rgba(0,0,0,0.35);
