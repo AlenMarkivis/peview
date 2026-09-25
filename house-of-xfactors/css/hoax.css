@@ -497,7 +497,7 @@
 
 /* Spotlight — hovering one card dims the rest so focus lands where the cursor is */
 .comp-row:hover .comp-card:not(:hover) a { box-shadow: 0 14px 30px -22px rgba(0, 0, 0, 0.15); }
-.comp-row:hover .comp-card:not(:hover) a > img { filter: saturate(0.35) brightness(0.98); }
+.comp-row:hover .comp-card:not(:hover) a > img { filter: saturate(0) brightness(1.1); }
 .comp-row:hover .comp-card:not(:hover) .comp-card__title { color: var(--grey); }
 
 /* Note card (Figma 1:3712) — no fill of its own; the page white shows through

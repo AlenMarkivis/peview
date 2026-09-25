@@ -1702,3 +1702,6 @@ h2.h2.h2--tight.display.mobile-show {
   .talent-card__cta-desk { display: none; }
   .talent-card__cta-mob { display: inline; }
 }
+
+/* Insights tags (filter pills and post labels) at every width. */
+.insights .tag { font-size: 11px; }

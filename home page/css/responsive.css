@@ -1841,3 +1841,6 @@ h2.h2.h2--tight.display.mobile-show {
 
   .cta__curve { height: var(--hero-curve); }
 }
+
+/* Insights tags (filter pills and post labels) at every width. */
+.insights .tag { font-size: 11px; }
