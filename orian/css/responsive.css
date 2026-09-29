@@ -1,0 +1,645 @@
+/* =========================================================
+   Responsive adjustments (design authored at 1920px)
+   ========================================================= */
+
+@media (max-width: 1500px) {
+  .comp-row { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .mega__tiles { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .mega__tiles--7 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .mega__tiles--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .logo-grid { grid-template-columns: repeat(4, minmax(0, 254px)); }
+}
+
+@media (max-width: 1280px) {
+  .float-card { display: none; }
+  .why__grid { grid-template-columns: 1fr 1fr; }
+  .why__copy { padding-left: 0; }
+  .why__track { padding: 0 20px; }
+  .help-grid { gap: 16px; }
+  .help-card { padding: 28px 22px; min-height: 320px; }
+  .masonry { grid-template-columns: repeat(3, 1fr); }
+  .masonry__col:nth-child(4) { display: none; }
+  .mega__inner { padding: var(--mega-top) 24px 40px; }
+  .mega__panel { gap: 24px; }
+  .footer__bar-inner { padding: 8px 32px; }
+}
+
+@media (max-width: 1024px) {
+  :root { --nav-h: 70px; }
+  .nav__menu, .nav__right .nav__link { display: none; }
+  /* With the menu hidden the third column has nothing to hold, so `.nav__right`
+     is auto-placed into the `1fr` track and packs against the logo. Two tracks
+     plus flex-end puts Contact and the burger back on the right edge. */
+  .nav { grid-template-columns: auto 1fr; }
+  .nav__right { justify-content: flex-end; }
+  /* The sliding underline is a hover affordance; drop it on touch. */
+  .nav__link::after { display: none; }
+  .nav__burger { display: block; }
+  .mega { display: none; }
+
+  /* Mobile drawer built from the nav */
+  .site-header.drawer-open .nav {
+    background: #fff;
+    color: var(--ink);
+    border-radius: 24px;
+    height: auto;
+    display: block;
+    padding: 12px 23px 24px;
+  }
+  .site-header.drawer-open .nav__logo { display: inline-block; padding: 8px 0; }
+  .site-header.drawer-open .nav__logo img { filter: none; }
+  /* `.nav__right` holds Insights and Careers as well as the burger. Pinning the
+     whole group to the corner left those two links with no mobile entry point
+     at all, since they are also hidden in the collapsed bar. Stack the group
+     under the menu and pin only the burger. */
+  .site-header.drawer-open .nav__right {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .site-header.drawer-open .nav__burger { position: absolute; top: 15px; right: 16px; }
+  .site-header.drawer-open .nav__right .nav__link { display: inline-block; font-size: 20px; padding: 10px 0; }
+  .site-header.drawer-open .nav__cta { display: none; }
+  .site-header.drawer-open .nav__menu { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 16px; }
+  .site-header.drawer-open .nav__menu .nav__link { font-size: 20px; padding: 10px 0; }
+  .site-header.drawer-open .nav__toggle { background: rgba(0,0,0,0.05); margin-bottom: 8px; }
+
+  /* Below the design's hover model: stack the three orbs and keep the copy open. */
+  .philosophy__stage {
+    position: static;
+    left: auto;
+    translate: none;
+    width: 100%;
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+    margin-top: 48px;
+  }
+  .philosophy__arc { display: none; }
+  .phil-orb {
+    position: static;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 520px;
+    pointer-events: auto;
+  }
+  .phil-orb__glow { display: none; }
+  .phil-orb__frame,
+  .phil-orb--hi-ai .phil-orb__frame,
+  .phil-orb--xfactors .phil-orb__frame,
+  .phil-orb--orian .phil-orb__frame {
+    position: relative;
+    left: auto; top: auto;
+    width: min(280px, 68vw);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 0;
+    overflow: visible;
+    margin-bottom: 28px;
+  }
+  /* frame is unclipped once stacked, so drop the desktop overscale */
+  .phil-orb--hi-ai .phil-orb__media { object-position: 50% 50%; }
+  .phil-orb__info,
+  .phil-orb--hi-ai .phil-orb__info,
+  .phil-orb--xfactors .phil-orb__info,
+  .phil-orb--orian .phil-orb__info {
+    position: relative;
+    left: auto; top: auto; bottom: auto;
+    width: 100%;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+  .phil-orb__title { font-size: 24px; max-width: none; }
+  .phil-orb__desc { font-size: 15px; line-height: 1.85; }
+  .phil-orb__btn { height: 40px; padding: 0 24px; font-size: var(--fs-btn); gap: 12px; }
+  .comp-row { display: grid; grid-template-columns: repeat(3, 1fr); max-width: none; perspective: none; }
+  .comp-card { flex: 0 1 auto; }
+  .comp-card:hover { flex-grow: 0; }
+  .why__grid { grid-template-columns: 1fr; gap: 20px; }
+  .why__stack { height: 520px; }
+  .help { min-height: 0; }
+  .help-grid { grid-template-columns: repeat(2, 1fr); margin-top: 80px; }
+  .filter { height: auto; border-radius: 30px; grid-template-columns: 1fr; padding: 18px 22px; gap: 14px; }
+  .filter__label { margin-right: 0; }
+  .masonry { grid-template-columns: repeat(2, 1fr); }
+  .masonry__col:nth-child(3) { display: none; }
+  .masonry.is-collapsed { max-height: 1500px; }
+  .talent-card { grid-template-columns: 1fr; min-height: 0; }
+  .talent-card__media { height: 420px; }
+  .logo-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer__cols { grid-template-columns: repeat(3, 1fr); }
+  .footer__bar-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .float-card { width: 280px; left: 20px; }
+  .float-card__media { height: 150px; }
+  .float-card__body h3 { font-size: 20px; }
+  .ask { right: 20px; top: auto; bottom: 24px; }
+  .impact__arrow--prev { left: 16px; }
+  .impact__arrow--next { right: 16px; }
+
+  /* ---- Home hero banner ----
+     The banner's type is authored at a fixed 100px with 200px of side padding,
+     which only fits from ~1025px up. Below that the headline ran ~506px wide
+     inside a 375px screen and the padding alone exceeded the viewport, so both
+     become fluid here. Desktop keeps the authored values untouched. */
+  .hero-banner .inner-row .text-wrp {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    font-size: clamp(34px, 8.6vw, 88px);
+    line-height: 1.05;
+  }
+  .hero-banner .inner-row h1.heading {
+    font-size: clamp(34px, 8.6vw, 88px);
+    line-height: 1.05;
+  }
+  /* `vh` on mobile is the *largest* viewport, so a 100vh hero sits partly under
+     the browser chrome on load. `svh` measures the visible area instead. */
+  .hero-banner.hero {
+    height: calc(80svh + var(--hero-curve));
+    min-height: calc(80svh + var(--hero-curve));
+  }
+  .hero-banner .inner-row { min-height: 90svh; max-height: 80svh; }
+
+  /* ---- Buttons ----
+     `.btn` is `white-space: nowrap` for the desktop pill shape. Long labels
+     ("Start a conversation about your New Horizon" = 445px, "What future do you
+     want to create?" = 356px) then set a min-content width that overflowed the
+     viewport and stretched the talent card past its own grid cell. Allow the
+     label to wrap and grow the pill instead, which also lifts every button to a
+     44px tap target. */
+  .btn {
+    white-space: normal;
+    height: auto;
+    min-height: 44px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 1.35;
+    text-align: center;
+  }
+  .btn--soft { height: auto; min-height: 44px; }
+
+  /* ---- Tap targets ---- */
+  .nav__cta { height: 40px; }
+  .social a { width: 40px; height: 40px; }
+  .tag { height: auto; min-height: 30px; padding: 5px 12px; }
+  .ask__submit { width: 36px; height: 36px; flex: 0 0 36px; }
+
+  section#intro{
+    padding-top: 50px;
+  }
+  .container.why__grid {
+    max-width: 100%;
+}
+
+.why__track {
+    left: 0;
+}
+}
+
+
+@media (max-width: 768px) {
+  :root { --gutter: 20px; }
+  .site-header { padding-top: 12px; }
+  .nav { height: 60px; padding: 0 16px; }
+  .nav__logo img { width: 110px; }
+  /* `svh` is the visible viewport on mobile; `vh` is the largest, which would
+     leave the banner short of the fold under the browser chrome. */
+  /* Same reasoning as the base rule: the floor gives way rather than let the
+     hero outgrow the window and carry the curve below the fold. */
+  .hero { height: 100svh; min-height: min(520px, 100svh); }
+  .hero__content { padding-top: 28vh; }
+  .hero__curve { height: 60px; }
+  .intro__text { font-size: 18px; line-height: 1.8; }
+  /* 0.78 is set for the stacked desktop look; once a title wraps at mobile
+     sizes that pulls the lines into each other. */
+  .h2--tight { line-height: 0.9; }
+  .section-head { gap: 14px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.25em; }
+  .lead { font-size: 17px; line-height: 1.7; }
+  .phil-orb__frame,
+  .phil-orb--hi-ai .phil-orb__frame,
+  .phil-orb--xfactors .phil-orb__frame,
+  .phil-orb--orian .phil-orb__frame { width: min(240px, 66vw); margin-bottom: 22px; }
+  .comp-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .comp-card a { height: 260px; padding-top: 32px; }
+  .comp-card a > img { height: 165px; }
+  .comp-card a:hover > img { height: 175px; }
+  .why__stack { height: 460px; }
+  .feel-card { height: auto; min-height: 160px; padding: 26px 20px; }
+  .help { padding-top: 120px; padding-bottom: 80px; }
+  .help-grid { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 14px; margin-top: 50px; margin-bottom: -40px; }
+  .help-card { min-height: 0; padding: 32px 24px 44px; }
+  .filter__actions { flex-wrap: wrap; }
+  .masonry { grid-template-columns: 1fr; }
+  .masonry__col:nth-child(2) { display: none; }
+  .masonry.is-collapsed { max-height: 1400px; }
+  .post__media, .post__media--xl { height: 360px; }
+  .talent-card__media { height: 320px; }
+  .logo-grid { grid-template-columns: repeat(2, 1fr); gap: 0 8px; }
+  .logo { height: 110px; padding: 16px; }
+  .logo img { max-width: 100%; width: min(var(--w, 140px), 100%); }
+  .impact { height: 70vh; min-height: 460px; }
+  .impact__content { padding-left: 0; gap: 18px; }
+  .impact__arrow { top: 38%; }
+  .footer__logo { width: 160px; margin-bottom: 40px; }
+  .footer__cols { grid-template-columns: repeat(2, 1fr); padding-bottom: 40px; }
+  .footer__col h4 { font-size: 18px; }
+  .footer__legal { font-size: 13px; line-height: 1.6; }
+  .float-card { display: none; }
+  .ask.is-open .ask__form { width: calc(100vw - 40px); }
+  .mega__tile { height: 180px; }
+  .logo img{
+    height:auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__content { padding-top: 26vh; }
+  .btn { padding-left: 18px; padding-right: 18px; letter-spacing: 0.14em; }
+  .why__stack { height: 400px; }
+  .comp-row { grid-template-columns: repeat(2, 1fr); }
+  .footer__cols { grid-template-columns: 1fr 1fr; gap: 20px 12px; }
+  .footer__col--wide { grid-column: 1 / -1; }
+}
+
+/* Very large screens: stop the page from stretching beyond the design */
+@media (min-width: 1921px) {
+  .hero { height: max(1165px, 100vh); }
+  .impact { height: 902px; }
+}
+
+/* =========================================================
+   MOBILE — Figma "mobile-homepage" (node 111:1645)
+   Authored at 320 wide with 24px gutters and a 272 content
+   column. Values below are the design's own px values; this
+   block sits last so it wins over the generic 1024/768/480
+   rules above.
+   ========================================================= */
+@media (max-width: 768px) {
+  :root {
+    --gutter: 24px;
+    --fs-hero: 48px;
+    --fs-h2: 36px;
+    --fs-h3: 28px;
+    --fs-card-title: 24px;
+    --fs-eyebrow: 14px;
+  }
+
+  /* ---- Type scale ---- */
+  .h2, .h2--tight { line-height: 1; }
+  .eyebrow {
+    font-size: var(--fs-eyebrow);
+    line-height: 1.5;
+    letter-spacing: 0.33em;
+  }
+  .eyebrow--sm { font-size: var(--fs-eyebrow); }
+  .lead,
+  .philosophy__lead { font-size: 17px; line-height: 1.6; }
+  .section-head { gap: 20px; }
+
+  /* ---- Hero: 48px at the 320 artboard = 15vw, tracked -1.8px ---- */
+  .hero-banner .inner-row h1.heading,
+  .hero-banner .inner-row .text-wrp {
+    font-size: clamp(40px, 15vw, 60px);
+    line-height: 0.9;
+    letter-spacing: -0.0375em;
+  }
+  .hero-banner.hero { min-height: calc(455px + var(--hero-curve, 0px)); }
+
+  /* ---- Nav: the design's mobile bar is a 300x40 pill holding only the
+     logo and the burger; the Contact CTA moves into the drawer. ---- */
+  .site-header { padding-top: 12px; }
+  .nav-wrap { width: calc(100% - 20px); }
+  .nav { height: 40px; padding: 0 20px; }
+  .nav__logo img { width: 80px; }
+  .nav__cta { display: none; }
+  .nav__burger { width: 24px; height: 24px; }
+  .nav__burger span { left: 4px; right: 4px; top: 6px; }
+  .nav__burger span:nth-child(2) { top: 11px; }
+  .nav__burger span:nth-child(3) { top: 16px; }
+  .site-header.drawer-open .nav__cta { display: inline-flex; margin-top: 16px; }
+  .site-header.drawer-open .nav__burger { top: 10px; right: 16px; }
+
+  /* ---- Intro ---- */
+  .intro__text { font-size: 19px; line-height: 1.4; }
+  .intro__tagline { font-size: 19px; line-height: 1.4; }
+
+  /* ---- Philosophy: three stacked cards, copy left-aligned ----
+     Each orb becomes a 10px-radius card on the design's vertical
+     #f3f3f5 wash, 36px/20px padding, 40px apart. */
+  .philosophy__stage { gap: 40px; }
+  .phil-orb {
+    align-items: stretch;
+    max-width: none;
+    padding: 36px 20px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(243,243,245,0) 0%, #f3f3f5 100%);
+  }
+  .phil-orb__frame,
+  .phil-orb--hi-ai .phil-orb__frame,
+  .phil-orb--xfactors .phil-orb__frame,
+  .phil-orb--orian .phil-orb__frame {
+    width: min(204px, 64vw);
+    align-self: center;
+    margin-bottom: 32px;
+  }
+  .phil-orb__info,
+  .phil-orb--hi-ai .phil-orb__info,
+  .phil-orb--xfactors .phil-orb__info,
+  .phil-orb--orian .phil-orb__info {
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+  }
+  .phil-orb__title { font-size: 20px; font-weight: 600; line-height: 1.4; }
+  .phil-orb__desc { font-size: 17px; line-height: 1.6; }
+  .phil-orb__btn {
+    margin-top: 20px;           /* design: 40px below the copy block */
+    height: 40px;
+    padding: 0 24px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+  }
+
+  /* Industries mobile lives in industries.css, which loads after this file. */
+
+  /* ---- Competencies: horizontal scroller, next card peeking ---- */
+  .comp-row {
+    display: flex;
+    grid-template-columns: none;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* full-bleed track so the row can run past the gutters */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+  .comp-row::-webkit-scrollbar { display: none; }
+  .comp-card { flex: 0 0 191px; scroll-snap-align: start; }
+  .comp-card a { height: 306px; padding-top: 28px; }
+  .comp-card a > img,
+  .comp-card a:hover > img { height: 200px; }
+  .comp-card__title { font-size: 21px; }
+
+  /* ---- Why leaders ---- */
+  .why__stack { height: 600px; }
+  .feel-card { min-height: 0; padding: 20px; }
+  .feel-card h3 { font-size: 24px; line-height: 1; }
+  .feel-card p { font-size: 17px; line-height: 1.6; }
+
+  /* ---- How can we help ---- */
+  .help-grid { grid-template-columns: 1fr; gap: 16px; }
+  .help-card { padding: 24px; min-height: 0; }
+  .help-card h3 { font-size: 24px; font-weight: 600; line-height: 1.06; margin-bottom: 12px; }
+  .help-card p { font-size: 17px; line-height: 1.6; }
+
+  /* ---- Insights ---- */
+  .masonry { grid-template-columns: 1fr; }
+  .masonry__col { gap: 40px; }
+  .post__media,
+  .post__media--xl,
+  .post__media--tall,
+  .post__media--short { height: auto; aspect-ratio: 272 / 315; }
+  .post__title { font-size: 28px; line-height: 1; }
+  .post__excerpt { font-size: 17px; line-height: 1.5; }
+  .post__date { font-size: 17px; line-height: 1.8; }
+  .filter__label { font-size: 14px; letter-spacing: 0.33em; }
+
+  /* ---- Careers: media runs full-bleed, only the copy is inset 24px ---- */
+  .talent-card { padding: 0; }
+  .talent-card__media { height: 273px; }
+  .talent-card__body { padding: 24px; }
+  .talent-card__body .h2 { font-size: 36px; line-height: 1; }
+  .talent-card__body .lead { font-size: 17px; line-height: 1.6; }
+
+  /* ---- Education band ---- */
+  .impact { height: auto; min-height: 503px; }
+  .impact__title { font-size: 36px; line-height: 0.78; }
+  .impact__content { text-align: center; align-items: center; }
+
+  /* ---- Footer: one column, not two ---- */
+  .footer__cols {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+  .footer__col h4 { font-size: 20px; line-height: 1.2; margin-bottom: 12px; }
+  .footer__col li a { font-size: 17px; line-height: 1.8; }
+  .footer__legal { font-size: 17px; line-height: 1.8; }
+  .footer__logo { width: 173px; }
+}
+
+@media (max-width: 480px) {
+  /* the 480 block above splits the footer back into two columns */
+  .footer__cols { grid-template-columns: 1fr; gap: 40px; }
+  .footer__col--wide { grid-column: auto; }
+  .comp-row { grid-template-columns: none; }
+}
+
+
+@media(min-width:1200px){
+img.hiai__yy {
+    top: 80px;
+}
+.hiai__stage {
+    padding-bottom: 30px;
+}
+
+}
+/* =========================================================
+   MOBILE — HI/AI page breathing room
+   Desktop and tablet are untouched: the 600 block mirrors the
+   breakpoint the page's mobile design values live at in
+   hiai.css, and this file loads after it, so these win.
+   ========================================================= */
+
+@media (max-width: 600px) {
+  /* ---- Applied intro ---- */
+  .applied { padding: 56px 0 56px; }
+
+  /* ---- Key aspects ---- */
+  .aspects { padding: 64px 0 104px; }
+  .aspects .hiai-h2 { margin-bottom: 44px; }
+  /* Cards were 20px apart, which reads as one long column rather than three
+     cards; the extra 8px is enough to separate them. */
+  .aspects__grid { gap: 28px; }
+  .aspect-card__body { padding: 0 24px 44px; }
+  .aspect-card__title { margin: 52px auto 24px; }
+
+  /* ---- HI / AI stage ----
+     The stacked mobile arrangement puts each caption directly above the next
+     equation, so those two need more air between them than the letters do. */
+  .hiai { padding-bottom: 64px; }
+  .hiai .hiai-h2 { margin-bottom: 32px; }
+  .hiai__stage { row-gap: 4px; padding-bottom: 32px; }
+  .hiai__label { margin-top: 8px; }
+  .hiai__caption { margin-top: 10px; }
+  .hiai__col--ai .hiai__eq { margin-top: 36px; }
+  .hiai__cta { margin-top: 44px; }
+
+  /* ---- Quote ---- */
+  .quote { padding-bottom: 80px; }
+  .quote__card { padding: 44px 26px 40px; }
+  .quote__by { margin-top: 16px; }
+
+  /* ---- The Xoriant Way ---- */
+  .way { padding: 64px 0 80px; }
+  .way__flywheel { margin: 44px auto 56px; }
+  .way__note { gap: 24px; padding: 32px 24px; }
+  .way__note-link { margin-top: 12px; }
+
+  .way__note-copy {
+    text-align: left;
+}
+.way__note-title br {
+    display: block;
+}
+p.way__note-title {
+    font-size: 20px;
+    line-height: 114%;
+}
+
+a.way__note-link {
+    font-size: 16px;
+    line-height: 150%;
+    padding-right: 40px;
+}
+}
+
+/* ---------- Mobile drawer (Figma 142:946): accordion rows built by nav.js ---------- */
+.nav__sub,
+.nav__sub-toggle,
+.mega__mobile-only { display: none; }
+
+@media (max-width: 1024px) {
+  .site-header.drawer-open { padding-top: 0; }
+  .site-header.drawer-open .nav-wrap { width: 100%; }
+  body.menu-open .page-dim { background: rgba(29, 31, 31, 0.45); }
+
+  .site-header.drawer-open .nav {
+    padding: 30px 36px 24px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+  }
+  /* Bottom curve: same geometry as the desktop mega-shape.svg, stretched to the drawer. */
+  .site-header.drawer-open .nav-wrap::after {
+    content: '';
+    display: block;
+    height: 24px;
+    margin-top: -1px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 24' preserveAspectRatio='none'%3E%3Cpath d='M0 24A961 961 0 0 1 390 24V0H0Z' fill='%23fff'/%3E%3C/svg%3E") no-repeat top / 100% 100%;
+    pointer-events: none;
+  }
+
+  .site-header.drawer-open .nav__logo { display: block; width: fit-content; padding: 0; }
+  .site-header.drawer-open .nav__logo img { display: block; width: 96px; height: auto; }
+  /* The default logo's tagline is white; use the dark-tagline version on the white drawer. */
+  .site-header.drawer-open .nav__logo img.staticLogo { display: none; }
+  .site-header.drawer-open .nav__logo img.animatedLogo,
+  .site-header.drawer-open .nav__logo img.stickyLogo { display: block; opacity: 1; visibility: visible; }
+
+  .site-header.drawer-open .nav__burger { top: 26px; right: 31px; width: 40px; height: 40px; }
+
+  .site-header.drawer-open .nav__menu {
+    align-items: stretch;
+    gap: 0;
+    margin-top: 54px;
+  }
+  .site-header.drawer-open .nav__menu > .nav__item:first-child { margin-bottom: 12px; }
+  .site-header.drawer-open .nav__toggle,
+  .site-header.drawer-open .nav__toggle:hover {
+    align-self: flex-start;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+    background: none;
+    box-shadow: none;
+    font-size: 18px;
+  }
+  .site-header.drawer-open .nav__toggle img { width: 32px; height: 32px; }
+  .site-header.drawer-open .nav__item.has-menu { position: relative; }
+
+  .site-header.drawer-open .nav__menu .nav__link,
+  .site-header.drawer-open .nav__right .nav__link {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25px;
+    padding: 15px 48px 15px 0;
+  }
+  .site-header.drawer-open .nav__item.is-expanded > .nav__link {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 5px;
+  }
+
+  /* Centred on the 55px row, glyph 26px in from the content edge. */
+  .site-header.drawer-open .nav__sub-toggle {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    color: var(--ink);
+  }
+  .nav__sub-toggle::before,
+  .nav__sub-toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 1.5px;
+    margin: -0.75px 0 0 -7px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.3s var(--ease-out), opacity 0.2s;
+  }
+  .nav__sub-toggle::after { transform: rotate(90deg); }
+  .nav__item.is-expanded > .nav__sub-toggle::after { transform: rotate(0deg); opacity: 0; }
+
+  .site-header.drawer-open .nav__item.is-expanded > .nav__sub {
+    display: block;
+    padding: 0 0 18px 12px;
+  }
+  .nav__sub a {
+    display: block;
+    padding: 10px 0;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 23px;
+    color: var(--grey);
+    transition: color 0.2s;
+  }
+  .nav__sub a:hover { color: var(--ink); }
+
+  .site-header.drawer-open .nav__right { align-items: stretch; }
+  .site-header.drawer-open .nav__cta {
+    display: inline-flex;
+    align-self: flex-start;
+    height: 42px;
+    padding: 0 30px;
+    margin-top: 20px;
+    font-size: 17px;
+    letter-spacing: 0;
+  }
+}

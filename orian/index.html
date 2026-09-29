@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xoriant — Orian: Three capabilities. One operating layer.</title>
+  <meta name="description" content="Orian is the governed layer that moves enterprise AI from pilot to production — with humans in command at every stage.">
+
+  <!-- Fonts: DM Sans (Google) + Gambarino (Fontshare) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap" rel="stylesheet">
+
+  <!-- Styles (split by concern) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/orian.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body>
+
+  <!-- Page blur overlay used by the mega menu -->
+  <div class="page-dim" aria-hidden="true"></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header new" id="site-header">
+    <div class="nav-wrap">
+      <nav class="nav glass" aria-label="Primary">
+        <a class="nav__logo" href="../index.html" aria-label="Xoriant — New Horizons">
+          <img class="staticLogo" src="assets/images/headerLogo.png" alt="Xoriant New Horizons" width="137" height="47">
+          <img class="stickyLogo" src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="137" height="47">
+        </a>
+
+        <ul class="nav__menu">
+          <li class="nav__item">
+            <a class="nav__toggle" href="../hi-ai/index.html" aria-label="Human Ingenuity / Artificial Intelligence">
+              <span>HI</span>
+              <img src="assets/icons/hi-ai-toggle.png" alt="" width="30" height="30">
+              <span>AI</span>
+            </a>
+          </li>
+          <li class="nav__item has-menu" data-menu="industries">
+            <a class="nav__link" href="../index.html#industries">Industries</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="competencies">
+            <a class="nav__link" href="../index.html#competencies">Competencies</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="insights">
+            <a class="nav__link" href="../index.html#insights">Insights</a>
+          </li>
+          <li class="nav__item has-menu" data-menu="about">
+            <a class="nav__link" href="../index.html#philosophy">About</a>
+          </li>
+        </ul>
+
+        <div class="nav__right">
+          <a class="nav__link" href="../index.html#careers">Careers</a>
+          <a class="nav__cta" href="#contact">Contact</a>
+          <button class="nav__burger" type="button" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+            <img class="nav__burger-close" src="assets/icons/menu-close.png" alt="" width="18" height="18">
+          </button>
+        </div>
+      </nav>
+
+      <!-- ===== Mega menu panels ===== -->
+      <div class="mega" id="mega" aria-hidden="true">
+        <div class="mega__inner">
+          <!-- Industries -->
+          <section class="mega__panel" data-panel="industries">
+            <div class="mega__intro">
+              <h3>Industries</h3>
+              <p>Turning ideas into solutions that keep delivering real‑world value in a fast‑changing world.</p>
+            </div>
+            <ul class="mega__tiles">
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-financial.png" alt="Financial Services"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-technology.png" alt="Technology"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-consumer.png" alt="Consumer"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-industrials.png" alt="Industrials"></a></li>
+              <li><a href="../index.html#industries" class="mega__tile"><img src="assets/images/menu/menu-ind-healthcare.png" alt="Healthcare"></a></li>
+              <li class="mega__mobile-only"><a href="../index.html#industries" class="mega__tile"><span>Other</span></a></li>
+            </ul>
+          </section>
+
+          <!-- Competencies -->
+          <section class="mega__panel" data-panel="competencies">
+            <div class="mega__intro">
+              <h3>Competencies</h3>
+              <p>Discover how our left and right brain training, amplified by specialized skills sets create synergy.</p>
+            </div>
+            <ul class="mega__tiles mega__tiles--7">
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Engineering</span><img src="assets/images/menu/menu-comp-engineering.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Cloud &amp; Security</span><img src="assets/images/menu/menu-comp-cloud.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Quality</span><img src="assets/images/menu/menu-comp-quality.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Data &amp; AI</span><img src="assets/images/menu/menu-comp-ai.png" alt=""></a></li>
+              <li><a href="../index.html#competencies" class="mega__tile mega__tile--labelled"><span>Enterprise</span><img src="assets/images/menu/menu-comp-salesforce.png" alt=""></a></li>
+            </ul>
+          </section>
+
+          <!-- Insights -->
+          <section class="mega__panel" data-panel="insights">
+            <div class="mega__intro">
+              <h3>Insights</h3>
+              <p>Ideas, stories, and expert views — shaped by AI and engineering — driving measurable business outcomes.</p>
+            </div>
+            <ul class="mega__tiles">
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-success.png" alt="Success Stories"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-blog.png" alt="Blog"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-infographics.png" alt="Infographics"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-webinar.png" alt="Webinar &amp; Podcast"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-brochures.png" alt="Brochures"></a></li>
+              <li><a href="../index.html#insights" class="mega__tile"><img src="assets/images/menu/menu-ins-whitepapers.png" alt="White Papers"></a></li>
+            </ul>
+          </section>
+
+          <!-- About -->
+          <section class="mega__panel" data-panel="about">
+            <div class="mega__intro">
+              <h3>About</h3>
+              <p>Discover the impact of our HI/AI‑powered competencies on what you New Horizon.</p>
+            </div>
+            <ul class="mega__tiles mega__tiles--5">
+              <li><a href="../index.html#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Our Story</span><img src="assets/images/menu/menu-about-story.png" alt="" class="cover"></a></li>
+              <li><a href="../hi-ai/index.html" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Human Powered AI</span><img src="assets/images/yin-yang.png" alt="" class="contain"></a></li>
+              <li><a href="../house-of-xfactors/house-of-xfactors.html" class="mega__tile mega__tile--labelled mega__tile--wide"><span>House of X-Factors</span><img src="assets/images/brain-flowers.png" alt="" class="contain"></a></li>
+              <li><a href="../index.html#partners" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Partner Ecosystem</span><img src="assets/images/menu/menu-about-partner.png" alt="" class="contain"></a></li>
+              <li><a href="../index.html#philosophy" class="mega__tile mega__tile--labelled mega__tile--wide"><span>Values</span><img src="assets/images/menu/menu-about-values.png" alt="" class="contain"></a></li>
+            </ul>
+          </section>
+        </div>
+        <img class="mega__shape" src="assets/images/mega-shape.svg" alt="" aria-hidden="true">
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero hero--orian" id="hero">
+      <div class="hero__bg">
+        <img class="hero__img" src="assets/images/orian-hero.jpg" alt="" fetchpriority="high">
+        <div class="hero__tint"></div>
+      </div>
+
+      <div class="hero__content">
+        <h1 class="hero__title display">
+          <span class="split-line"><span class="split-inner">Orian</span></span>
+        </h1>
+        <p class="hero__eyebrow">Three capabilities.<br>One operating layer.</p>
+      </div>
+    </section>
+
+    <!-- ===== Everything below the hero scrolls up over the sticky hero ===== -->
+    <div class="page-below">
+      <div class="page-below__curve" aria-hidden="true">
+        <svg viewBox="0 0 1920 85" preserveAspectRatio="none">
+          <path d="M0,85 L0,35.94 Q960,-35.94 1920,35.94 L1920,85 Z" fill="#ffffff"/>
+        </svg>
+      </div>
+
+      <!-- ================= INTRO ================= -->
+      <section class="intro" id="intro">
+        <div class="container">
+          <h2 class="orian-h2 intro__head" data-split="chars">From <span class="accent">Ingenuity</span> to Impact</h2>
+          <p class="intro__body reveal">Orian is the governed layer that moves enterprise AI from pilot to production - with humans in command at every stage.</p>
+        </div>
+      </section>
+
+      <!-- ================= THREE CAPABILITIES ================= -->
+      <section class="caps" id="capabilities" aria-label="Three capabilities">
+        <div class="container">
+          <div class="caps__grid">
+            <article class="cap-card cap-card--harness reveal-up">
+              <div class="cap-card__media"><img src="assets/images/orian-card-harness.jpg" alt="Harness — the governed AI platform"></div>
+              <div class="cap-card__body">
+                <h3 class="cap-card__title display">Harness</h3>
+                <p class="cap-card__sub">The governed AI platform</p>
+                <p class="cap-card__text">Connects your systems, data, agents, and controls into one trusted operating layer - so AI knows what it can know, where it can act, and every decision is observed and explained.</p>
+              </div>
+            </article>
+            <article class="cap-card cap-card--business reveal-up">
+              <div class="cap-card__media"><img src="assets/images/orian-card-business.jpg" alt="Business — AI for the work that matters"></div>
+              <div class="cap-card__body">
+                <h3 class="cap-card__title display">Business</h3>
+                <p class="cap-card__sub">AI for the work that matters</p>
+                <p class="cap-card__text">Applied to the workflows that drive revenue, operations, risk, and talent. Signal-driven. Outcome-governed. Built for the enterprise domains where AI has the most to prove.</p>
+              </div>
+            </article>
+            <article class="cap-card cap-card--engineering reveal-up">
+              <div class="cap-card__media"><img src="assets/images/orian-card-engineering.jpg" alt="Engineering — AI-native delivery"></div>
+              <div class="cap-card__body">
+                <h3 class="cap-card__title display">Engineering</h3>
+                <p class="cap-card__sub">AI-native delivery</p>
+                <p class="cap-card__text">Builds and ships faster without losing reliability. Agentic SDLC, AI-powered testing, data readiness - the engineering foundation that makes everything else possible.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HOW ORIAN POWERS EACH STAGE (scroll animation) ================= -->
+      <section class="stages" id="stages">
+        <div class="container stages__intro">
+          <h2 class="orian-h2 stages__head" data-split="chars">How Orian <span class="accent">Powers</span> <br>Each Stage</h2>
+          <p class="stages__eyebrow reveal">Humans lead at every stage</p>
+          <p class="stages__body reveal">Orian makes sure AI executes within it - governed, trusted, and ready to scale.</p>
+        </div>
+
+        <!-- Pinned by GSAP ScrollTrigger; steps through data-stage 1..5 -->
+        <div class="stage" id="stage" data-stage="1">
+          <div class="stage__inner">
+            <div class="stage__grid">
+
+            <!-- ---- Flywheel (left / top) ---- -->
+            <div class="stage__wheel">
+              <svg class="fw" viewBox="0 0 629 628" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Orian Way: Understand, Envision, Engineer, Operationalize, Evolve">
+                <defs>
+                  <filter id="fw-shadow" x="0" y="0" width="629" height="628" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dx="-2.84238" dy="17.0542"/>
+                    <feGaussianBlur stdDeviation="18.7123"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                  </filter>
+                  <filter id="fw-ring" x="31.737" y="13.914" width="568.421" height="568.419" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                    <feGaussianBlur stdDeviation="3.96841" result="effect1_foregroundBlur"/>
+                  </filter>
+                  <linearGradient id="fw-g1" x1="469.541" y1="318.626" x2="486.254" y2="460.143" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#B9F150"/><stop offset="1" stop-color="#6B8B2E"/>
+                  </linearGradient>
+                  <linearGradient id="fw-g3" x1="163.679" y1="324.65" x2="105.529" y2="271.926" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#37648B"/><stop offset="1" stop-color="#0F1A25"/>
+                  </linearGradient>
+                  <linearGradient id="fw-g4" x1="242.757" y1="180.034" x2="302.072" y2="63.5518" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#6FCDDD"/><stop offset="1" stop-color="#3C6E77"/>
+                  </linearGradient>
+                  <linearGradient id="fw-g5" x1="417.513" y1="185.964" x2="550.796" y2="253.731" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#DAD4CE"/><stop offset="1" stop-color="#74716E"/>
+                  </linearGradient>
+                </defs>
+
+                <!-- disc with drop shadow -->
+                <g filter="url(#fw-shadow)"><ellipse cx="317.125" cy="296.929" rx="276.858" ry="276.559" fill="white"/></g>
+
+                <!-- 2 · Envision (base + colour overlay) -->
+                <path d="M592.855 282.339C593.136 287.43 593.281 292.558 593.281 297.719V297.787C593.251 412.407 523.192 510.686 423.514 552.244C410.486 555.956 397.331 557.733 384.373 557.733C329.661 557.733 278.431 526.088 254.806 475.077V475.076L253.979 473.261C252.076 469.004 250.367 464.616 248.862 460.1C248.75 459.764 248.638 459.423 248.525 459.082L233.768 413.715H449.68C450.12 413.715 450.56 413.715 451.001 413.706L451 413.705C455.713 413.663 460.372 413.397 464.965 412.91L466.93 412.688C499.715 408.77 529.103 393.829 551.281 371.676C574.595 348.388 589.936 317.128 592.855 282.339Z" fill="white" stroke="#BEBEBE" stroke-width="0.817176"/>
+                <path class="fw-wedge" data-stage="2" d="M592.855 282.339C593.136 287.43 593.281 292.558 593.281 297.719V297.787C593.251 412.407 523.192 510.686 423.514 552.244C410.486 555.956 397.331 557.733 384.373 557.733C329.661 557.733 278.431 526.088 254.806 475.077V475.076L253.979 473.261C252.076 469.004 250.367 464.616 248.862 460.1C248.75 459.764 248.638 459.423 248.525 459.082L233.768 413.715H449.68C450.12 413.715 450.56 413.715 451.001 413.706L451 413.705C455.713 413.663 460.372 413.397 464.965 412.91L466.93 412.688C499.715 408.77 529.103 393.829 551.281 371.676C574.595 348.388 589.936 317.128 592.855 282.339Z" fill="#90BE02" stroke="#BEBEBE" stroke-width="0.817176"/>
+
+                <!-- 3 · Engineer (base + colour overlay) -->
+                <path d="M232.57 412.362L247.534 458.316L247.535 458.318L247.873 459.34C249.606 464.536 251.608 469.564 253.862 474.418C277.674 525.779 329.305 557.638 384.444 557.638C395.442 557.638 406.581 556.369 417.665 553.736C412.79 555.632 407.848 557.399 402.842 559.023C375.882 567.775 347.101 572.509 317.212 572.509C233.053 572.509 157.677 535.004 106.947 475.832C90.7476 451.596 82.9258 424.057 82.9258 396.751C82.9258 358.571 98.2177 320.846 127.255 293.271L128.648 291.965C132.505 288.392 136.599 285.001 140.927 281.816L140.932 281.812C141.27 281.556 141.608 281.307 141.95 281.057L141.951 281.058L180.675 252.983L232.57 412.362Z" fill="white" stroke="#BEBEBE" stroke-width="0.817176"/>
+                <path class="fw-wedge" data-stage="3" d="M232.57 412.362L247.534 458.316L247.535 458.318L247.873 459.34C249.606 464.536 251.608 469.564 253.862 474.418C277.674 525.779 329.305 557.638 384.444 557.638C395.442 557.638 406.581 556.369 417.665 553.736C412.79 555.632 407.848 557.399 402.842 559.023C375.882 567.775 347.101 572.509 317.212 572.509C233.053 572.509 157.677 535.004 106.947 475.832C90.7476 451.596 82.9258 424.057 82.9258 396.751C82.9258 358.571 98.2177 320.846 127.255 293.271L128.648 291.965C132.505 288.392 136.599 285.001 140.927 281.816L140.932 281.812C141.27 281.556 141.608 281.307 141.95 281.057L141.951 281.058L180.675 252.983L232.57 412.362Z" fill="url(#fw-g3)" stroke="#BEBEBE" stroke-width="0.817176"/>
+
+                <!-- 1 · Understand (always on) -->
+                <path class="fw-wedge is-on" data-stage="1" d="M592.215 275.533C590.739 312.89 575.047 346.578 550.426 371.294C528.342 393.462 499.082 408.413 466.438 412.334C461.233 412.962 455.937 413.304 450.573 413.352C450.137 413.361 449.701 413.361 449.261 413.361H401.007L452.895 253.062L467.806 206.992C467.931 206.602 468.056 206.212 468.177 205.822C469.808 200.649 471.124 195.451 472.147 190.252C479.972 150.464 470.43 110.404 448.07 78.9987C431.856 56.2326 408.909 38.0196 380.947 27.7607C388.155 29.4763 395.25 31.4735 402.224 33.748C506.371 67.6265 583.398 161.971 592.215 275.533Z" fill="url(#fw-g1)"/>
+
+                <!-- soft white ring -->
+                <g filter="url(#fw-ring)"><path d="M315.947 24.1182C467.276 24.1182 589.953 146.794 589.953 298.123C589.953 449.452 467.276 572.129 315.947 572.129C164.618 572.129 41.9414 449.452 41.9414 298.123C41.9416 146.794 164.618 24.1182 315.947 24.1182Z" stroke="white" stroke-width="4.53533"/></g>
+                <path d="M232.562 412.362L247.526 458.316V458.318C247.639 458.66 247.752 459.002 247.865 459.34C249.382 463.887 251.104 468.304 253.021 472.59L253.854 474.418C277.666 525.779 329.296 557.639 384.436 557.639C395.435 557.639 406.576 556.368 417.661 553.735C412.784 555.632 407.841 557.399 402.834 559.023C375.874 567.775 347.093 572.51 317.204 572.51C233.044 572.51 157.667 535.002 106.938 475.829C90.7392 451.593 82.918 424.056 82.918 396.751C82.918 358.571 98.2099 320.846 127.247 293.271L128.641 291.965C132.497 288.392 136.592 285.001 140.919 281.816L140.924 281.812C141.262 281.556 141.6 281.307 141.941 281.057L141.942 281.058L180.667 252.983L232.562 412.362Z" stroke="#BEBEBE" stroke-width="0.817176"/>
+
+                <!-- 4 · Operationalize (base + colour overlay) -->
+                <path d="M193.632 99.083C217.403 99.083 241.352 104.938 263.165 117.009L263.194 117.023L263.209 117.035L263.239 117.052C267.37 119.34 271.42 121.849 275.38 124.585L277.071 125.771C277.209 125.87 277.347 125.968 277.484 126.067C277.622 126.167 277.761 126.267 277.9 126.367V126.366L316.726 154.427L180.49 252.889L141.203 281.281L141.202 281.282C140.861 281.531 140.516 281.783 140.172 282.043C135.808 285.245 131.679 288.654 127.789 292.246C97.5928 320.079 81.6787 358.6 81.6787 397.592C81.6788 423.072 88.4756 448.753 102.515 471.794C99.2425 467.807 96.0788 463.73 93.0312 459.564C59.7268 414.046 40.082 358.006 40.082 297.402C40.0821 244.705 54.9341 195.458 80.707 153.576C108.847 117.95 150.955 99.0831 193.632 99.083Z" fill="white" stroke="#BEBEBE" stroke-width="0.817176"/>
+                <path class="fw-wedge" data-stage="4" d="M193.632 99.083C217.403 99.083 241.352 104.938 263.165 117.009L263.194 117.023L263.209 117.035L263.239 117.052C267.37 119.34 271.42 121.849 275.38 124.585L277.071 125.771C277.209 125.87 277.347 125.968 277.484 126.067C277.622 126.167 277.761 126.267 277.9 126.367V126.366L316.726 154.427L180.49 252.889L141.203 281.281L141.202 281.282C140.861 281.531 140.516 281.783 140.172 282.043C135.808 285.245 131.679 288.654 127.789 292.246C97.5928 320.079 81.6787 358.6 81.6787 397.592C81.6788 423.072 88.4756 448.753 102.515 471.794C99.2425 467.807 96.0788 463.73 93.0312 459.564C59.7268 414.046 40.082 358.006 40.082 297.402C40.0821 244.705 54.9341 195.458 80.707 153.576C108.847 117.95 150.955 99.0831 193.632 99.083Z" fill="url(#fw-g4)" stroke="#BEBEBE" stroke-width="0.817176"/>
+
+                <!-- 5 · Evolve (base + colour overlay) -->
+                <path d="M317.264 20.7783C339.277 20.7783 360.69 23.3615 381.213 28.2422C409.165 38.5024 432.103 56.7121 448.313 79.4736C470.673 110.88 480.215 150.942 472.391 190.73C471.368 195.929 470.052 201.128 468.421 206.301L468.42 206.303C468.3 206.691 468.174 207.08 468.049 207.471L453.27 253.136L317.505 154.113L278.354 125.561L278.353 125.559C278.215 125.459 278.078 125.36 277.94 125.26C277.803 125.16 277.665 125.059 277.526 124.959H277.525C273.583 122.126 269.548 119.524 265.432 117.146L263.663 116.141C263.651 116.133 263.641 116.124 263.63 116.118L263.573 116.088C241.715 103.885 217.719 97.9669 193.901 97.9668C153.146 97.9668 112.905 115.293 84.8018 148.104C87.6347 143.692 90.5888 139.363 93.6641 135.128C143.907 65.8223 225.346 20.7784 317.264 20.7783Z" fill="white" stroke="#BEBEBE" stroke-width="0.817176"/>
+                <path class="fw-wedge" data-stage="5" d="M317.264 20.7783C339.277 20.7783 360.69 23.3615 381.213 28.2422C409.165 38.5024 432.103 56.7121 448.313 79.4736C470.673 110.88 480.215 150.942 472.391 190.73C471.368 195.929 470.052 201.128 468.421 206.301L468.42 206.303C468.3 206.691 468.174 207.08 468.049 207.471L453.27 253.136L317.505 154.113L278.354 125.561L278.353 125.559C278.215 125.459 278.078 125.36 277.94 125.26C277.803 125.16 277.665 125.059 277.526 124.959H277.525C273.583 122.126 269.548 119.524 265.432 117.146L263.663 116.141C263.651 116.133 263.641 116.124 263.63 116.118L263.573 116.088C241.715 103.885 217.719 97.9669 193.901 97.9668C153.146 97.9668 112.905 115.293 84.8018 148.104C87.6347 143.692 90.5888 139.363 93.6641 135.128C143.907 65.8223 225.346 20.7784 317.264 20.7783Z" fill="url(#fw-g5)" stroke="#BEBEBE" stroke-width="0.817176"/>
+
+                <!-- Labels. data-on = fill once the stage is active; inactive is #BEBEBE -->
+                <g class="fw-labels" font-family="DM Sans, sans-serif" style="white-space: pre">
+                  <!-- 4 Operationalize -->
+                  <text class="fw-t" data-stage="4" data-on="#000000" fill="#BEBEBE" font-size="10.561"><tspan x="84.4517" y="215.335">Land it in the business, </tspan><tspan x="95.6882" y="228.335">secure, compliant, </tspan><tspan x="118.785" y="241.335">adopted.</tspan></text>
+                  <text class="fw-t" data-stage="4" data-on="#000000" fill="#BEBEBE" font-family="Gambarino, serif" font-size="21.1219"><tspan x="85.4132" y="194.713">Operationalize</tspan></text>
+                  <text class="fw-t" data-stage="4" data-on="#ffffff" fill="#BEBEBE" font-size="38.0195"><tspan x="139.908" y="170.014">4</tspan></text>
+                  <!-- 5 Evolve -->
+                  <text class="fw-t" data-stage="5" data-on="#000000" fill="#BEBEBE" font-size="10.561"><tspan x="318.001" y="125.26">Measure, optimize, and </tspan><tspan x="315.835" y="138.26">extend to new horizons.</tspan></text>
+                  <text class="fw-t" data-stage="5" data-on="#000000" fill="#BEBEBE" font-family="Gambarino, serif" font-size="21.1219"><tspan x="345.076" y="103.83">Evolve</tspan></text>
+                  <text class="fw-t" data-stage="5" data-on="#ffffff" fill="#BEBEBE" font-size="38.0195"><tspan x="359.767" y="79.3621">5</tspan></text>
+                  <!-- 3 Engineer -->
+                  <text class="fw-t" data-stage="3" data-on="#ffffff" fill="#BEBEBE" font-size="10.561"><tspan x="122.553" y="440.491">Design and build the </tspan><tspan x="130.139" y="453.491">solution (HI + AI + </tspan><tspan x="146.099" y="466.491">platforms).</tspan></text>
+                  <text class="fw-t" data-stage="3" data-on="#ffffff" fill="#BEBEBE" font-family="Gambarino, serif" font-size="21.1219"><tspan x="124.664" y="415.26">Engineer</tspan></text>
+                  <text class="fw-t" data-stage="3" data-on="#ffffff" fill="#BEBEBE" font-size="38.0195" transform="translate(153.424 358.995)"><tspan x="0.268661" y="27.9646">3</tspan></text>
+                  <!-- 1 Understand (always on) -->
+                  <text fill="#FCFFF6" font-size="38.0195"><tspan x="501.721" y="271.71">1</tspan></text>
+                  <text fill="#1D1F1F" font-size="10.561"><tspan x="464.312" y="317.178">Discover context, </tspan><tspan x="458.877" y="330.178">people, constraints, </tspan><tspan x="472.625" y="343.178">opportunities.</tspan></text>
+                  <text fill="#000000" font-family="Gambarino, serif" font-size="21.1219"><tspan x="455.59" y="296.17">Understand</tspan></text>
+                  <!-- 2 Envision -->
+                  <text class="fw-t" data-stage="2" data-on="#ffffff" fill="#BEBEBE" font-size="38.0195"><tspan x="363.518" y="455.823">2</tspan></text>
+                  <text class="fw-t" data-stage="2" data-on="#1D1F1F" fill="#BEBEBE" font-size="10.561"><tspan x="303.706" y="499.132">Define the future state, value </tspan><tspan x="307.641" y="512.132">story, and success metrics.</tspan></text>
+                  <text class="fw-t" data-stage="2" data-on="#1D1F1F" fill="#BEBEBE" font-family="Gambarino, serif" font-size="21.1219"><tspan x="335.303" y="477.279">Envision</tspan></text>
+                </g>
+
+                <!-- orian wordmark -->
+                <g class="fw-logo">
+                  <path d="M259.016 271.022C270.061 271.022 277.291 278.855 277.291 289.164C277.291 294.548 275.317 299.254 271.859 302.524C261.481 303.087 253.475 303.74 248.297 304.222C243.514 301.013 240.674 295.566 240.674 289.164C240.674 278.855 248.037 271.022 259.016 271.022ZM258.948 278.721C254.196 278.721 251.719 282.939 251.719 289.164C251.719 295.389 254.196 299.54 258.948 299.54C263.701 299.54 266.245 295.389 266.245 289.164C266.245 282.938 263.701 278.721 258.948 278.721Z" fill="#14BB30"/>
+                  <path d="M380.258 270.952C387.755 270.952 392.174 276.307 392.174 283.938V304.863C390.921 304.719 387.175 304.307 381.263 303.812V286.147C381.263 282.533 379.455 280.057 375.907 280.057C372.292 280.057 369.882 283.069 369.882 287.286V302.971C366.567 302.756 362.922 302.544 358.971 302.348V271.956H369.48V276.643H369.682C372.225 272.961 375.505 270.952 380.258 270.952Z" fill="#14BB30"/>
+                  <path d="M338.221 271.022C343.375 271.022 346.856 271.96 349.333 273.834C352.278 275.976 353.684 279.323 353.684 283.607V300.878C353.684 301.319 353.692 301.729 353.707 302.108C344.519 301.713 333.913 301.418 322.116 301.351C321.492 300.008 321.15 298.442 321.15 296.661C321.15 289.097 327.175 286.821 334.271 285.884C340.697 285.08 342.974 284.41 342.974 282.067C342.973 279.859 341.567 278.386 338.287 278.386C334.807 278.386 333.066 279.926 332.731 282.804H322.69C322.958 276.444 327.845 271.022 338.221 271.022ZM343.241 289.9C341.835 290.637 339.827 291.172 337.618 291.707C333.401 292.644 331.66 293.716 331.66 296.326C331.66 299.071 333.668 300.141 336.346 300.142C340.429 300.142 343.241 297.665 343.241 293.983V289.9Z" fill="#14BB30"/>
+                  <path d="M301.002 271.425C302.006 271.425 302.675 271.492 303.144 271.692V281.064H302.876C296.182 280.127 291.897 283.407 291.897 290.838V301.697C288.072 301.808 284.431 301.939 280.986 302.085V271.96H291.43V277.315H291.63C294.04 273.232 296.852 271.425 301.002 271.425Z" fill="#14BB30"/>
+                  <path d="M317.522 301.336C317.375 301.336 317.227 301.335 317.079 301.335C313.486 301.335 309.995 301.358 306.611 301.398V271.959H317.522V301.336ZM317.522 267.206H306.611V258.37H317.522V267.206Z" fill="#14BB30"/>
+                  <text fill="#000000" font-family="DM Sans, sans-serif" font-size="11.6827" font-weight="bold" letter-spacing="0.33em" style="white-space: pre"><tspan x="247.979" y="326.342">THE ORIAN WAY</tspan></text>
+                </g>
+              </svg>
+            </div>
+
+            <!-- ---- Copy (right / bottom) ---- -->
+            <div class="stage__copy">
+              <div class="stage__head">
+                <h3 class="stage__title display">
+                  <span class="stage__swap" data-stage="1">Understand</span>
+                  <span class="stage__swap" data-stage="2">Envision</span>
+                  <span class="stage__swap" data-stage="3">Engineer</span>
+                  <span class="stage__swap" data-stage="4">Operationalize</span>
+                  <span class="stage__swap" data-stage="5">Evolve</span>
+                </h3>
+                <p class="stage__eyebrow">
+                  <span class="stage__swap" data-stage="1">Empathy &amp; Listening</span>
+                  <span class="stage__swap" data-stage="2">Imagination &amp; Lateral Thinking</span>
+                  <span class="stage__swap" data-stage="3">Precision &amp; Craft</span>
+                  <span class="stage__swap" data-stage="4">Judgement &amp; Governance</span>
+                  <span class="stage__swap" data-stage="5">Curiosity &amp; Honesty</span>
+                </p>
+              </div>
+
+              <div class="stage__venn">
+                <div class="orb orb--human">
+                  <p class="orb__label">The Human Does</p>
+                  <div class="orb__text">
+                    <p class="stage__swap" data-stage="1">Listen. Discover context, people, constraints, opportunities.</p>
+                    <p class="stage__swap" data-stage="2">Define the future state, value story, and success metrics.</p>
+                    <p class="stage__swap" data-stage="3">Direct the build. Maintain judgment on quality, risk, and outcome.</p>
+                    <p class="stage__swap" data-stage="4">Champion adoption. Own accountability. Govern the outcome.</p>
+                    <p class="stage__swap" data-stage="5">Set new horizons. Measure, redirect, and raise the bar.</p>
+                  </div>
+                </div>
+
+                <div class="orb orb--enables">
+                  <p class="orb__label">Orian Enables</p>
+                  <div class="orb__text">
+                    <p class="stage__swap" data-stage="1">Maps systems, data, workflows and roles into a shared ontology - so AI has the context it needs before it acts</p>
+                    <p class="stage__swap" data-stage="2">Connects intent to architecture - translating human vision into governed AI design.</p>
+                    <p class="stage__swap" data-stage="3">HI + AI = platforms. Agentic SDLC, AI-native testing, data pipelines - engineered with reliability from the start.</p>
+                    <p class="stage__swap" data-stage="4">Lands AI in the business: secure, compliant, observed, and trusted by the people using it.</p>
+                    <p class="stage__swap" data-stage="5">Continuous observability, model health, and agent performance - so the flywheel keeps turning.</p>
+                  </div>
+                </div>
+
+                <div class="orb orb--output">
+                  <p class="orb__label">Output</p>
+                  <div class="orb__text">
+                    <p class="stage__swap" data-stage="1">A clear picture of where AI can act and what it needs to know.</p>
+                    <p class="stage__swap" data-stage="2">A blueprint: what AI will do, how it will be measured, where humans stay in control.</p>
+                    <p class="stage__swap" data-stage="3">Production-grade AI, not a prototype.</p>
+                    <p class="stage__swap" data-stage="4">AI that works in the real world - not just in the demo.</p>
+                    <p class="stage__swap" data-stage="5">An enterprise that improves with every cycle. New Horizons, in practice.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div><!-- /.stage__grid -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= BUILT FOR THE HARD PART ================= -->
+      <section class="hard" id="hard">
+        <div class="container">
+          <h2 class="orian-h2 hard__head" data-split="chars">Built for the <span class="accent">hard</span> part <br>of enterprise AI.</h2>
+          <div class="hard__grid">
+            <div class="hard__col reveal-up">
+              <h3 class="hard__label display"><span class="accent">Orian</span> is</h3>
+              <ul class="hard__list hard__list--is">
+                <li>An operational layer built for enterprises where AI must work alongside real systems, data, and risk controls - not replace them.</li>
+                <li>Engineered for production from the start, not retrofitted from a prototype.</li>
+                <li>A governed model: humans set direction, AI carries the repeatable work, and every decision is observable.</li>
+                <li>The engine that connects Xoriant’s conviction to delivered outcomes.</li>
+              </ul>
+            </div>
+            <div class="hard__col reveal-up">
+              <h3 class="hard__label display">Orian is <span class="no">not</span></h3>
+              <ul class="hard__list hard__list--not">
+                <li>A catalog of disconnected agents with no governing layer.</li>
+                <li>A prompt wrapper over foundation models that ignores your actual architecture.</li>
+                <li>A proof-of-concept factory - every engagement is designed to operate, not just demonstrate.</li>
+                <li>A replacement for the people who understand the business and own the outcomes.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= WHAT IT LOOKS LIKE IN PRACTICE ================= -->
+      <section class="practice" id="practice">
+        <div class="practice__panel">
+          <h2 class="orian-h2 practice__head" data-split="chars">What it <span class="accent">Looks</span> Like <br>in Practice</h2>
+          <p class="practice__body reveal">Not just faster. Fewer people stuck doing work machines can carry<br>- so the humans can do what only humans can do.</p>
+
+          <div class="stats">
+            <article class="stat reveal-up">
+              <p class="stat__who">Fortune 100 Bank</p>
+              <p class="stat__num display" data-count="1100">1100</p>
+              <p class="stat__what">analysts freed from<br>manual reconciliation</p>
+              <p class="stat__result">95% root cause accuracy<br>in production.</p>
+            </article>
+            <article class="stat reveal-up">
+              <p class="stat__who">Global Healthcare Provider</p>
+              <p class="stat__num display">$5-8M</p>
+              <p class="stat__what">annual revenue<br>recovered</p>
+              <p class="stat__result">20% reduction in<br>patient noshows.</p>
+            </article>
+            <article class="stat reveal-up">
+              <p class="stat__who">AI Mortgage Platform</p>
+              <p class="stat__num display" data-count="89" data-suffix="%">89%</p>
+              <p class="stat__what">cost reduction<br>per loan</p>
+              <p class="stat__result">Loan processing:<br>4 hours → 15 minutes.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CTA ================= -->
+      <section class="cta" id="contact">
+        <div class="cta__bg"><img src="assets/images/cta-landscape.jpg" alt="" data-parallax-bg></div>
+        <div class="container cta__inner">
+          <h2 class="h2 display cta__title" data-split="lines">Ready to <span class="accent">Move</span> from Insight to Impact?</h2>
+          <p class="cta__body">We’ve shared how we Understand, Envision, Engineer, Operationalize and Evolve, now we’d like to hear where you are in your own journey.</p>
+          <div class="cta__actions">
+            <a href="#contact" class="btn">Start a conversation about your New Horizon <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+        <div class="curve curve--bottom cta__curve" aria-hidden="true">
+          <svg viewBox="0 0 1920 85" preserveAspectRatio="none"><path d="M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z" fill="#ffffff"/></svg>
+        </div>
+      </section>
+
+    </div><!-- /.page-below -->
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <a href="../index.html" class="footer__logo"><img src="assets/icons/logo-footer.png" alt="Xoriant New Horizons" width="212" height="73"></a>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Industries</h4>
+          <ul><li><a href="../index.html#industries">Financial Services</a></li><li><a href="../index.html#industries">Technology</a></li><li><a href="../index.html#industries">Consumer</a></li><li><a href="../index.html#industries">Industrials</a></li><li><a href="../index.html#industries">Healthcare</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>Competencies</h4>
+          <ul><li><a href="../index.html#competencies">Engineering</a></li><li><a href="../index.html#competencies">Cloud &amp; Security</a></li><li><a href="../index.html#competencies">Quality</a></li><li><a href="../index.html#competencies">Data &amp; AI</a></li><li><a href="../index.html#competencies">Enterprise</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>About</h4>
+          <ul><li><a href="../index.html#philosophy">Our Story</a></li><li><a href="../hi-ai/index.html">Human Powered AI</a></li><li><a href="../house-of-xfactors/house-of-xfactors.html">House of X-Factors</a></li><li><a href="../index.html#partners">Partner Ecosystem</a></li><li><a href="../index.html#philosophy">Values</a></li></ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <ul><li><a href="../index.html#careers">Careers</a></li><li><a href="../index.html#insights">Insights</a></li><li><a href="#contact">Contact</a></li><li><a href="../index.html">Locations</a></li></ul>
+        </div>
+        <div class="footer__col footer__col--wide">
+          <h4>Explore new horizons</h4>
+          <a href="#" class="btn btn--soft">Subscribe to our newsletter <svg class="btn__icon" viewBox="0 0 14 14" fill="none"><path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <ul class="social">
+            <li><a href="#" aria-label="LinkedIn"><img src="assets/icons/social-linkedin.png" alt=""></a></li>
+            <li><a href="#" aria-label="Instagram"><img src="assets/icons/social-instagram.png" alt=""></a></li>
+            <li><a href="#" aria-label="Facebook"><img src="assets/icons/social-facebook.png" alt=""></a></li>
+            <li><a href="#" aria-label="X"><img src="assets/icons/social-twitter.png" alt=""></a></li>
+            <li><a href="#" aria-label="YouTube"><img src="assets/icons/social-youtube.png" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <div class="footer__bar-inner">
+        <ul class="certs">
+          <li><img src="assets/icons/cert-iso.png" alt="ISO certified"></li>
+          <li><img src="assets/icons/cert-psi.png" alt="PSI"></li>
+          <li><img src="assets/icons/cert-soc.png" alt="SOC"></li>
+          <li><img src="assets/icons/cert-cdp.png" alt="CDP"></li>
+        </ul>
+        <p class="footer__legal">Terms of Use | Cookie Policy | Privacy Policy | Edit Cookies | Sitemap | Ethics | Brand Policy © 2026 - All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= FLOATING UI ================= -->
+  <div class="ask" id="ask">
+    <button class="ask__pill glass-light" type="button" aria-expanded="false" aria-controls="ask-form">
+      <span class="ask__label">ask me</span>
+    </button>
+    <form class="ask__form glass-light" id="ask-form" action="#" role="search">
+      <span class="ask__spark" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#1d1f1f" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5c.6 3.6 2.9 5.9 6.5 6.5-3.6.6-5.9 2.9-6.5 6.5-.6-3.6-2.9-5.9-6.5-6.5C5.1 7.4 7.4 5.1 8 1.5Z"/><path d="M13 1v3M11.5 2.5h3M3 11v1.5M2.25 11.75h1.5"/></svg>
+      </span>
+      <span class="ask__divider"></span>
+      <input type="search" name="q" placeholder="Find case studies in Fintech..." aria-label="Ask Xoriant">
+      <button class="ask__submit" type="submit" aria-label="Search">
+        <svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8h7M8 4.5 11.5 8 8 11.5"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/split-text.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/orian.js"></script>
+</body>
+</html>
