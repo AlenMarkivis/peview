@@ -643,4 +643,32 @@ a.way__note-link {
     font-size: 17px;
     letter-spacing: 0;
   }
+  .caps__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+}
+
+@media(max-width:767px){
+
+  .intro__body br {
+    display: none;
+}
+.caps__grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+}
+
+@media(max-width:576px){
+
+
+.stage__inner {
+    width: 100%;
+}
+
+.stage__wheel {
+    width: min(320px, 100%, 39svh);
+}
+.stage__inner {
+    margin: 0px 8px;
+}
 }

@@ -237,13 +237,13 @@ html.qa .orb { transition: none; }
   /* Capped at 1000px (≈73% of the Figma composition) so the type lands at the
      same scale as the other pages, and by the viewport height so the pinned
      block never clips at the bottom. */
-  width: min(1000px, 100% - var(--gutter) * 2, calc((100vh - 220px) * 1375 / 821));
+  width: min(1000px, 100% - var(--gutter) * 2, calc((100vh - 180px) * 1375 / 821));
 }
 /* cqw units resolve against the nearest *ancestor* container, so the grid has
    to live one level below .stage__inner. */
 .stage__grid {
   display: grid;
-  grid-template-columns: 40.65cqw 1fr;
+  grid-template-columns: 50.65cqw 1fr;
   column-gap: 4.73cqw;
   align-items: start;
 }
@@ -615,3 +615,17 @@ html.qa .orb { transition: none; }
 
 /* QA flag wins over the mobile min-height so the unpinned stage stays in flow. */
 html.qa .stage.is-static { height: auto; min-height: 0; }
+
+
+@media(min-width:1400px){
+
+  .orb--human {
+    left: -45px;
+}
+
+.orb--output {
+            left: 17.44%;
+        top: 58%;
+}
+
+}
