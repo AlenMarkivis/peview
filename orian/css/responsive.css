@@ -270,6 +270,7 @@
   .comp-row { grid-template-columns: repeat(2, 1fr); }
   .footer__cols { grid-template-columns: 1fr 1fr; gap: 20px 12px; }
   .footer__col--wide { grid-column: 1 / -1; }
+  
 }
 
 /* Very large screens: stop the page from stretching beyond the design */

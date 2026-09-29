@@ -91,17 +91,44 @@
   }
 
   /* ---------- Stat counters ---------- */
+  // IntersectionObserver instead of a ScrollTrigger position, deliberately:
+  // this section sits right after the pinned "stage" scroll-jack (see stage()
+  // below), whose spacer is inserted into the page *after* this function's
+  // ScrollTrigger would have already cached its start pixel from the
+  // pre-pin layout — an offset that a later refresh() can still get wrong
+  // once snapping is involved. Watching actual viewport visibility instead
+  // of a cached scroll position sidesteps that class of bug entirely.
   function counters() {
-    document.querySelectorAll('.stat__num[data-count]').forEach(function (el) {
+    var nums = document.querySelectorAll('.stat__num[data-count]');
+    if (!nums.length) return;
+
+    function animate(el) {
       var end = parseFloat(el.dataset.count);
       var suffix = el.dataset.suffix || '';
       var obj = { v: 0 };
       gsap.to(obj, {
         v: end, duration: 1.6, ease: 'power3.out',
-        onUpdate: function () { el.textContent = Math.round(obj.v) + suffix; },
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+        onUpdate: function () { el.textContent = Math.round(obj.v) + suffix; }
       });
-    });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      nums.forEach(animate);
+      return;
+    }
+
+    // rootMargin's -15% bottom shrinks the viewport's effective bottom edge,
+    // so an element intersects once it reaches the top 85% of the screen —
+    // matching the old ScrollTrigger start: 'top 85%'.
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        animate(entry.target);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
+
+    nums.forEach(function (el) { io.observe(el); });
   }
 
   /* ---------- How Orian powers each stage: pinned, stepped scroll ----------

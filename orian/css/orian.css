@@ -89,6 +89,14 @@ html { scroll-behavior: auto; }
   text-align: center;
   margin: 0 auto;
 }
+article.cap-card.cap-card--harness.reveal-up.card-1 {
+    background: linear-gradient(347deg, rgba(156, 106, 107, 0.00) 0%, rgba(156, 106, 107, 0.30) 100%), #FFF;
+}
+
+article.cap-card.cap-card--business.reveal-up.card-2 {
+    background: linear-gradient(167deg, rgba(226, 206, 103, 0.30) 0%, rgba(226, 206, 103, 0.00) 100%), #FFF;
+}
+
 .orian-h2 br { display: none; }
 @media (min-width: 769px) { .orian-h2 br { display: block; } }
 
@@ -524,16 +532,18 @@ html.qa .orb { transition: none; }
     height: auto;
     min-height: 100svh;
     align-items: flex-start;
-    padding: 64px 0 20px;
+    padding: 48px 0 8px;
   }
   .stage__inner { width: min(100% - var(--gutter) * 2, 420px); }
   .stage__grid { grid-template-columns: 1fr; row-gap: 0; }
-  /* Sized off the visible height so the whole block fits while pinned. */
+  /* Sized off the visible height so the whole block fits while pinned.
+     Bumped from 27svh — the rest of the block's spacing below is trimmed
+     by a comparable amount so the larger wheel still fits one screen. */
   .stage__wheel {
-    width: min(272px, 100%, 27svh);
+    width: min(320px, 100%, 33svh);
     margin: 0 auto;
   }
-  .stage__head { margin-top: clamp(14px, 3svh, 40px); }
+  .stage__head { margin-top: clamp(10px, 2.2svh, 32px); }
   .stage__title { font-size: clamp(24px, 3.8svh, 32px); }
   .stage__eyebrow { font-size: clamp(11px, 1.7svh, 15px); margin-top: 6px; letter-spacing: 0.18em; }
 
@@ -542,16 +552,16 @@ html.qa .orb { transition: none; }
     aspect-ratio: auto;
     display: flex;
     flex-direction: column;
-    gap: clamp(8px, 1.5svh, 24px);
-    margin-top: clamp(14px, 2.6svh, 40px);
+    gap: clamp(6px, 1.1svh, 18px);
+    margin-top: clamp(8px, 1.65svh, 32px);
   }
   .orb {
     position: static;
     width: 100%;
     height: auto;
     border-radius: 10px;
-    padding: clamp(11px, 1.9svh, 24px) 12px;
-    gap: clamp(6px, 1.2svh, 16px);
+    padding: clamp(8px, 1.35svh, 20px) 12px;
+    gap: clamp(4px, 0.9svh, 12px);
     border-width: 1px;
   }
   .orb--human { background: rgba(255,255,255,0.17); box-shadow: 0 4px 62.7px rgba(0,0,0,0.06); border-color: #fff; }
@@ -587,17 +597,17 @@ html.qa .orb { transition: none; }
   .stages__eyebrow { margin-top: 20px; font-size: 13px; }
   .stages__body { margin-top: 18px; font-size: 17px; line-height: 1.6; }
 
-  .hard { padding: 24px 0 64px; }
+  .hard { padding: 60px 0 64px; }
   .hard__grid { grid-template-columns: 1fr; gap: 32px; margin-top: 36px; }
   .hard__label { font-size: 28px; }
   .hard__list { padding: 28px 22px; font-size: 16px; line-height: 1.5; }
   .hard__list--not { margin-top: 18px; padding-top: 28px; }
 
   .practice { padding: 0 var(--gutter); }
-  .practice__panel { padding: 40px 20px 28px; }
+  .practice__panel { padding: 40px 0px 0px; }
   .practice__body { margin-top: 18px; font-size: 17px; line-height: 1.6; }
   .stats { margin-top: 40px; gap: 36px; }
-  .stat__num { margin-top: 22px; font-size: 72px; }
+  .stat__num { margin-top: 22px; font-size: 50px; }
   .stat__what { margin-top: 16px; font-size: 17px; }
   .stat__result { margin-top: 24px; min-height: 96px; font-size: 16px; }
   .cta { margin-top: 64px; }
