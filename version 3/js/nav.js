@@ -19,8 +19,9 @@
 
   /* ---------- Light nav once we leave the hero ---------- */
   function updateLight() {
-    // v3: the hero is a tall pinned stage; go light once the white panel has risen over it
-    var threshold = hero ? (hero.offsetHeight - window.innerHeight * 0.55) : 600;
+    // v3: go light once the hero's white sheet has reached the nav (the sheet
+    // lands at 806/1080 of the viewport when the pin ends, then scrolls normally)
+    var threshold = hero ? (hero.offsetHeight - window.innerHeight * (1 - 806 / 1080) - 110) : 600;
     header.classList.toggle('is-light', window.scrollY > threshold);
   }
 

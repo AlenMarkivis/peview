@@ -56,27 +56,30 @@
     });
   }
 
-  /* ---------- HERO: scroll-driven sequence ----------
-     Mirrors the Figma "Scroll Test" frames. Progress 0→1 runs across the
-     pinned distance (.hero3 height − viewport):
-       · sky / mountains / forest drift up at 14 / 34 / 36 vh (parallax)
-       · 0.00–0.32  headline lifts and fades out
-       · 0.16–0.34  "We believe…" fades up in, 0.46–0.62 fades up out
-       · 0.56–0.80  "Together we create" fades up in and holds
-     .page-below (with its curve) rides over the stage for the last
-     --hero-overlap of the pin on its own — it is normal document flow. */
+  /* ---------- HERO: scroll-driven parallax sequence ----------
+     Offsets are the Figma "Scroll Test" frames (1920 x 1080 viewport, design
+     px) and are converted to the live stage height, so layers, copy and the
+     white sheet stay registered at any size. Progress 0 -> 1 spans the pin.
+       0.00-0.18  stage 2 -> 3: "We believe" fades in; nothing moves yet
+       0.18-0.58  stage 3 -> 4: sky + mountains rise 369, headline only 257
+                  (so the ridge slides over it), "We believe" 470, forest 139,
+                  sheet 156, "Together" starts rising from behind the sheet
+       0.58-1.00  stage 4 -> 5: sky + mountains hold, headline and "We
+                  believe" leave the top, forest rises 249, "Together" lands
+                  over the forest and turns green, sheet lands at 806
+     After the pin everything scrolls away together (stage 5 -> 6 -> final). */
   function heroScroll() {
     var hero = document.querySelector('.hero3');
     if (!hero) return;
-    var sky = hero.querySelector('.hero3__layer--sky');
-    var mtn = hero.querySelector('.hero3__layer--mtn');
-    var forest = hero.querySelector('.hero3__layer--forest');
-    var green = hero.querySelector('.hero3__green');
-    var title = hero.querySelector('.hero3__title');
-    var believe = hero.querySelector('.hero3__believe');
-    var together = hero.querySelector('.hero3__together');
+    var stage = hero.querySelector('.hero3__stage');
+    var q = function (sel) { return hero.querySelector(sel); };
+    var sky = q('.hero3__layer--sky'), mtn = q('.hero3__layer--mtn'), forest = q('.hero3__layer--forest');
+    var green = q('.hero3__green');
+    var title = q('.hero3__txt--title'), believe = q('.hero3__txt--believe'), together = q('.hero3__txt--together');
+    var accent = q('.hero3__together--accent'), sheet = q('.hero3__sheet');
 
-    var isPhone = function () { return window.innerWidth <= 768; };
+    // design px -> live px (stage height is the CSS 100vh)
+    var d = function (px) { return function () { return px / 1080 * stage.offsetHeight; }; };
 
     var tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -84,65 +87,62 @@
         trigger: hero,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.6,
+        scrub: 0.8,
         invalidateOnRefresh: true
       }
     });
 
-    // layers (function values so a resize re-computes the vh distances)
-    tl.to(sky, { y: function () { return -vh(isPhone() ? 10 : 14); }, scale: 1.08 }, 0)
-      .to(mtn, { y: function () { return -vh(isPhone() ? 28 : 34); } }, 0)
-      .to(forest, { y: function () { return -vh(isPhone() ? 30 : 36); } }, 0)
-      .to(green, { y: function () { return -vh(isPhone() ? 30 : 36); } }, 0);
+    // 2 -> 3
+    tl.fromTo(believe, { opacity: 0 }, { opacity: 1, duration: 0.18 }, 0);
 
-    // headline out
-    tl.fromTo(title, { y: 0, opacity: 1 }, { y: function () { return -vh(26); }, opacity: 0, duration: 0.32 }, 0);
+    // 3 -> 4
+    var B = 0.18, BD = 0.40;
+    tl.fromTo([sky, mtn], { y: 0 }, { y: d(-369), duration: BD }, B)
+      .fromTo(title, { y: 0, opacity: 1 }, { y: d(-257), opacity: 0.37, duration: BD }, B)
+      .fromTo(believe, { y: 0 }, { y: d(-470), duration: BD }, B)
+      .fromTo(forest, { y: 0 }, { y: d(-139), duration: BD }, B)
+      .fromTo(green, { y: 0 }, { y: d(-149), duration: BD }, B)
+      .fromTo(together, { y: 0, opacity: 0 }, { y: d(-127), opacity: 1, duration: BD }, B)
+      .fromTo(sheet, { y: 0 }, { y: d(-156), duration: BD }, B);
 
-    // "We believe" in, hold, out
-    tl.fromTo(believe, { y: function () { return vh(12); }, opacity: 0 }, { y: 0, opacity: 1, duration: 0.18 }, 0.16)
-      .to(believe, { y: function () { return -vh(14); }, opacity: 0, duration: 0.16 }, 0.46);
-
-    // "Together we create" in and hold
-    tl.fromTo(together, { y: function () { return vh(14); }, opacity: 0 }, { y: 0, opacity: 1, duration: 0.24 }, 0.56)
-      .to(together, { y: 0, duration: 0.2 }, 0.8);
+    // 4 -> 5
+    var C = 0.58, CD = 0.42;
+    tl.to(title, { y: d(-636), opacity: 0, duration: CD }, C)
+      .to(believe, { y: d(-899), opacity: 0.3, duration: CD }, C)
+      .to(forest, { y: d(-388), duration: CD }, C)
+      .to(green, { y: d(-317), duration: CD }, C)
+      .to(together, { y: d(-593), duration: CD }, C)
+      .to(sheet, { y: d(-313), duration: CD }, C)
+      .fromTo(accent, { opacity: 0 }, { opacity: 1, duration: 0.14 }, 0.86);
   }
 
   /* ---------- PHILOSOPHY: artworks travel up toward the headline ----------
-     Each artwork starts lower (data-phil-speed scales the distance: the
-     centre Orian ring furthest, the brain least) and scrubs to its resting
-     place as the row scrolls into view — the "distance between the title and
-     the elements reduces on scroll" parallax. */
+     Each artwork starts lower (data-phil-speed scales the distance) and
+     scrubs into the Figma layout (92:6779) as the section comes up; it is at
+     rest once the headline reaches the upper part of the viewport, matching
+     the prototype. */
   function philosophyParallax() {
     var row = document.querySelector('.phil3__row');
     if (!row) return;
-    var items = gsap.utils.toArray('.phil3__item');
-    items.forEach(function (item) {
+    gsap.utils.toArray('.phil3__item').forEach(function (item) {
       var speed = parseFloat(item.dataset.philSpeed || '1');
-      gsap.fromTo(item, { y: function () { return Math.min(vh(22), 240) * speed; } }, {
+      gsap.fromTo(item, { y: function () { return Math.min(vh(20), 220) * speed; } }, {
         y: 0,
         ease: 'none',
         scrollTrigger: {
           trigger: row,
           start: 'top 100%',
-          end: 'top 18%',
-          scrub: 0.4,
+          end: 'top 40%',
+          scrub: 0.5,
           invalidateOnRefresh: true
         }
       });
     });
-    // the headline itself eases up a touch slower than the page (gentle parallax)
-    var head = document.querySelector('.phil3__head');
-    if (head) {
-      gsap.fromTo(head, { y: 0 }, {
-        y: -40, ease: 'none',
-        scrollTrigger: { trigger: head, start: 'top 60%', end: 'bottom 10%', scrub: 0.4 }
-      });
-    }
   }
 
   /* ---------- Generic reveals ---------- */
   function reveals() {
-    document.querySelectorAll('.reveal:not(.cta3__actions)').forEach(function (el) {
+    document.querySelectorAll('.reveal:not(.cta__actions)').forEach(function (el) {
       gsap.fromTo(el, { opacity: 0, y: 20 }, {
         opacity: 1, y: 0, duration: 0.9,
         scrollTrigger: { trigger: el, start: 'top 90%', once: true }
@@ -166,18 +166,18 @@
       revealChars(el, { each: el.classList.contains('eyebrow') ? 0.012 : 0.035 });
     });
     document.querySelectorAll('[data-split="lines"]').forEach(function (el) {
-      if (el.closest('.cta3')) return; // timed in cta()
+      if (el.closest('.cta')) return; // timed in cta()
       revealLines(el);
     });
   }
 
   /* ---------- CTA: title lines + buttons share one trigger ---------- */
   function cta() {
-    var block = document.querySelector('.cta3 .cta3__inner');
+    var block = document.querySelector('.cta .cta__inner');
     if (!block) return;
-    var title = block.querySelector('.cta3__title');
+    var title = block.querySelector('.cta__title');
     var lines = title ? title.querySelectorAll('.split-inner') : [];
-    var actions = block.querySelector('.cta3__actions');
+    var actions = block.querySelector('.cta__actions');
     if (!lines.length && !actions) return;
 
     if (lines.length) gsap.set(lines, { yPercent: 110 });
@@ -308,11 +308,13 @@
 
   /* ---------- Slow zoom on the help background ---------- */
   function bgZoom() {
-    var img = document.querySelector('.help3__bg img');
-    if (!img) return;
-    gsap.fromTo(img, { scale: 1 }, {
-      scale: 1.1, duration: 10, ease: 'power1.out',
-      scrollTrigger: { trigger: img.closest('section'), start: 'top 75%', once: true }
+    ['.help3__bg img', '.cta__bg img'].forEach(function (sel) {
+      var img = document.querySelector(sel);
+      if (!img) return;
+      gsap.fromTo(img, { scale: 1 }, {
+        scale: 1.1, duration: 10, ease: 'power1.out',
+        scrollTrigger: { trigger: img.closest('section'), start: 'top 75%', once: true }
+      });
     });
   }
 
@@ -361,7 +363,7 @@
       opacity: 0, scale: 0.9, duration: 1,
       scrollTrigger: { trigger: '.footer', start: 'top 90%', once: true }
     });
-    document.querySelectorAll('.help3__curve, .cta3__curve').forEach(function (c) {
+    document.querySelectorAll('.help3__curve, .cta__curve').forEach(function (c) {
       gsap.from(c, { yPercent: 30, ease: 'none', scrollTrigger: { trigger: c, start: 'top bottom', end: 'bottom bottom', scrub: true } });
     });
   }

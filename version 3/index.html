@@ -27,7 +27,7 @@
   <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 
-<body>
+<body class="hero-loading">
 
   <!-- Page blur overlay used by the mega menu -->
   <div class="page-dim" aria-hidden="true"></div>
@@ -149,46 +149,55 @@
   <main id="top">
 
     <!-- ================= HERO (scroll-driven parallax) =================
-         Figma "Scroll Test" stages: the stage is pinned for --hero-pin of
-         scroll while three photo layers drift up at different speeds, the
-         headline fades out, "We believe…" fades in and out, then "Together we
-         create" settles in. .page-below then rises over the pinned stage with
-         its curved top edge (js/animations.js → heroScroll()). -->
+         Rebuilt from the Figma "Scroll Test" stage frames + prototype video.
+         The stage is sticky for --hero-pin of scroll. Stack order (back to front)
+         matches Figma: sky, headline, mountains, "We believe", forest, tint,
+         green wash, "Together we create", white sheet. Layers and copy move at
+         different speeds (js/animations.js heroScroll()), so the headline slides
+         behind the mountain ridge. The white sheet (curve + intro copy) rises
+         from the bottom during the pin; when the pin ends everything scrolls away
+         together and .page-below continues directly under the sheet. -->
     <section class="hero3" id="hero" aria-label="Engineering New Horizons of Possibility">
-      <div class="hero3__stage">
-        <div class="hero3__layer hero3__layer--sky" aria-hidden="true"></div>
-        <div class="hero3__layer hero3__layer--mtn" aria-hidden="true"></div>
-        <div class="hero3__layer hero3__layer--forest" aria-hidden="true"></div>
-        <div class="hero3__green" aria-hidden="true"></div>
-        <div class="hero3__tint" aria-hidden="true"></div>
-
-        <div class="hero3__copy">
-          <div class="hero3__intro">
-            <h1 class="hero3__title display">Engineering<br>New Horizons<br>of Possibility</h1>
-          </div>
+      <div class="hero3__stage is-loading">
+        <div class="hero3__scene" aria-hidden="true">
+          <div class="hero3__layer hero3__layer--sky"></div>
+        </div>
+        <div class="hero3__txt hero3__txt--title">
+          <h1 class="hero3__title display">Engineering<br>New Horizons<br>of Possibility</h1>
+        </div>
+        <div class="hero3__scene" aria-hidden="true">
+          <div class="hero3__layer hero3__layer--mtn"></div>
+        </div>
+        <div class="hero3__txt hero3__txt--believe">
           <p class="hero3__believe">We believe in the human story,<br>in an AI forward world.</p>
-          <p class="hero3__together display"><span class="accent">Together</span> we create<br>New Horizons</p>
+        </div>
+        <div class="hero3__scene" aria-hidden="true">
+          <div class="hero3__layer hero3__layer--forest"></div>
+          <div class="hero3__tint"></div>
+          <div class="hero3__green"></div>
+        </div>
+        <div class="hero3__txt hero3__txt--together">
+          <p class="hero3__together display">Together we create<br>New Horizons</p>
+          <p class="hero3__together hero3__together--accent display" aria-hidden="true"><span class="accent">Together</span> we create<br>New Horizons</p>
+        </div>
+
+        <div class="hero3__sheet" id="intro">
+          <svg class="hero3__curve" viewBox="0 0 1920 36" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,36 L0,35.9 C0,35.9 373.3,0 960,0 C1546.7,0 1920,35.9 1920,35.9 L1920,36 Z" fill="#f7f7f7" />
+          </svg>
+          <div class="hero3__sheet-body">
+            <div class="container--narrow">
+              <p class="intro__text">Xoriant has always believed in Human Ingenuity, amplified by AI,<br
+                  class="intro__br"> Together engineering to a vision. What you leave with: Your AI, working.<br
+                  class="intro__br"> Your business, growing. Your advantage, compounding.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Everything below the hero rides up over the pinned stage; its
-             curved top edge wipes over the forest. ===== -->
+    <!-- ===== Continues directly under the hero sheet (margin set by js/v3.js) ===== -->
     <div class="page-below">
-      <div class="page-below__curve" aria-hidden="true">
-        <svg viewBox="0 0 1920 36" preserveAspectRatio="none">
-          <path d="M0,36 L0,35.9 C0,35.9 373.3,0 960,0 C1546.7,0 1920,35.9 1920,35.9 L1920,36 Z" fill="#f7f7f7" />
-        </svg>
-      </div>
-
-      <!-- ================= INTRO ================= -->
-      <section class="intro" id="intro">
-        <div class="container--narrow">
-          <p class="intro__text">Xoriant has always believed in Human Ingenuity, amplified by AI,<br
-              class="intro__br"> Together engineering to a vision. What you leave with: Your AI, working.<br
-              class="intro__br"> Your business, growing. Your advantage, compounding.</p>
-        </div>
-      </section>
 
       <!-- ================= PHILOSOPHY =================
            Three artworks under one headline. On scroll the artworks travel up
@@ -205,7 +214,6 @@
           <ul class="phil3__row">
             <li class="phil3__item phil3__item--hi-ai" data-phil-speed="1">
               <a href="#" class="phil3__media" aria-label="Human Ingenuity Amplified by AI">
-                <span class="phil3__disc" aria-hidden="true"></span>
                 <img class="phil3__poster" src="assets/new%20files%20-%20philosophy/yin%20yang.png" alt="" width="1000"
                   height="1000" loading="lazy" decoding="async">
                 <video class="phil3__video" data-phil-video muted playsinline loop preload="none" width="500"
@@ -223,7 +231,6 @@
 
             <li class="phil3__item phil3__item--orian" data-phil-speed="1.5">
               <a href="#" class="phil3__media" aria-label="Orian — from Ingenuity to Impact">
-                <span class="phil3__disc" aria-hidden="true"></span>
                 <img class="phil3__orian-base" src="assets/images/orian-base.png" alt="" width="1055" height="1038"
                   loading="lazy" decoding="async">
                 <img class="phil3__orian-ring" src="assets/images/orian-ring.png" alt="" width="1080" height="1080"
@@ -238,7 +245,6 @@
 
             <li class="phil3__item phil3__item--xfactors" data-phil-speed="0.8">
               <a href="#" class="phil3__media" aria-label="House of XFactors for Whole Brain Thinking">
-                <span class="phil3__disc" aria-hidden="true"></span>
                 <img class="phil3__poster" src="assets/new%20files%20-%20philosophy/brain-img-1000x1000.png" alt=""
                   width="1000" height="1000" loading="lazy" decoding="async">
                 <video class="phil3__video" data-phil-video muted playsinline loop preload="none" width="500"
@@ -259,14 +265,7 @@
       <!-- ================= INDUSTRIES (glass panel + tabs) ================= -->
       <section class="ind3" id="industries" aria-labelledby="ind3-title">
         <div class="ind3__bgs" aria-hidden="true">
-          <img class="ind3__bg" data-ind-bg="financial" src="assets/images/ind-bg-financial.jpg" alt="" loading="lazy">
-          <img class="ind3__bg" data-ind-bg="technology" src="assets/images/ind-bg-technology.jpg" alt=""
-            loading="lazy">
-          <img class="ind3__bg is-active" data-ind-bg="consumer" src="assets/images/ind-bg-consumer.jpg" alt=""
-            loading="lazy">
-          <img class="ind3__bg" data-ind-bg="healthcare" src="assets/images/ind-healthcare.jpg" alt="" loading="lazy">
-          <img class="ind3__bg" data-ind-bg="industrials" src="assets/images/ind-industrials.jpg" alt=""
-            loading="lazy">
+          <img class="ind3__bg" src="assets/images/ind-bg-consumer.jpg" alt="" loading="lazy">
         </div>
 
         <div class="ind3__panel glass3">
@@ -332,7 +331,7 @@
       <section class="why section" id="why">
         <div class="container why__grid">
           <div class="why__copy">
-            <h2 class="h2 display why__title">Why <span class="word-animate">clients</span><br><span
+            <h2 class="h2 display why__title">Why <span class="why__rot"><span class="why__stackwords" aria-hidden="true"><span>clients</span><span>employees</span><span>partners</span></span><span class="word-animate">clients</span></span><br><span
                 class="accent">choose</span> Xoriant?</h2>
             <p class="lead lead--v3 reveal">Beyond capabilities, clients stay with us because of how it feels to work
               together.</p>
@@ -373,53 +372,37 @@
           <h2 class="h2 display help3__title" data-split="lines">How can we help?</h2>
 
           <ul class="help3-grid">
-            <li class="help3-slot reveal-up">
-              <article class="help3-card" tabindex="0">
-                <h3 class="help3-card__title display">Customer<br>Experience</h3>
-                <div class="help3-card__detail">
-                  <h4 class="display">Customer Experience</h4>
-                  <p>Understand people deeply, design new journeys and bring them to life with digital products and
-                    services.</p>
-                  <span class="help3-card__arrow" aria-hidden="true"><img src="assets/images/arroe.svg" alt=""
-                      width="82" height="82"></span>
-                </div>
-              </article>
+            <li class="help3-card reveal-up" tabindex="0">
+              <h3 class="help3-card__title display">Customer<br>Experience</h3>
+              <div class="help3-card__detail">
+                <h4 class="display">Customer Experience</h4>
+                <p>Understand people deeply, design new journeys and bring them to life with digital products and services.</p>
+              </div>
+              <span class="help3-card__arrow" aria-hidden="true"><img src="assets/images/arroe.svg" alt="" width="40" height="40"></span>
             </li>
-            <li class="help3-slot reveal-up">
-              <article class="help3-card" tabindex="0">
-                <h3 class="help3-card__title display">Platforms<br>&amp; Operations</h3>
-                <div class="help3-card__detail">
-                  <h4 class="display">Platforms &amp; Operations</h4>
-                  <p>Simplify legacy, automate the right things and build resilient platforms ready for what’s next.
-                  </p>
-                  <span class="help3-card__arrow" aria-hidden="true"><img src="assets/images/arroe.svg" alt=""
-                      width="82" height="82"></span>
-                </div>
-              </article>
+            <li class="help3-card reveal-up" tabindex="0">
+              <h3 class="help3-card__title display">Platforms<br>&amp; Operations</h3>
+              <div class="help3-card__detail">
+                <h4 class="display">Platforms &amp; Operations</h4>
+                <p>Simplify legacy, automate the right things and build resilient platforms ready for what’s next.</p>
+              </div>
+              <span class="help3-card__arrow" aria-hidden="true"><img src="assets/images/arroe.svg" alt="" width="40" height="40"></span>
             </li>
-            <li class="help3-slot reveal-up">
-              <article class="help3-card" tabindex="0">
-                <h3 class="help3-card__title display">AI &amp; Data</h3>
-                <div class="help3-card__detail">
-                  <h4 class="display">AI &amp; Data</h4>
-                  <p>Move beyond buzzwords to practical, human‑centric applications of AI and data that create real
-                    value.</p>
-                  <span class="help3-card__arrow" aria-hidden="true"><img src="assets/images/arroe.svg" alt=""
-                      width="82" height="82"></span>
-                </div>
-              </article>
+            <li class="help3-card reveal-up" tabindex="0">
+              <h3 class="help3-card__title display">AI &amp; Data</h3>
+              <div class="help3-card__detail">
+                <h4 class="display">AI &amp; Data</h4>
+                <p>Move beyond buzzwords to practical, human‑centric applications of AI and data that create real value.</p>
+              </div>
+              <span class="help3-card__arrow" aria-hidden="true"><img src="assets/images/arroe.svg" alt="" width="40" height="40"></span>
             </li>
-            <li class="help3-slot reveal-up">
-              <article class="help3-card" tabindex="0">
-                <h3 class="help3-card__title display">Help me<br>Figure This Out</h3>
-                <div class="help3-card__detail">
-                  <h4 class="display">Help me Figure This Out</h4>
-                  <p>Not sure where to start? Let’s map your challenges together and uncover the opportunities you may
-                    not see yet.</p>
-                  <span class="help3-card__arrow" aria-hidden="true"><img src="assets/images/arroe.svg" alt=""
-                      width="82" height="82"></span>
-                </div>
-              </article>
+            <li class="help3-card reveal-up" tabindex="0">
+              <h3 class="help3-card__title display">Help me<br>Figure This Out</h3>
+              <div class="help3-card__detail">
+                <h4 class="display">Help me Figure This Out</h4>
+                <p>Not sure where to start? Let’s map your challenges together and uncover the opportunities you may not see yet.</p>
+              </div>
+              <span class="help3-card__arrow" aria-hidden="true"><img src="assets/images/arroe.svg" alt="" width="40" height="40"></span>
             </li>
           </ul>
         </div>
@@ -484,7 +467,7 @@
           <div class="masonry" id="masonry">
             <div class="masonry__col">
               <article class="post reveal-up" data-type="podcast">
-                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins-1.jpg" alt=""></a>
+                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins3-1.jpg" alt=""></a>
                 <span class="tag tag--podcast">Podcast</span>
                 <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
                 <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
@@ -492,7 +475,7 @@
                 <time class="post__date">Apr 20, 2026</time>
               </article>
               <article class="post reveal-up" data-type="podcast">
-                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins-5.jpg" alt=""></a>
+                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins3-2.jpg" alt=""></a>
                 <span class="tag tag--podcast">Podcast</span>
                 <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
                 <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
@@ -503,7 +486,7 @@
 
             <div class="masonry__col">
               <article class="post reveal-up" data-type="interview">
-                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins-2.jpg" alt=""></a>
+                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins3-3.jpg" alt=""></a>
                 <span class="tag tag--interview">Interview</span>
                 <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
                 <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
@@ -511,7 +494,7 @@
                 <time class="post__date">Apr 20, 2026</time>
               </article>
               <article class="post reveal-up" data-type="interview">
-                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins-6.jpg" alt=""></a>
+                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins3-4.jpg" alt=""></a>
                 <span class="tag tag--interview">Interview</span>
                 <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
                 <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
@@ -522,7 +505,7 @@
 
             <div class="masonry__col">
               <article class="post reveal-up" data-type="blog">
-                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins-3.jpg" alt=""></a>
+                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins3-5.jpg" alt=""></a>
                 <span class="tag tag--blog">Blog</span>
                 <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
                 <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
@@ -530,16 +513,16 @@
                 <time class="post__date">Apr 20, 2026</time>
               </article>
               <article class="post post--feature reveal-up" data-type="article">
-                <h3 class="post__title post__title--display display">From Dashboards to Digital Twins: How Organizations
+                <h3 class="post__title post__title--feature">From Dashboards to Digital Twins: How Organizations
                   Are</h3>
                 <time class="post__date">Apr 20, 2026</time>
-                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins-7.jpg" alt=""></a>
+                <a href="#" class="post__media post__media--tall"><img src="assets/images/ins3-6.jpg" alt=""></a>
               </article>
             </div>
 
             <div class="masonry__col">
               <article class="post reveal-up" data-type="whitepaper">
-                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins-4.jpg" alt=""></a>
+                <a href="#" class="post__media post__media--xl"><img src="assets/images/ins3-7.jpg" alt=""></a>
                 <span class="tag tag--whitepaper">White paper</span>
                 <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
                 <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
@@ -547,7 +530,7 @@
                 <time class="post__date">Apr 20, 2026</time>
               </article>
               <article class="post reveal-up" data-type="podcast">
-                <a href="#" class="post__media post__media--short"><img src="assets/images/ins-8.jpg" alt=""></a>
+                <a href="#" class="post__media post__media--short"><img src="assets/images/ins3-8.jpg" alt=""></a>
                 <span class="tag tag--podcast">Podcast</span>
                 <h3 class="post__title">From Dashboards to Digital Twins: How Organizations Are</h3>
                 <p class="post__excerpt">AI is no longer just a futuristic buzzword, it’s already shaping the way we
@@ -624,16 +607,13 @@
         </div>
       </section>
 
-      <!-- ================= CTA ================= -->
-      <section class="cta3" id="contact">
-        <div class="cta3__bg" aria-hidden="true">
-          <img class="cta3__overlay" src="assets/images/cta-overlay.jpg" alt="">
-          <img class="cta3__land" src="assets/images/cta-hills.jpg" alt="" data-parallax-bg>
-        </div>
-        <div class="container cta3__inner">
-          <h2 class="h2 display cta3__title" data-split="lines">Start a <span class="accent">Conversation</span> about
+      <!-- ================= CTA (version 2 block; only the buttons are new) ================= -->
+      <section class="cta" id="contact">
+        <div class="cta__bg"><img src="assets/images/cta-landscape.jpg" alt="" data-parallax-bg></div>
+        <div class="container cta__inner">
+          <h2 class="h2 display cta__title" data-split="lines">Start a <span class="accent">Conversation</span> about
             your next horizon</h2>
-          <div class="cta3__actions reveal">
+          <div class="cta__actions reveal">
             <a href="#" class="btn">Schedule a call <svg class="btn__icon" viewBox="0 0 14 14" fill="none">
                 <path d="M2.917 7h8.167M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.75"
                   stroke-linecap="round" stroke-linejoin="round" />
@@ -644,7 +624,7 @@
               </svg></a>
           </div>
         </div>
-        <div class="curve curve--bottom cta3__curve" aria-hidden="true">
+        <div class="curve curve--bottom cta__curve" aria-hidden="true">
           <svg viewBox="0 0 1920 85" preserveAspectRatio="none">
             <path d="M0,85 L0,50 Q960,-30 1920,50 L1920,85 Z" fill="#ffffff" />
           </svg>
@@ -766,7 +746,6 @@
   <script src="js/interactions.js"></script>
   <script src="js/v3.js"></script>
   <script src="js/animations.js"></script>
-  <script src="js/split-lines-scroll.js"></script>
 </body>
 
 </html>

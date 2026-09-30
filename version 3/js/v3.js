@@ -1,17 +1,17 @@
 /* =========================================================
-   Version 3 interactions: hero load state, industries tabs,
-   help cards on touch, partner-logo carousel (phone).
-   No GSAP dependency — everything here is plain DOM.
+   Version 3 interactions: hero load state + sheet hand-off,
+   industries tabs / accordion, help cards on touch, partner-logo
+   carousel (phone). No GSAP dependency — plain DOM.
    ========================================================= */
 (function () {
   'use strict';
 
   var params = new URLSearchParams(window.location.search);
-  var noAnim = params.has('noanim') ||
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (params.has('noanim')) document.documentElement.classList.add('no-anim');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var noAnim = params.has('noanim') || reduce;
+  if (noAnim) document.documentElement.classList.add('no-anim');
 
-  /* ---------- QA: ?y=<px> scrolls to a fixed position after load (headless captures) ---------- */
+  /* ---------- QA: ?y=<px> scrolls to a fixed position after load ---------- */
   if (params.has('y')) {
     document.documentElement.style.scrollBehavior = 'auto';
     window.addEventListener('load', function () {
@@ -19,43 +19,99 @@
     });
   }
 
-  /* ---------- Hero: dark + blurred "Start here" frame → clear ----------
-     The stage boots with .is-loading (53% black tint, 16px blur, headline at
-     36%). Dropping the class lets the CSS transitions carry it to the stage-1
-     look. Skipped for the static QA render. */
+  /* ---------- Hero: dark + blurred start frame -> clear, then the nav ----------
+     Matches the prototype: the page opens on the dark "Start here" frame,
+     clears to the mountains + headline, and the nav slides in after. */
   var stage = document.querySelector('.hero3__stage');
-  if (stage) {
-    if (!noAnim) {
-      stage.classList.add('is-loading');
-      var clear = function () { stage.classList.remove('is-loading'); };
-      // one frame so the loading state is actually painted first
-      requestAnimationFrame(function () { setTimeout(clear, 350); });
-    }
+  var HOLD = 900;         // ms on the dark frame
+  var CLEAR = 1400;       // matches the CSS transitions
+  function reveal() {
+    if (stage) stage.classList.remove('is-loading');
+    setTimeout(function () { document.body.classList.remove('hero-loading'); }, noAnim ? 0 : CLEAR * 0.55);
+  }
+  if (noAnim) reveal();
+  else if (document.readyState === 'complete') setTimeout(reveal, HOLD);
+  else window.addEventListener('load', function () { setTimeout(reveal, HOLD); });
+  setTimeout(reveal, 4500); // safety: never stay dark if load stalls
+
+  /* ---------- Hero sheet -> page hand-off ----------
+     The white sheet (curve + intro) ends the pin with its top at 806/1080 of
+     the viewport. .page-below must start exactly where the sheet ends, so its
+     top margin = sheet bottom - stage height. Recomputed on resize. */
+  var sheet = document.querySelector('.hero3__sheet');
+  var below = document.querySelector('.page-below');
+  function syncSheet() {
+    if (!sheet || !below || !stage) return;
+    var H = stage.offsetHeight;
+    var top = H * 806 / 1080;
+    below.style.marginTop = Math.max(0, Math.round(top + sheet.offsetHeight - H)) + 'px';
+  }
+  syncSheet();
+  window.v3SyncSheet = syncSheet;
+  var lastW = window.innerWidth, lastH = window.innerHeight;
+  window.addEventListener('resize', function () {
+    if (window.innerWidth === lastW && Math.abs(window.innerHeight - lastH) < 120) return;
+    lastW = window.innerWidth; lastH = window.innerHeight;
+    syncSheet();
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncSheet);
+  if ('ResizeObserver' in window && sheet) {
+    new ResizeObserver(function () {
+      syncSheet();
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    }).observe(sheet);
   }
 
-  /* ---------- Industries: tab hover / click swaps photo + copy ---------- */
+  /* ---------- Industries: tabs change the copy only ----------
+     Desktop: hover / click / focus a tab swaps the body copy.
+     <=1024: each tab becomes an accordion row with its own copy + button. */
   var ind = document.getElementById('industries');
   if (ind) {
     var tabs = Array.from(ind.querySelectorAll('.ind3__tab'));
-    var bgs = Array.from(ind.querySelectorAll('.ind3__bg'));
     var copy = ind.querySelector('#ind3-copy');
+    var cta = ind.querySelector('.ind3__cta');
     var current = 'consumer';
     var swapTimer = null;
+    var accordion = window.matchMedia('(max-width: 1024px)');
 
-    function activate(key) {
-      if (key === current) return;
+    // accordion panels, one per tab
+    tabs.forEach(function (t) {
+      var acc = document.createElement('div');
+      acc.className = 'ind3__acc';
+      acc.id = 'ind3-acc-' + t.dataset.ind;
+      var inner = document.createElement('div');
+      inner.className = 'ind3__acc-inner';
+      var p = document.createElement('p');
+      p.textContent = t.dataset.copy;
+      inner.appendChild(p);
+      if (cta) inner.appendChild(cta.cloneNode(true));
+      acc.appendChild(inner);
+      t.parentNode.appendChild(acc);
+      t.setAttribute('aria-controls', acc.id);
+    });
+
+    function setOpen(key) {
+      tabs.forEach(function (t) {
+        var acc = document.getElementById('ind3-acc-' + t.dataset.ind);
+        var on = t.dataset.ind === key;
+        if (acc) acc.style.maxHeight = on && accordion.matches ? acc.scrollHeight + 'px' : '';
+        t.setAttribute('aria-expanded', on && accordion.matches ? 'true' : 'false');
+      });
+    }
+
+    function activate(key, force) {
+      if (key === current && !force) return;
       current = key;
       tabs.forEach(function (t) {
         var on = t.dataset.ind === key;
         t.classList.toggle('is-active', on);
         t.setAttribute('aria-selected', on ? 'true' : 'false');
       });
-      bgs.forEach(function (b) { b.classList.toggle('is-active', b.dataset.indBg === key); });
-
+      setOpen(key);
       var tab = tabs.find(function (t) { return t.dataset.ind === key; });
       if (!tab || !copy) return;
       var text = tab.dataset.copy;
-      if (noAnim) { copy.textContent = text; return; }
+      if (noAnim || accordion.matches) { copy.textContent = text; return; }
       clearTimeout(swapTimer);
       copy.classList.add('is-swapping');
       swapTimer = setTimeout(function () {
@@ -64,24 +120,33 @@
       }, 260);
     }
 
-    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
     tabs.forEach(function (t) {
-      t.addEventListener('click', function () { activate(t.dataset.ind); });
-      if (canHover) t.addEventListener('mouseenter', function () { activate(t.dataset.ind); });
-      t.addEventListener('focus', function () { activate(t.dataset.ind); });
+      t.addEventListener('click', function () {
+        // accordion: tapping the open row closes it
+        if (accordion.matches && t.dataset.ind === current && t.getAttribute('aria-expanded') === 'true') {
+          setOpen(null); return;
+        }
+        activate(t.dataset.ind, true);
+        if (window.ScrollTrigger) setTimeout(function () { window.ScrollTrigger.refresh(); }, 520);
+      });
+      t.addEventListener('mouseenter', function () { if (canHover.matches && !accordion.matches) activate(t.dataset.ind); });
     });
-    // keyboard: arrows move between tabs
     ind.querySelector('.ind3__tabs').addEventListener('keydown', function (e) {
-      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      if (['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) < 0) return;
       var i = tabs.findIndex(function (t) { return t.dataset.ind === current; });
       var dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
       var next = tabs[(i + dir + tabs.length) % tabs.length];
       next.focus();
+      activate(next.dataset.ind);
       e.preventDefault();
     });
+    var mqChange = function () { setOpen(current); };
+    if (accordion.addEventListener) accordion.addEventListener('change', mqChange);
+    setOpen(current);
   }
 
-  /* ---------- Help cards: tap toggles the open state on touch ---------- */
+  /* ---------- Help cards: tap toggles the white state on touch ---------- */
   var helpCards = Array.from(document.querySelectorAll('.help3-card'));
   if (helpCards.length) {
     var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -102,10 +167,8 @@
   }
 
   /* ---------- Partner logos: phone carousel ----------
-     Below 768 the 3x3 grid becomes a snap strip showing two logos at a time.
-     Autoplays every 2.8s, pauses while the user is touching it, and draws
-     one dot per page. Above 768 the strip is a grid and this stays inert
-     (the `scrollable()` guard, not a media query). */
+     Below 768 the 3x3 grid becomes a snap strip showing two logos at a time,
+     autoplaying every 2.8s with one dot per page. Inert while it is a grid. */
   var logos = document.getElementById('logos3');
   if (logos) {
     var track = logos.querySelector('.logos3__track');
@@ -121,8 +184,7 @@
       if (!dotsWrap) return;
       dotsWrap.innerHTML = '';
       if (!scrollable()) return;
-      var n = pageCount();
-      for (var i = 0; i < n; i++) {
+      for (var i = 0; i < pageCount(); i++) {
         var d = document.createElement('button');
         d.type = 'button';
         d.className = 'logos3__dot' + (i === pageIndex() ? ' is-active' : '');
@@ -142,8 +204,7 @@
     }
     function advance() {
       if (paused || !scrollable() || noAnim) return;
-      var next = (pageIndex() + 1) % pageCount();
-      track.scrollTo({ left: track.clientWidth * next, behavior: 'smooth' });
+      track.scrollTo({ left: track.clientWidth * ((pageIndex() + 1) % pageCount()), behavior: 'smooth' });
     }
     function restart() {
       clearInterval(timer);
@@ -156,10 +217,10 @@
     track.addEventListener('mouseenter', function () { paused = true; });
     track.addEventListener('mouseleave', function () { paused = false; });
 
-    var lastW = window.innerWidth;
+    var logoW = window.innerWidth;
     window.addEventListener('resize', function () {
-      if (window.innerWidth === lastW) return;
-      lastW = window.innerWidth;
+      if (window.innerWidth === logoW) return;
+      logoW = window.innerWidth;
       drawDots(); restart();
     });
     drawDots();

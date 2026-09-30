@@ -1,32 +1,24 @@
 /* =========================================================
    Version 3 — responsive rules for the redesigned sections
-   (hero3, phil3, help3, careers3, partners3, cta3, comp3).
-   The header / nav / drawer / mega / footer / insights rules
-   still come from css/responsive.css (shared with version 2).
-   No mobile board exists for this design, so the desktop
-   frame is adapted with the version 2 mobile conventions
-   (320 artboard, 24px gutters).
+   (hero3, phil3, help3, careers3, partners3, industries accordion).
+   Header / nav / drawer / mega / footer / insights / CTA still come
+   from css/responsive.css (shared with version 2).
    ========================================================= */
-
-@media (max-width: 1500px) {
-  .phil3__row { width: min(1567px, 100vw - var(--gutter) * 2); }
-  .help3-card__detail p { font-size: clamp(16px, 1.3vw, 20px); }
-}
 
 @media (max-width: 1280px) {
   .phil3__item--hi-ai .phil3__media { margin-top: -20px; }
-  .phil3__item--xfactors .phil3__media { margin-top: -60px; }
+  .phil3__item--xfactors .phil3__media { margin-top: -10px; }
+  .phil3__item--xfactors .phil3__label { margin-top: 60px; }
   .phil3__item--orian .phil3__media { margin-top: 120px; }
   .phil3__item--orian .phil3__label { margin-top: 48px; }
   .phil3__item--hi-ai .phil3__label { margin-top: 40px; }
   .phil3__item .btn { margin-top: 30px; }
 
   .help3-grid { gap: 16px; }
-  .help3-card__detail { padding: 12% 6% 0; }
-  .help3-card__detail p { margin-top: 20px; }
+  .help3-card { padding: 28px 22px 76px; min-height: 320px; }
+  .help3-card__title { top: 56px; }
 
   .partners3__grid { grid-template-columns: minmax(0, 1fr) min(640px, 55%); padding-left: 0; }
-
   .careers3__lead { margin-top: 48px; }
 }
 
@@ -48,49 +40,40 @@
   .phil3__item--orian .phil3__media {
     width: 68%;
     margin-top: 0;
-    translate: 0 0;
+    translate: none;
   }
   .phil3__item--hi-ai .phil3__label,
   .phil3__item--xfactors .phil3__label,
-  .phil3__item--orian .phil3__label { margin-top: 24px; }
-  .phil3__item .btn { margin-top: 24px; }
+  .phil3__item--orian .phil3__label { margin-top: 24px; translate: none; }
+  .phil3__item .btn,
+  .phil3__item--xfactors .btn,
+  .phil3__item--orian .btn { margin-top: 24px; translate: none; }
 
-  /* ---- Help: two columns, cards always "open" ---- */
-  .help3 { padding-top: 120px; }
+  /* ---- Help: two columns (version 2 tablet layout). No hover on touch,
+     so the description is always shown on the glass card. ---- */
   .help3-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 72px;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    align-items: stretch;
+    margin-top: 80px;
   }
-  .help3-slot { aspect-ratio: auto; }
-  .help3-card {
-    position: relative;
-    inset: auto;
-    display: block;
-    min-height: 0;
-    padding: 36px 28px 40px;
-    background: #fff;
-    border-color: #fff;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: 0 20px 40px -28px rgba(0,0,0,0.35);
-    text-align: left;
-  }
+  .help3-card { min-height: 0; padding: 32px 26px 64px; text-align: left; }
+  .help3-card__title { display: none; }
+  .help3-card { background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), rgba(255, 255, 255, 0.14); }
+  .help3-card__detail { opacity: 1; color: #fff; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3); }
+  .help3-card__detail h4 { text-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+  .help3-card__detail p { color: rgba(255, 255, 255, 0.92); }
+  .help3-card__arrow { display: block; opacity: 1; transform: none; position: static; margin-top: 24px; }
   .help3-card:hover,
   .help3-card:focus-visible,
-  .help3-card.is-open { inset: auto; box-shadow: 0 20px 40px -28px rgba(0,0,0,0.35); }
-  .help3-card__title { display: none; }
-  .help3-card__detail {
-    position: static;
-    inset: auto;
-    padding: 0;
-    opacity: 1;
-    pointer-events: auto;
-    transition: none;
-  }
-  .help3-card__detail h4 { text-align: left; font-size: 32px; }
-  .help3-card__detail p { margin-top: 16px; font-size: 17px; line-height: 1.6; max-width: none; }
-  .help3-card__arrow { position: static; width: 40px; height: 40px; margin-top: 24px; display: block; }
+  .help3-card.is-open { min-height: 0; }
+  .help3-card:hover .help3-card__detail,
+  .help3-card:focus-visible .help3-card__detail,
+  .help3-card.is-open .help3-card__detail { color: var(--ink); text-shadow: none; }
+  .help3-card:hover, .help3-card:focus-visible, .help3-card.is-open { background: #fff; }
+  .help3-card:hover .help3-card__detail p,
+  .help3-card:focus-visible .help3-card__detail p,
+  .help3-card.is-open .help3-card__detail p { color: rgba(0, 0, 0, 0.8); }
 
   /* ---- Careers ---- */
   .careers3__card { grid-template-columns: 1fr; min-height: 0; }
@@ -100,35 +83,23 @@
   /* ---- Partners ---- */
   .partners3__grid { grid-template-columns: 1fr; gap: 32px; }
   .partners3__title { max-width: 560px; }
-  .logos3__track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-  /* ---- CTA ---- */
-  .cta3 { padding-bottom: 40vw; }
 }
 
 @media (max-width: 768px) {
-  /* ---- Hero: 48px headline at the 320 board (15vw), same scroll sequence ---- */
+  /* ---- Hero: same layered scroll sequence, phone type sizes ---- */
   :root {
-    --hero-pin: 130vh;
-    --hero-overlap: 24vh;
+    --hero-pin: 120vh;
     --hero-curve: 14px;
   }
   .hero3__title {
-    font-size: clamp(40px, 15vw, 60px);
+    font-size: clamp(40px, 13vw, 60px);
     line-height: 0.95;
     letter-spacing: -0.02em;
   }
-  .hero3__intro { top: 42vh; padding: 0 var(--gutter); }
-  .hero3__believe { font-size: 20px; padding: 0 var(--gutter); }
-  .hero3__together { font-size: 36px; padding: 0 var(--gutter); }
-  .hero3__layer--mtn { top: 30vh; height: 90vh; }
-  .hero3__layer--forest { top: 60vh; height: 55vh; }
-  html.no-anim .hero3__layer--mtn { transform: translateY(-28vh); }
-  html.no-anim .hero3__layer--forest { transform: translateY(-30vh); }
-
-  /* ---- Intro ---- */
-  .intro { padding: 44px 0 56px; }
+  .hero3__believe { font-size: 20px; }
+  .hero3__together { font-size: 36px; }
   .intro__text { font-size: 19px; line-height: 1.6; }
+  .hero3__sheet-body { padding: 32px 0 56px; }
 
   /* ---- Philosophy ---- */
   .phil3 { padding-bottom: 64px; }
@@ -146,15 +117,15 @@
 
   /* ---- Why ---- */
   .why { padding-bottom: 60px; }
-  .why__copy .lead--v3 { letter-spacing: 0; text-transform: none; font-weight: 400; font-size: 17px; line-height: 1.6; }
   .why__copy .lead { margin-top: 16px; }
+  .why__copy .lead--v3 { letter-spacing: 0; text-transform: none; font-weight: 400; font-size: 17px; line-height: 1.6; }
+  .why__stackwords { left: 50%; translate: -50% 0; align-items: center; }
 
-  /* ---- Help ---- */
-  .help3 { padding: 96px 0 40px; }
-  .help3-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 44px; }
-  .help3-card { padding: 28px 24px 32px; }
-  .help3-card__detail h4 { font-size: 28px; }
-  .help3__curve { height: 60px; }
+  /* ---- Help (version 2 phone layout) ---- */
+  .help3 { padding-top: 120px; padding-bottom: 80px; }
+  .help3-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 50px; margin-bottom: -40px; }
+  .help3-card { padding: 28px 24px 44px; }
+  .help3-card__detail h4 { font-size: 26px; }
 
   /* ---- Insights ---- */
   .insights { padding-bottom: 72px; }
@@ -173,7 +144,7 @@
   .partners3__grid { gap: 28px; }
   .partners3__copy { text-align: center; display: flex; flex-direction: column; align-items: center; }
   .partners3__title { font-size: 36px; margin-top: 16px; max-width: 320px; }
-  .partners3__copy .btn { margin-top: 28px; order: 3; }
+  .partners3__copy .btn { margin-top: 28px; }
   .logos3 { margin-top: 0; }
   .logos3__track {
     display: flex;
@@ -207,38 +178,6 @@
   }
   .logos3__dot.is-active { background: var(--green); transform: scale(1.2); }
 
-  /* ---- CTA: 520 tall band, stacked pills ---- */
-  .cta3 {
-    min-height: 520px;
-    padding: 64px 0 230px;
-  }
-  .cta3__title {
-    font-size: 36px;
-    line-height: 1;
-    letter-spacing: -0.01em;
-    max-width: none;
-  }
-  .cta3__actions {
-    margin-top: 40px;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  .cta3__actions .btn { height: 40px; }
-  .cta3__land { top: 48%; height: 66%; }
-  .cta3__curve { height: 40px; }
-
   /* ---- Footer ---- */
   .footer__logo { margin-bottom: 40px; }
-}
-
-@media (max-width: 480px) {
-  .hero3__intro { top: 40vh; }
-  .logo3 { flex: 0 0 50%; }
-}
-
-/* Very large screens: stop the design from stretching */
-@media (min-width: 1921px) {
-  .ind3 { height: 909px; }
-  .ind3__panel { height: 567px; }
 }
