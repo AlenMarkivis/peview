@@ -1,0 +1,738 @@
+/* =========================================================
+   Page sections — version 3
+   Figma: "Xoriant page- animations" → Homepage → "Landing Page 29 Sep"
+   (92:6455) plus the "Scroll Test" stage frames for the hero.
+   Design authored at 1920 wide, 1440 content column (x 240–1680).
+   ========================================================= */
+
+.section { position: relative; }
+
+:root {
+  /* how far the hero stage stays pinned while its sequence plays */
+  --hero-pin: 170vh;
+  /* how much of that pin the white panel (with its curve) rides up over */
+  --hero-overlap: 34vh;
+  /* the arc on top of .page-below: 36 of 1920 in the design */
+  --hero-curve: clamp(14px, 1.875vw, 36px);
+}
+
+/* ---------------- HERO ----------------
+   Three photo layers (sky / mountains / forest) cut from the design, laid
+   out for the "Scroll Test — stage 1" frame: mountain ridge at ~66vh, tree
+   line at ~77vh, headline centred at ~47vh. js/animations.js scrubs the
+   layers, the tint and the three copy blocks while .hero3__stage is stuck. */
+.hero3 {
+  position: relative;
+  z-index: 0;
+  height: calc(100vh + var(--hero-pin));
+}
+.hero3__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #0f3f6e;
+  color: #fff;
+}
+.hero3__layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 100%;
+  will-change: transform;
+  pointer-events: none;
+  transition: filter 1.4s var(--ease-out);
+}
+.hero3__layer--sky {
+  top: -14vh;
+  bottom: -6vh;
+  background-image: url('../assets/images/hero-00-sky.jpg');
+  background-position: 50% 50%;
+  transform-origin: 50% 40%;
+}
+.hero3__layer--mtn {
+  top: 16.5vh;
+  height: 108vh;
+  background-image: url('../assets/images/hero-01-mountains.png');
+}
+.hero3__layer--forest {
+  top: 58vh;
+  height: 66vh;
+  background-image: url('../assets/images/hero-02-forest.png');
+}
+/* Figma "Rectangle 376716008": #00a746 gradient, blend Color, 50% — the
+   green wash over the lower third. */
+.hero3__green {
+  position: absolute;
+  left: 0; right: 0;
+  top: 40vh;
+  bottom: -140vh;
+  background: linear-gradient(180deg, rgba(0, 167, 70, 0) 0%, rgba(0, 167, 70, 1) 45vh, rgba(0, 167, 70, 1) 100%);
+  mix-blend-mode: color;
+  opacity: 0.5;
+  pointer-events: none;
+}
+/* Figma "Rectangle 376715513": black 20% Overlay once revealed; 53% normal
+   while the page is still loading (the dark, blurred "Start here" frame). */
+.hero3__tint {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transition: opacity 1.4s var(--ease-out);
+}
+.hero3__stage.is-loading .hero3__layer { filter: blur(16px); }
+.hero3__stage.is-loading .hero3__tint { opacity: 0.53; mix-blend-mode: normal; }
+
+.hero3__copy {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  pointer-events: none;
+}
+.hero3__intro {
+  position: absolute;
+  left: 0; right: 0;
+  top: 47vh;
+  translate: 0 -50%;
+  transition: opacity 1.4s var(--ease-out);
+}
+.hero3__stage.is-loading .hero3__intro { opacity: 0.36; }
+.hero3__title {
+  font-size: var(--fs-hero);
+  line-height: 1;
+  color: #fff;
+  will-change: transform, opacity;
+}
+.hero3__believe,
+.hero3__together {
+  position: absolute;
+  left: 0; right: 0;
+  top: 49vh;
+  translate: 0 -50%;
+  color: #fff;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.hero3__believe {
+  font-size: clamp(20px, 1.82vw, 35px);
+  font-weight: 400;
+  line-height: 1.2;
+  text-shadow: 0 4px 12.7px rgba(0, 0, 0, 0.25);
+}
+.hero3__together {
+  font-size: var(--fs-h2);
+  line-height: 1.2;
+  text-shadow: 0 6px 9.6px rgba(0, 0, 0, 0.25);
+}
+
+/* Static/no-animation states (QA flag `?noanim`, no GSAP, reduced motion) */
+html.no-anim .hero3__believe { display: none; }
+html.no-anim .hero3__together { opacity: 1; }
+html.no-anim .hero3__intro { opacity: 0; }
+html.no-anim .hero3__layer--mtn { transform: translateY(-34vh); }
+html.no-anim .hero3__layer--forest { transform: translateY(-36vh); }
+html.no-anim .hero3__layer--sky { transform: translateY(-14vh) scale(1.08); }
+
+/* The rest of the page sits on an opaque layer that scrolls up over the
+   pinned hero; its curved top edge wipes across the forest. It starts
+   --hero-overlap before the pin ends so the arc is already rising while
+   "Together we create" is still on screen (Scroll Test stages 3→4). */
+.page-below {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  margin-top: calc(-1 * var(--hero-overlap));
+}
+.page-below__curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: -1px;
+  height: var(--hero-curve);
+  pointer-events: none;
+}
+.page-below__curve svg { width: 100%; height: 100%; display: block; }
+
+/* ---------------- INTRO ----------------
+   Figma 92:6814: DM Sans Light 35 / 200%, #717373, 1056 wide, centred;
+   sits on the #f7f7f7 → white wash of the curve vector. */
+.intro {
+  position: relative;
+  padding: clamp(60px, 5.7vw, 110px) 0 clamp(80px, 7.7vw, 148px);
+  text-align: center;
+  background: linear-gradient(180deg, #f7f7f7 0%, #ffffff 100%);
+}
+.intro__text {
+  font-size: clamp(20px, 1.82vw, 35px);
+  font-weight: 300;
+  line-height: 2;
+  color: var(--grey);
+}
+@media (max-width: 1100px) {
+  .intro__br { display: none; }
+}
+
+/* ---------------- PHILOSOPHY ----------------
+   Figma group 92:6779. Headline centred; three artworks on a 1567-wide row
+   (x 174–1741). js/animations.js → philosophyParallax() starts each artwork
+   lower and scrubs it up toward the headline. */
+.phil3 {
+  padding: 0 0 clamp(80px, 8.5vw, 164px);
+  background: #fff;
+}
+.phil3__head { text-align: center; }
+.phil3__title {
+  margin-top: 12px;
+  font-size: var(--fs-h2);
+  line-height: 1;
+  color: #090909;
+}
+.phil3__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  width: min(1567px, 100vw - var(--gutter) * 2);
+  margin: 0 auto;
+  left: 50%;
+  translate: -50% 0;
+}
+.phil3__item {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  will-change: transform;
+}
+.phil3__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+}
+/* Figma ellipses 1216/1217/1218: white discs with a soft drop shadow */
+.phil3__disc {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 79%;
+  height: 79%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 34px 33px rgba(0, 0, 0, 0.07);
+}
+.phil3__item--xfactors .phil3__disc { width: 70%; height: 86%; box-shadow: 23px 51px 33px rgba(0, 0, 0, 0.2); }
+.phil3__label {
+  position: relative;
+  z-index: 1;
+  font-size: var(--fs-sub);
+  font-weight: 500;
+  line-height: 1.36;
+  color: var(--ink);
+}
+.phil3__item .btn { margin-top: 45px; }
+
+/* Column geometry (design px → % of the 522 column: 1567/3) */
+.phil3__item--hi-ai .phil3__media { width: 95.8%; margin-top: -45px; }
+.phil3__item--hi-ai .phil3__label { margin-top: 60px; }
+
+.phil3__item--xfactors .phil3__media { width: 86.8%; margin-top: -100px; }
+.phil3__item--xfactors .phil3__label { margin-top: -20px; }
+
+.phil3__item--orian .phil3__media { width: 76.2%; margin-top: 177px; }
+.phil3__item--orian .phil3__label { margin-top: 72px; }
+
+/* --- Still + clip (side orbs): the clip replaces the still on hover --- */
+.phil3__poster,
+.phil3__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.45s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.phil3__poster,
+.phil3__video { mix-blend-mode: multiply; }
+.phil3__item--hi-ai .phil3__poster,
+.phil3__item--hi-ai .phil3__video {
+  -webkit-mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
+}
+.phil3__video { opacity: 0; pointer-events: none; }
+.phil3__item:hover .phil3__poster,
+.phil3__item:focus-within .phil3__poster { opacity: 0; }
+.phil3__item:hover .phil3__video,
+.phil3__item:focus-within .phil3__video { opacity: 1; }
+
+/* --- Orian: white disc with the ring laid over it; ring turns on hover --- */
+.phil3__orian-base,
+.phil3__orian-ring {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+.phil3__orian-base { left: 4.171%; top: 11.996%; width: 91.454%; height: 90.002%; }
+.phil3__orian-ring {
+  left: -6.578%; top: -6.284%; width: 112.867%; height: 112.862%;
+  transition: transform 0.8s var(--ease-out);
+}
+.phil3__item--orian:hover .phil3__orian-ring,
+.phil3__item--orian:focus-within .phil3__orian-ring { transform: rotate(69deg); }
+
+/* ---------------- INDUSTRIES ---------------- lives in css/industries.css */
+
+/* ---------------- COMPETENCIES ----------------
+   Heading per Figma (92:6815–6817); the card row is the v2 component,
+   sized to the design's 1437 x 367 row (280-wide cards, 9 apart). */
+.competencies { padding: clamp(80px, 8.5vw, 164px) 0 clamp(60px, 4.2vw, 80px); }
+.comp3__title { line-height: 1.15; }
+.comp-row {
+  margin-top: clamp(48px, 5.3vw, 102px);
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  max-width: 1437px;
+  margin-inline: auto;
+  perspective: 1400px;
+}
+.comp-card {
+  flex: 1 1 92px;
+  min-width: 0;
+  transition: flex-grow 0.5s var(--ease-out);
+}
+.comp-card:hover { flex-grow: 1.4; }
+
+.comp-card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: clamp(280px, 19.1vw, 367px);
+  padding: 38px 14px 0;
+  background: var(--bg-card);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 14px 30px -22px rgba(0,0,0,0.3);
+  transition: box-shadow 0.55s var(--ease-out), background 0.4s, opacity 0.45s var(--ease-out);
+}
+.comp-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.36;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 4px;
+  position: relative;
+  z-index: 1;
+  transition: letter-spacing 0.55s var(--ease-out), transform 0.55s var(--ease-out), color 0.4s var(--ease-out);
+}
+.comp-card a > img {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 71.7%;
+  object-fit: cover;
+  object-position: center 40%;
+  border-radius: 0 0 10px 10px;
+  transform: scale(1);
+  transform-origin: center bottom;
+  transition: transform 0.6s var(--ease-out), filter 0.6s;
+  filter: saturate(0.92);
+}
+.comp-card:hover a { box-shadow: 0 40px 52px -26px rgba(0,0,0,0.45); }
+.comp-card:hover a > img { transform: scale(1.05); filter: saturate(1.14); }
+.comp-card:hover .comp-card__title { transform: translateY(-3px); letter-spacing: 0.12em; color: var(--green); }
+.comp-row:hover .comp-card:not(:hover) a { box-shadow: 0 14px 30px -22px rgba(0,0,0,0.15); }
+.comp-row:hover .comp-card:not(:hover) a > img { filter: saturate(0) brightness(1.1); }
+.comp-row:hover .comp-card:not(:hover) .comp-card__title { color: var(--grey); }
+
+/* ---------------- WHY CLIENTS CHOOSE (v2 block, Figma 92:6657–6661) ---------------- */
+.why { padding: clamp(60px, 4.2vw, 80px) 0 clamp(60px, 5.7vw, 110px); }
+.why__grid {
+  display: grid;
+  grid-template-columns: 1fr 656px;
+  gap: 40px;
+  align-items: center;
+  max-width: 1360px;
+}
+.why__copy { padding-left: clamp(0px, 8vw, 93px); }
+.why__title { max-width: 560px; line-height: 1; }
+.why__copy .lead { margin-top: 17px; max-width: 488px; }
+
+.why__stack {
+  position: relative;
+  height: 657px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 70%, transparent 100%);
+}
+.why__track {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0 55px;
+  will-change: transform;
+  position: relative;
+  left: -30px;
+}
+.feel-card {
+  flex: 0 0 auto;
+  background: #fff;
+  border-radius: var(--radius);
+  height: 179px;
+  padding: 37px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s;
+  filter: drop-shadow(0px 12px 12.9px rgba(0, 0, 0, 0.18));
+}
+.feel-card:hover { transform: scale(1.02); box-shadow: 0 30px 50px -24px rgba(0,0,0,0.3); }
+.feel-card h3 { font-size: 35px; line-height: 1; }
+.feel-card p { font-size: 17px; line-height: 1.8; max-width: 424px; }
+
+/* ---------------- HOW CAN WE HELP ----------------
+   Figma 92:6463–6477: sky photo, 75px title 296 from the top, four 345x346
+   glass cards (white 14% + 2px white stroke + GLASS) 348 below it. The
+   hovered card becomes solid white, grows to 448x418 in place and lifts
+   189 above the row (the design's "AI & Data" state). The white curve at the
+   base cuts across the cards. */
+.help3 {
+  position: relative;
+  padding: clamp(140px, 15.4vw, 296px) 0 clamp(60px, 5.9vw, 114px);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+.help3__bg { position: absolute; inset: -10% 0; z-index: -1; }
+.help3__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; will-change: transform; }
+.help3__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+}
+.help3__title { text-align: center; text-shadow: 0 2px 26px rgba(0, 0, 0, 0.25); }
+.help3-grid {
+  margin-top: clamp(60px, 18.1vw, 348px);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+.help3-slot {
+  position: relative;
+  aspect-ratio: 345 / 346;
+}
+.help3-card {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: inset 0.55s var(--ease-out), background 0.4s var(--ease-out),
+              box-shadow 0.55s var(--ease-out), border-color 0.4s;
+}
+.help3-card__title {
+  font-size: var(--fs-card-title);
+  line-height: 1;
+  color: #fff;
+  padding: 0 24px;
+  transition: opacity 0.3s var(--ease-out);
+}
+.help3-card__detail {
+  position: absolute;
+  inset: 0;
+  padding: 18.7% 7% 0;
+  opacity: 0;
+  color: var(--ink);
+  transition: opacity 0.35s var(--ease-out) 0.12s;
+  pointer-events: none;
+}
+.help3-card__detail h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(28px, 2.34vw, 45px);
+  line-height: 1;
+  text-align: center;
+}
+.help3-card__detail p {
+  margin-top: clamp(24px, 3.1vw, 59px);
+  text-align: left;
+  font-size: var(--fs-sub);
+  line-height: 1.36;
+  color: rgba(0, 0, 0, 0.8);
+  max-width: 383px;
+}
+.help3-card__arrow {
+  position: absolute;
+  right: 10%;
+  bottom: 5.3%;
+  width: clamp(48px, 4.27vw, 82px);
+  height: clamp(48px, 4.27vw, 82px);
+}
+.help3-card__arrow img { width: 100%; height: 100%; }
+
+.help3-card:hover,
+.help3-card:focus-visible,
+.help3-card.is-open {
+  inset: -54.6% -15% 33.8% -15%;
+  z-index: 3;
+  background: #fff;
+  border-color: #fff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 4px 22px 15px rgba(0, 0, 0, 0.25), -4px 22px 15px rgba(0, 0, 0, 0.25);
+}
+.help3-card:hover .help3-card__title,
+.help3-card:focus-visible .help3-card__title,
+.help3-card.is-open .help3-card__title { opacity: 0; }
+.help3-card:hover .help3-card__detail,
+.help3-card:focus-visible .help3-card__detail,
+.help3-card.is-open .help3-card__detail { opacity: 1; }
+
+.help3__curve { height: clamp(70px, 14.4vw, 277px); z-index: 3; bottom: -1px; }
+.help3__curve svg { filter: drop-shadow(0 -17px 21px rgba(0, 0, 0, 0.08)); }
+
+/* ---------------- INSIGHTS (v2 block; "Stay tuned" heading + new CTA) ---------------- */
+.insights { padding: clamp(24px, 2.6vw, 50px) 0 clamp(60px, 8.2vw, 158px); background: #fff; }
+.filter {
+  margin-top: clamp(40px, 4.4vw, 84px);
+  height: 71px;
+  border-radius: 999px;
+  background: var(--bg-pill);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 0 18px 0 25px;
+}
+.filter__label {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.33em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.filter__tags { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.filter__clear {
+  margin-left: 10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.3s var(--ease-out);
+}
+.filter__toggle { display: none; }
+.filter__clear:hover { color: var(--ink); text-decoration: underline; }
+.filter__clear[hidden] { display: none; }
+.filter__actions { display: flex; gap: 10px; }
+
+.masonry {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  position: relative;
+}
+.masonry__col { display: flex; flex-direction: column; gap: 60px; }
+.post { display: flex; flex-direction: column; gap: 10px; }
+.post.is-hidden { display: none; }
+.post__media { display: block; overflow: hidden; height: 430px; }
+.post__media--xl { height: 568px; }
+.post__media--short { height: 267px; }
+.post__media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: transform 1s var(--ease-out), filter 0.6s var(--ease-out); }
+.post:hover .post__media img { transform: scale(1.05); filter: grayscale(0); }
+.post .tag { align-self: flex-start; margin-top: 30px; cursor: default; }
+.post__title { font-size: var(--fs-h3); font-weight: 700; line-height: 1; }
+.post__title--display { font-size: clamp(36px, 2.6vw, 50px); line-height: 1.21; font-weight: 400; }
+.post__excerpt { line-height: 1.5; }
+.post__date { line-height: 1.8; }
+.post--feature { padding-top: 40px; border-top: 0.5px solid var(--ink); gap: 4px; }
+.post--feature .post__media { margin-top: 24px; }
+
+.masonry.is-collapsed { max-height: 1490px; overflow: hidden; }
+.masonry.is-collapsed::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 220px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 85%);
+  pointer-events: none;
+}
+.insights__more { text-align: center; margin-top: clamp(40px, 4.5vw, 87px); }
+
+/* ---------------- CAREERS ----------------
+   Figma 92:6697–6704: 1437 x 699 white card, flowers (blur 4) on the left
+   682, copy column starting 779 in: eyebrow 82 from the top, 75px title,
+   25/150% copy, outline button. */
+.careers3 { padding: 0 0 clamp(80px, 12.2vw, 235px); background: #fff; }
+.careers3__card {
+  display: grid;
+  grid-template-columns: 47.5% 1fr;
+  min-height: clamp(420px, 36.4vw, 699px);
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 29px 41.2px rgba(0, 0, 0, 0.11);
+  overflow: hidden;
+}
+.careers3__media { position: relative; overflow: hidden; }
+.careers3__media img {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  filter: blur(4px);
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(90deg, #000 88%, rgba(0,0,0,0) 100%);
+}
+.careers3__body {
+  padding: clamp(40px, 4.3vw, 82px) clamp(24px, 4vw, 64px) clamp(40px, 4.3vw, 82px) clamp(28px, 5vw, 97px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.careers3__title { margin-top: 13px; line-height: 1; color: #000; }
+.careers3__lead {
+  margin-top: clamp(40px, 7.5vw, 145px);
+  max-width: 465px;
+  font-size: var(--fs-sub);
+  line-height: 1.5;
+  color: var(--ink);
+}
+.careers3__body .btn { margin-top: 46px; }
+
+/* ---------------- PARTNER ECOSYSTEM ----------------
+   Figma 92:6707–6709 + 92:6993: copy column at x 339 (454 wide), 3x3 logo
+   grid of 254x136 cells at x 892. */
+.partners3 { padding: 0 0 clamp(80px, 6.4vw, 123px); background: #fff; }
+.partners3__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(810px, 56%);
+  gap: 40px;
+  align-items: start;
+  padding-left: clamp(0px, 5.15vw, 99px);
+}
+.partners3__title {
+  margin-top: 29px;
+  max-width: 454px;
+  line-height: 1;
+}
+.partners3__copy .btn { margin-top: clamp(32px, 3.3vw, 64px); }
+.logos3 { position: relative; margin-top: 4px; }
+.logos3__track {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 0;
+}
+.logo3 {
+  height: clamp(90px, 7.1vw, 136px);
+  display: grid;
+  place-items: center;
+  padding: 0 24px;
+  border-radius: var(--radius);
+  transition: background 0.4s, transform 0.4s var(--ease-out);
+}
+.logo3 img {
+  width: min(var(--w, 160px), 100%);
+  max-height: 96px;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.4s var(--ease-out);
+}
+.logo3:hover img { transform: translateY(-3px); }
+.logos3__dots { display: none; }
+
+/* ---------------- CTA ----------------
+   Figma group 92:6712: a faint multiply of the mountain image over the top
+   377, the green-hills film below it (video in Figma → poster frame here),
+   75px headline 209 from the top, outline + solid button pair, white curve. */
+.cta3 {
+  position: relative;
+  min-height: clamp(560px, 47.2vw, 907px);
+  padding: clamp(100px, 10.9vw, 209px) 0 clamp(240px, 24vw, 450px);
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+  background: #fff;
+}
+.cta3__bg { position: absolute; inset: 0; z-index: -1; }
+.cta3__overlay {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 81%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  mix-blend-mode: multiply;
+  opacity: 0.16;
+  z-index: 1;
+}
+.cta3__land {
+  position: absolute;
+  left: -3%;
+  top: 41%;
+  width: 106%;
+  height: 78%;
+  object-fit: cover;
+  object-position: 50% 100%;
+  will-change: transform;
+}
+.cta3__title { max-width: 831px; margin-inline: auto; line-height: 1; }
+.cta3__actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.cta3__curve { height: clamp(40px, 4.43vw, 85px); z-index: 2; }
+
+/* ---------------- FOOTER tweaks (design 92:6714–6766) ---------------- */
+.footer__logo { margin-bottom: 88px; }
+.footer__cols { padding-bottom: 64px; }
+.social { opacity: 0.7; }
+
+/* ---------------- SPLIT-LINES SCROLL ANIMATION (intro) ----------------
+   js/split-lines-scroll.js wraps each line and scrubs --sl-p 0% -> 100%:
+   the ink sweeps in left-to-right over a faint version of the same line. */
+.sl-line {
+  display: block;
+  --sl-p: 0%;
+  background: linear-gradient(90deg, var(--grey) var(--sl-p), rgba(113, 115, 115, 0.22) var(--sl-p));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+html.no-anim .sl-line { --sl-p: 100%; }

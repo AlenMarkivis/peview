@@ -1,0 +1,157 @@
+/* ============================================================
+   INDUSTRIES — glass panel with tabs
+   Figma "Landing Page 29 Sep" → Frame 2147224836 (92:6911)
+
+   SPEC (desktop, 1920 artboard)
+   - section ........... 1920 x 909, photo blurred 10px
+   - panel ............. 1437 x 567 at (247, 170), radius 10,
+                         2px white stroke, white 15% fill,
+                         shadow 0 29 41.2 rgba(0,0,0,.11)
+   - tabs column ....... 483 wide, five rows of 113; active row
+                         white 14% + GLASS; label DM Sans Bold 18,
+                         10% tracking, upper, white, shadow 0 4 9.4 .34,
+                         117 in from the panel edge
+   - body .............. 954 wide, white 33% + GLASS (blur), padding
+                         126 top / 90 left: 20px eyebrow, 75px title,
+                         25/150% copy (765 wide), 80% white button
+
+   Everything is namespaced under .ind3.
+   ============================================================ */
+
+.ind3 {
+  position: relative;
+  height: clamp(560px, 47.35vw, 909px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: #3c5a2a;
+}
+.ind3__bgs { position: absolute; inset: -3%; z-index: -1; }
+.ind3__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 60%;
+  filter: blur(10px);
+  transform: scale(1.03);
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out);
+}
+.ind3__bg.is-active { opacity: 1; }
+
+.ind3__panel {
+  position: relative;
+  width: min(1437px, 100% - var(--gutter) * 2);
+  height: clamp(420px, 29.55vw, 567px);
+  display: grid;
+  grid-template-columns: 33.6% minmax(0, 1fr);
+  border-radius: 10px;
+  border: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 29px 41.2px rgba(0, 0, 0, 0.11);
+  overflow: hidden;
+}
+
+/* ---------- tabs ---------- */
+.ind3__tabs { display: flex; flex-direction: column; }
+.ind3__tabs > li { flex: 1 1 0; min-height: 0; display: flex; }
+.ind3__tab {
+  flex: 1;
+  width: 100%;
+  text-align: left;
+  padding-left: 24.2%;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(13px, 0.94vw, 18px);
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 9.4px rgba(0, 0, 0, 0.34);
+  background: rgba(255, 255, 255, 0);
+  transition: background 0.4s var(--ease-out), padding-left 0.4s var(--ease-out);
+}
+.ind3__tab:hover { padding-left: 26%; }
+.ind3__tab.is-active {
+  background: rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+}
+.ind3__tab:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+
+/* ---------- body ---------- */
+.ind3__body {
+  position: relative;
+  background: rgba(255, 255, 255, 0.33);
+  -webkit-backdrop-filter: blur(40px) saturate(1.05);
+  backdrop-filter: blur(40px) saturate(1.05);
+  padding: clamp(60px, 6.56vw, 126px) 6% 0 clamp(32px, 4.7vw, 90px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ind3__eyebrow { color: var(--ink); }
+.ind3__title {
+  margin-top: 12px;
+  font-size: var(--fs-h2);
+  line-height: 1;
+  color: #fff;
+}
+.ind3__copy {
+  margin-top: clamp(20px, 2.1vw, 40px);
+  max-width: 765px;
+  min-height: 3em;
+  font-size: var(--fs-sub);
+  line-height: 1.5;
+  color: var(--ink);
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.ind3__copy.is-swapping { opacity: 0; transform: translateY(6px); }
+.ind3__cta { margin-top: 24px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1280px) {
+  .ind3__body { padding: 14% 5% 0 7%; }
+}
+
+@media (max-width: 1024px) {
+  .ind3 { height: auto; padding: clamp(40px, 8vw, 80px) 0; }
+  .ind3__panel {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+  .ind3__tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+  }
+  .ind3__tabs::-webkit-scrollbar { display: none; }
+  .ind3__tabs > li { flex: 0 0 auto; }
+  .ind3__tab {
+    padding: 22px 22px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .ind3__tab:hover { padding-left: 22px; }
+  .ind3__body { padding: 40px 32px 44px; }
+  .ind3__copy { min-height: 0; }
+}
+
+@media (max-width: 768px) {
+  .ind3 { padding: 40px 0; }
+  .ind3__panel { width: calc(100% - var(--gutter) * 2); }
+  .ind3__tab { padding: 18px 16px; font-size: 12px; }
+  .ind3__body { padding: 32px 24px 36px; }
+  .ind3__title { font-size: 36px; }
+  .ind3__copy { font-size: 17px; line-height: 1.6; margin-top: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ind3 *{ transition-duration: .01ms !important; }
+}
