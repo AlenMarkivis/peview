@@ -70,17 +70,28 @@
     var tabs = Array.from(ind.querySelectorAll('.ind3__tab'));
     var copy = ind.querySelector('#ind3-copy');
     var cta = ind.querySelector('.ind3__cta');
+    var eyebrow = ind.querySelector('.ind3__eyebrow');
+    var title = ind.querySelector('#ind3-title');
     var current = 'consumer';
     var swapTimer = null;
     var accordion = window.matchMedia('(max-width: 1024px)');
 
-    // accordion panels, one per tab
+    // accordion panels, one per tab. On mobile .ind3__body (the shared
+    // eyebrow/headline) is hidden by CSS, so each row gets its own copy of
+    // that eyebrow + headline above its paragraph — it travels with whichever
+    // row is open instead of being pinned once above the whole list.
     tabs.forEach(function (t) {
       var acc = document.createElement('div');
       acc.className = 'ind3__acc';
       acc.id = 'ind3-acc-' + t.dataset.ind;
       var inner = document.createElement('div');
       inner.className = 'ind3__acc-inner';
+      if (eyebrow) inner.appendChild(eyebrow.cloneNode(true));
+      if (title) {
+        var titleClone = title.cloneNode(true);
+        titleClone.removeAttribute('id');
+        inner.appendChild(titleClone);
+      }
       var p = document.createElement('p');
       p.textContent = t.dataset.copy;
       inner.appendChild(p);
@@ -120,7 +131,6 @@
       }, 260);
     }
 
-    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
     tabs.forEach(function (t) {
       t.addEventListener('click', function () {
         // accordion: tapping the open row closes it
@@ -130,7 +140,6 @@
         activate(t.dataset.ind, true);
         if (window.ScrollTrigger) setTimeout(function () { window.ScrollTrigger.refresh(); }, 520);
       });
-      t.addEventListener('mouseenter', function () { if (canHover.matches && !accordion.matches) activate(t.dataset.ind); });
     });
     ind.querySelector('.ind3__tabs').addEventListener('keydown', function (e) {
       if (['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) < 0) return;

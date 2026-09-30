@@ -1614,6 +1614,57 @@ h2.h2.h2--tight.display.mobile-show {
     font-size: 17px;
     letter-spacing: 0;
   }
+  .ind3__body {
+    display: none;
+}
+
+div#ind3-acc-financial {
+    -webkit-backdrop-filter: 0;
+    backdrop-filter: url();
+    background: transparent;
+}
+
+.ind3__tab {
+    -webkit-backdrop-filter: 0;
+    backdrop-filter: url();
+}
+
+.ind3__tab.is-active {
+    -webkit-backdrop-filter: 0;
+    backdrop-filter: url();
+    background: transparent;
+}
+
+.ind3__tabs > li {
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(10px);
+    margin-bottom: 6px;
+}
+
+.ind3__panel.glass3 {
+    border: 0;
+    background: transparent;
+}
+
+.ind3__acc p {
+    color: #fff;
+}
+
+.ind3__acc {
+    background: transparent;
+    backdrop-filter: unset;
+}
+.help3-card:hover {
+    transform: scale(1);
+}
+h2.ind3__title.display {
+    font-size: 22px;
+    margin-bottom: 16px;
+    line-height: 28px;
+}
+
 }
 
 /* ---------- Phone hero: same height and curve as HI-AI / House of Xfactors ---------- */
@@ -1701,6 +1752,11 @@ h2.h2.h2--tight.display.mobile-show {
 @media (max-width: 768px) {
   .talent-card__cta-desk { display: none; }
   .talent-card__cta-mob { display: inline; }
+  ul.phil3__row {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
 }
 
 /* Insights tags (filter pills and post labels) at every width. */

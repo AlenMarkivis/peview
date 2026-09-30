@@ -36,7 +36,7 @@
   height: 100%;
   object-fit: cover;
   object-position: 50% 60%;
-  filter: blur(10px);
+  
   transform: scale(1.03);
 }
 
@@ -72,7 +72,6 @@
   background: rgba(255, 255, 255, 0);
   transition: background 0.4s var(--ease-out), padding-left 0.4s var(--ease-out);
 }
-.ind3__tab:hover { padding-left: 26%; }
 .ind3__tab.is-active {
   background: rgba(255, 255, 255, 0.14);
   -webkit-backdrop-filter: blur(24px);
@@ -131,8 +130,11 @@
     flex-direction: column;
   }
   .ind3__body { order: -1; padding: 40px 32px 32px; }
-  .ind3__copy,
-  .ind3__cta { display: none; }
+  /* Hides the desktop panel's own copy/button — scoped to .ind3__body so it
+     doesn't also catch the cloned copy/button v3.js puts inside each
+     .ind3__acc-inner, which do need to show. */
+  .ind3__body .ind3__copy,
+  .ind3__body .ind3__cta { display: none; }
   .ind3__tabs { flex-direction: column; }
   .ind3__tabs > li { flex: 0 0 auto; display: block; border-top: 1px solid rgba(255, 255, 255, 0.45); }
   .ind3__tab {

@@ -272,10 +272,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .tag--whitepaper { background: var(--tag-whitepaper); }
 
 /* ---------- Glass (Figma GLASS effect) ---------- */
-.glass3 {
-  -webkit-backdrop-filter: blur(24px) saturate(1.1);
-  backdrop-filter: blur(24px) saturate(1.1);
-}
+
 
 /* ---------- Curved edges ---------- */
 .curve {
