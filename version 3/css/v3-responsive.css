@@ -217,4 +217,7 @@
 .help3-card__detail p {
     color: #000;
 }
+.phil3__item--hi-ai .phil3__media, .phil3__item--xfactors .phil3__media, .phil3__item--orian .phil3__media {
+    width: 100%;
+}
 }

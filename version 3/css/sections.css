@@ -166,6 +166,15 @@ body.hero-loading .site-header { opacity: 0; pointer-events: none; }
 }
 .hero3__sheet-body {
   padding: clamp(32px, 4.27vw, 82px) 0 clamp(56px, 7.7vw, 148px);
+  /* the sheet's own height comes from vw-based padding/text, but it has to
+     reach all the way to the stage's bottom edge (1080 design px down from
+     its 806 resting top, i.e. 274), which only matches up at the ~16:9
+     aspect ratio --u was tuned against; on other aspect ratios (wide-short
+     desktop windows, tablet portrait) the two fall out of sync and a sliver
+     of the layers behind it shows through. This floor is in the same --u
+     unit as everything else in the hero, so it tracks regardless of aspect
+     ratio, without changing how any of it animates. */
+  min-height: calc(320 * var(--u));
   background: linear-gradient(180deg, #f7f7f7 0%, #ffffff 100%);
   text-align: center;
 }
@@ -271,16 +280,22 @@ html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
   object-fit: contain;
   transition: opacity 0.45s var(--ease-out), transform 0.7s var(--ease-out);
 }
-.phil3__poster,
-.phil3__video { mix-blend-mode: multiply; }
+/* multiply only on the still: the video has no alpha, so blending it the
+   same way multiplies its own opaque background against the page and
+   shows up as a soft grey halo/blur around the clip on hover. */
+.phil3__poster { mix-blend-mode: multiply; }
 .phil3__item--hi-ai .phil3__poster,
 .phil3__item--hi-ai .phil3__video {
   -webkit-mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
   mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
 }
 .phil3__video { opacity: 0; pointer-events: none; }
+/* small head start before the still uncovers it: the video can take a beat
+   to paint its first real frame even once play() has been called, and
+   fading both at once exactly together showed that gap as a brief blank/
+   colour "blink" between the two. */
 .phil3__item:hover .phil3__poster,
-.phil3__item:focus-within .phil3__poster { opacity: 0; }
+.phil3__item:focus-within .phil3__poster { opacity: 0; transition-delay: 0.08s; }
 .phil3__item:hover .phil3__video,
 .phil3__item:focus-within .phil3__video { opacity: 1; }
 
