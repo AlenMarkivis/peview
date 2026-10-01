@@ -27,7 +27,7 @@
      hand-off early, so an early scroll never sits behind the blur. */
   var stage = document.querySelector('.hero3__stage');
   var CLEAR = 1200;       // matches --hero-intro in css/sections.css
-  var HOLD = 2000;        // the "Start here" frame holds this long after load
+  var HOLD = 1200;        // the "Start here" frame holds this long after load
   var revealed = false;
   var holdTimer = null;
   function reveal() {

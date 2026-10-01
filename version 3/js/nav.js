@@ -204,17 +204,22 @@ updateLight();
   });
   window.addEventListener('resize', function () { if (isDesktop()) closeDrawer(); else closeMenu(); });
 
-  /* ---------- Smooth anchor scrolling (offset for fixed header) ---------- */
+  /* ---------- Smooth anchor scrolling (offset for fixed header) ----------
+     Goes through Lenis when it is running (js/animations.js): its rAF loop
+     owns the scroll position, so a native smooth scrollTo would fight it. */
+  function scrollToY(top) {
+    if (window.v3Lenis) window.v3Lenis.scrollTo(top);
+    else window.scrollTo({ top: top, behavior: 'smooth' });
+  }
   document.addEventListener('click', function (e) {
     if (e.defaultPrevented) return;
     var a = e.target.closest('a[href^="#"]');
     if (!a) return;
     var id = a.getAttribute('href');
-    if (id.length < 2) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    if (id.length < 2) { e.preventDefault(); scrollToY(0); return; }
     var target = document.querySelector(id);
     if (!target) return;
     e.preventDefault();
-    var top = target.getBoundingClientRect().top + window.scrollY - 40;
-    window.scrollTo({ top: top, behavior: 'smooth' });
+    scrollToY(target.getBoundingClientRect().top + window.scrollY - 40);
   });
 })();

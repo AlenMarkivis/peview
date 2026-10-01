@@ -20,6 +20,25 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) { revealFallback(); return; }
 
+  /* ---------- Smooth scroll feeding ScrollTrigger ----------
+     A scrubbed timeline is only as smooth as the scroll values driving it,
+     and a mouse wheel arrives in ~120px jumps. The scrub was doing that
+     smoothing on its own, which left the hero trailing ~0.8s behind the
+     page. Interpolating the scroll position itself means the scrub no
+     longer has to, so it can come down and track the scroll closely while
+     the motion stays smooth. Touch is left native (syncTouch off) — phones
+     already scroll smoothly and hijacking that only adds lag. Skipped
+     entirely for reduced motion / ?noanim via the early returns above. */
+  if (window.Lenis) {
+    // base.css sets scroll-behavior:smooth, which fights Lenis's own rAF loop
+    document.documentElement.style.scrollBehavior = 'auto';
+    var lenis = new Lenis({ duration: 0.6, smoothWheel: true, syncTouch: false });
+    window.v3Lenis = lenis;                      // js/nav.js routes anchors through it
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
   gsap.defaults({ ease: 'power3.out', duration: 1 });
 
   var vh = function (n) { return window.innerHeight * n / 100; };
@@ -94,7 +113,7 @@
         trigger: hero,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.8,
+        scrub: 0.3,
         invalidateOnRefresh: true
       }
     });
@@ -133,7 +152,7 @@
         trigger: hero,
         start: 'bottom bottom',
         end: function () { return '+=' + 231 * u(); },
-        scrub: 0.8,
+        scrub: 0.3,
         invalidateOnRefresh: true
       }
     })
