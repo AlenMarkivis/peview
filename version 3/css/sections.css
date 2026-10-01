@@ -69,7 +69,7 @@
 .hero3__layer--forest {
   top: calc(628 * var(--u));
   height: calc(704 * var(--u));
-  background-image: url('../assets/images/hero-02-forest.png');
+  background-image: url('../assets/images/bottom-landscape-image.png');
 }
 /* Figma "Rectangle 376715513": black 20%, Overlay */
 .hero3__tint {
@@ -270,7 +270,7 @@ html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
   line-height: 1.36;
   color: var(--ink);
 }
-.phil3__item .btn { margin-top: 45px; }
+.phil3__item .btn { margin-top: 35px; }
 
 /* Column geometry (design px → % of the 522 column: 1567/3) */
 .phil3__item--hi-ai .phil3__media { width: 95.8%; margin-top: -45px; translate: -2.1% 0; }
@@ -279,11 +279,11 @@ html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
    the Figma brain so the label lands on the same line as the yin-yang label */
 .phil3__item--xfactors .phil3__media { width: 86.8%; margin-top: -29px; translate: 6.6% 0; }
 .phil3__item--xfactors .phil3__label { margin-top: 31px; translate: 3.4% 0; }
-.phil3__item--xfactors .btn { translate: 3.4% 0; margin-top: 41px; }
+.phil3__item--xfactors .btn { translate: 3.4% 0; margin-top: 35px; }
 
 .phil3__item--orian .phil3__media { width: 76.2%; margin-top: 177px; }
 .phil3__item--orian .phil3__label { margin-top: 42px; }
-.phil3__item--orian .btn { margin-top: 49px; }
+.phil3__item--orian .btn { margin-top: 35px; }
 
 /* --- Still + clip (side orbs): the clip replaces the still on hover --- */
 .phil3__poster,
@@ -706,6 +706,10 @@ html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
   padding: 0 24px;
   border-radius: var(--radius);
 }
+/* each logo gets its own --w (measured off the Figma frame): their source
+   files aren't trimmed/exported consistently, so letting every logo use
+   its own natural size made some (Databricks, OpenAI) render far larger
+   than the design relative to the others. */
 .logo3 img {
   width: min(var(--w, 160px), 100%);
   max-height: 96px;

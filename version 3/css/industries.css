@@ -85,10 +85,11 @@
   background: rgba(255, 255, 255, 0.33);
   -webkit-backdrop-filter: blur(40px) saturate(1.05);
   backdrop-filter: blur(40px) saturate(1.05);
-  padding: clamp(60px, 6.56vw, 126px) 6% 0 clamp(32px, 4.7vw, 90px);
+  padding: 0 6% 0 clamp(32px, 4.7vw, 90px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
 }
 .ind3__eyebrow { color: var(--ink); }
 .ind3__title {
@@ -113,7 +114,7 @@
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1280px) {
-  .ind3__body { padding: 14% 5% 0 7%; }
+  .ind3__body { padding: 0 5% 0 7%; }
 }
 
 /* accordion rows are built by js/v3.js; hidden on desktop */
