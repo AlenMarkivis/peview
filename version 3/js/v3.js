@@ -21,15 +21,19 @@
 
   /* ---------- Hero: dark + blurred start frame -> clear, then the nav ----------
      Matches the prototype: the page opens on the dark "Start here" frame and
-     holds there until the user starts scrolling; then it cuts to the next
-     frame (sharp, half as dark, scene and headline still low) and eases up
-     into the mountains + headline, and the nav slides in after. */
+     holds there for HOLD; then it cuts to the next frame (sharp, half as dark,
+     scene and headline still low) and eases up into the mountains + headline,
+     and the nav slides in after. Scrolling before the hold is up runs the same
+     hand-off early, so an early scroll never sits behind the blur. */
   var stage = document.querySelector('.hero3__stage');
   var CLEAR = 1200;       // matches --hero-intro in css/sections.css
+  var HOLD = 2000;        // the "Start here" frame holds this long after load
   var revealed = false;
+  var holdTimer = null;
   function reveal() {
     if (revealed) return;
     revealed = true;
+    clearTimeout(holdTimer);
     window.removeEventListener('scroll', onFirstScroll);
     if (stage) {
       if (!noAnim) stage.classList.add('is-intro');
@@ -46,6 +50,7 @@
   else {
     window.addEventListener('scroll', onFirstScroll, { passive: true });
     onFirstScroll(); // opened mid-page (anchor / restored scroll): no blur hold
+    if (!revealed) holdTimer = setTimeout(reveal, HOLD);
   }
 
   /* ---------- Hero scale ----------

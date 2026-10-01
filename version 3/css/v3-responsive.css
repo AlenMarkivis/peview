@@ -220,4 +220,22 @@
 .phil3__item--hi-ai .phil3__media, .phil3__item--xfactors .phil3__media, .phil3__item--orian .phil3__media {
     width: 100%;
 }
+
+ul.phil3__row {
+    gap: 20px;
+}
+p.eyebrow3.ind3__eyebrow {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.ind3__acc p {
+    font-size: 14px;
+    line-height: 20px;
+}
+.comp-card__title {
+    font-size: 20.5839px;
+    line-height: 100%;
+    letter-spacing: 0;
+}
 }
