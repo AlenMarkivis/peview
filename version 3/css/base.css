@@ -288,7 +288,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .curve--top { top: -1px; }
 
 /* ---------- Motion helpers (initial states set by JS) ---------- */
-.split-line { display: block; overflow: hidden; }
+.split-line { display: block; overflow: visible; }
 .split-line > .split-inner { display: block; }
 .split-char, .split-word { display: inline-block; white-space: pre; }
 

@@ -90,7 +90,8 @@
     var cta = ind.querySelector('.ind3__cta');
     var eyebrow = ind.querySelector('.ind3__eyebrow');
     var title = ind.querySelector('#ind3-title');
-    var current = 'consumer';
+    var activeTab = tabs.find(function (t) { return t.classList.contains('is-active'); });
+    var current = activeTab ? activeTab.dataset.ind : (tabs[0] && tabs[0].dataset.ind);
     var swapTimer = null;
     var accordion = window.matchMedia('(max-width: 1024px)');
 
@@ -153,6 +154,8 @@
       t.addEventListener('click', function () {
         // accordion: tapping the open row closes it
         if (accordion.matches && t.dataset.ind === current && t.getAttribute('aria-expanded') === 'true') {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
           setOpen(null); return;
         }
         activate(t.dataset.ind, true);
@@ -171,6 +174,11 @@
     var mqChange = function () { setOpen(current); };
     if (accordion.addEventListener) accordion.addEventListener('change', mqChange);
     setOpen(current);
+    // the open row's max-height is measured from scrollHeight at this point,
+    // but the display webfont can still swap in after and reflow the copy
+    // taller (more visible at narrow widths, where lines wrap more), leaving
+    // the panel too short and clipping its button; re-measure once it loads.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setOpen(current); });
   }
 
   /* ---------- Help cards: tap toggles the white state on touch ---------- */
@@ -193,64 +201,42 @@
     });
   }
 
-  /* ---------- Partner logos: phone carousel ----------
-     Below 768 the 3x3 grid becomes a snap strip showing two logos at a time,
-     autoplaying every 2.8s with one dot per page. Inert while it is a grid. */
+  /* ---------- Partner logos: phone marquee ----------
+     Below 768 the 3x3 grid becomes a continuously auto-scrolling strip.
+     The track is duplicated once so a linear -50% translate loops
+     seamlessly; paused on hover/touch, skipped under reduced motion. */
   var logos = document.getElementById('logos3');
   if (logos) {
     var track = logos.querySelector('.logos3__track');
-    var dotsWrap = logos.querySelector('.logos3__dots');
-    var timer = null;
-    var paused = false;
+    var originals = Array.from(track.children);
+    var mobile = window.matchMedia('(max-width: 768px)');
+    var duplicated = false;
 
-    function scrollable() { return track.scrollWidth - track.clientWidth > 4; }
-    function pageCount() { return Math.max(1, Math.round(track.scrollWidth / track.clientWidth)); }
-    function pageIndex() { return Math.round(track.scrollLeft / track.clientWidth); }
+    // each logo is half the strip's own width (so two show at a time, as
+    // before); flex-basis can't be a % here since the track's width is
+    // itself content-based, so it's measured and written as a px variable.
+    function sizeLogos() { logos.style.setProperty('--logo-w', (logos.clientWidth / 2) + 'px'); }
 
-    function drawDots() {
-      if (!dotsWrap) return;
-      dotsWrap.innerHTML = '';
-      if (!scrollable()) return;
-      for (var i = 0; i < pageCount(); i++) {
-        var d = document.createElement('button');
-        d.type = 'button';
-        d.className = 'logos3__dot' + (i === pageIndex() ? ' is-active' : '');
-        d.setAttribute('aria-label', 'Logos page ' + (i + 1));
-        d.dataset.page = i;
-        d.addEventListener('click', function (e) {
-          track.scrollTo({ left: track.clientWidth * (+e.currentTarget.dataset.page), behavior: 'smooth' });
-          restart();
+    function setMarquee(on) {
+      if (on && !duplicated) {
+        originals.forEach(function (li) { track.appendChild(li.cloneNode(true)); });
+        duplicated = true;
+      } else if (!on && duplicated) {
+        Array.from(track.children).forEach(function (li) {
+          if (originals.indexOf(li) < 0) li.remove();
         });
-        dotsWrap.appendChild(d);
+        duplicated = false;
       }
+      if (on) sizeLogos();
+      logos.classList.toggle('is-marquee', on && !noAnim);
     }
-    function syncDots() {
-      if (!dotsWrap) return;
-      var idx = pageIndex();
-      Array.from(dotsWrap.children).forEach(function (d, i) { d.classList.toggle('is-active', i === idx); });
-    }
-    function advance() {
-      if (paused || !scrollable() || noAnim) return;
-      track.scrollTo({ left: track.clientWidth * ((pageIndex() + 1) % pageCount()), behavior: 'smooth' });
-    }
-    function restart() {
-      clearInterval(timer);
-      if (scrollable() && !noAnim) timer = setInterval(advance, 2800);
-    }
+    setMarquee(mobile.matches);
+    if (mobile.addEventListener) mobile.addEventListener('change', function (e) { setMarquee(e.matches); });
+    window.addEventListener('resize', function () { if (mobile.matches) sizeLogos(); });
 
-    track.addEventListener('scroll', syncDots, { passive: true });
-    track.addEventListener('touchstart', function () { paused = true; }, { passive: true });
-    track.addEventListener('touchend', function () { paused = false; restart(); }, { passive: true });
-    track.addEventListener('mouseenter', function () { paused = true; });
-    track.addEventListener('mouseleave', function () { paused = false; });
-
-    var logoW = window.innerWidth;
-    window.addEventListener('resize', function () {
-      if (window.innerWidth === logoW) return;
-      logoW = window.innerWidth;
-      drawDots(); restart();
-    });
-    drawDots();
-    restart();
+    logos.addEventListener('mouseenter', function () { logos.classList.add('is-paused'); });
+    logos.addEventListener('mouseleave', function () { logos.classList.remove('is-paused'); });
+    logos.addEventListener('touchstart', function () { logos.classList.add('is-paused'); }, { passive: true });
+    logos.addEventListener('touchend', function () { logos.classList.remove('is-paused'); }, { passive: true });
   }
 })();

@@ -78,6 +78,9 @@
   .footer__bar-inner {
     padding: 8px 32px;
   }
+  .help3-card:hover {
+    transform: scale(1.1);
+}
 }
 
 @media (max-width: 1024px) {
@@ -371,6 +374,14 @@
   .why__track {
     left: 0;
   }
+  ul.phil3__row {
+    width: 100%;
+}
+
+section#philosophy {
+    padding-top: 40px;
+}
+
 }
 
 
@@ -573,6 +584,7 @@
   .logo img {
     height: auto;
   }
+  
 }
 
 @media (max-width: 480px) {
@@ -1757,6 +1769,7 @@ h2.ind3__title.display {
     margin-right: 0;
     width: 100%;
 }
+
 }
 
 /* Insights tags (filter pills and post labels) at every width. */

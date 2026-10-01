@@ -51,6 +51,10 @@
 
   /* ---- Help: two columns (version 2 tablet layout). No hover on touch,
      so the description is always shown on the glass card. ---- */
+  /* the base rule has no bottom padding (desktop's single fixed-height row
+     reserves its own clearance via the card's bottom padding); two stacked
+     rows here need the section itself to clear the bottom curve instead. */
+  .help3 { padding-bottom: 96px; }
   .help3-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: auto;
@@ -122,10 +126,20 @@
   .why__stackwords { left: 50%; translate: -50% 0; align-items: center; }
 
   /* ---- Help (version 2 phone layout) ---- */
-  .help3 { padding-top: 120px; padding-bottom: 80px; }
-  .help3-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 50px; margin-bottom: -40px; }
+  .help3 { padding-top: 120px; padding-bottom: 112px; }
+  .help3-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 50px; margin-bottom: -8px; }
   .help3-card { padding: 28px 24px 44px; }
   .help3-card__detail h4 { font-size: 26px; }
+  /* full-width card: keep the tap-to-open white background (shared with
+     tablet above) but drop the desktop zoom/shadow treatment, which only
+     makes sense when a card grows against narrower siblings in a row. */
+  .help3-card:hover,
+  .help3-card:focus-visible,
+  .help3-card.is-open {
+    transform: none;
+    box-shadow: none;
+    z-index: auto;
+  }
 
   /* ---- Insights ---- */
   .insights { padding-bottom: 72px; }
@@ -139,45 +153,64 @@
   .careers3__lead { font-size: 17px; line-height: 1.6; margin-top: 20px; }
   .careers3__body .btn { margin-top: 28px; }
 
-  /* ---- Partners: centred copy, logo carousel ---- */
+  /* ---- Partners: centred copy, logo marquee ---- */
   .partners3 { padding-bottom: 72px; }
   .partners3__grid { gap: 28px; }
   .partners3__copy { text-align: center; display: flex; flex-direction: column; align-items: center; }
   .partners3__title { font-size: 36px; margin-top: 16px; max-width: 320px; }
   .partners3__copy .btn { margin-top: 28px; }
-  .logos3 { margin-top: 0; }
-  .logos3__track {
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    scroll-behavior: smooth;
+  /* js/v3.js duplicates the logo list into the track and adds .is-marquee;
+     the mask fades the strip's edges so logos ease in/out instead of
+     cutting off hard at the viewport edge. */
+  .logos3 {
+    margin-top: 0;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
   }
-  .logos3__track::-webkit-scrollbar { display: none; }
-  .logo3 {
-    flex: 0 0 50%;
-    scroll-snap-align: start;
-    height: 110px;
-    padding: 16px;
-  }
+  .logos3__track { display: flex; gap: 0; width: max-content; }
+  .logos3.is-marquee .logos3__track { animation: logos3-marquee 24s linear infinite; }
+  .logos3.is-paused .logos3__track { animation-play-state: paused; }
+  .logo3 { flex: 0 0 var(--logo-w, 50vw); height: 110px; padding: 16px; }
   .logo3 img { width: min(var(--w, 140px), 100%); max-height: 70px; }
-  .logos3__dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 12px;
-  }
-  .logos3__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(29, 31, 31, 0.18);
-    transition: background 0.3s, transform 0.3s;
-  }
-  .logos3__dot.is-active { background: var(--green); transform: scale(1.2); }
+  .logos3__dots { display: none; }
 
   /* ---- Footer ---- */
   .footer__logo { margin-bottom: 40px; }
+}
+
+@keyframes logos3-marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logos3.is-marquee .logos3__track { animation: none; }
+}
+
+@media (max-width: 767px) {
+  /* responsive.css:974 (shared with v2) sets this same selector uppercase,
+     bold and wide-tracked at <=576px with equal specificity, which would
+     otherwise win over the normal-case look v3-responsive.css already
+     gives it from 768px down; matching the selector here keeps that one
+     look (plus the smaller size) through mobile instead of flipping style
+     right at the 576px boundary. */
+  .why__copy p.lead.reveal {
+    font-size: 14px;
+    text-transform: none;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .help3-card {
+    color: #000;
+    background: #fff;
+}
+
+.help3-card * {
+    color: #000;
+    text-shadow: none;
+}
+
+.help3-card__detail p {
+    color: #000;
+}
 }
