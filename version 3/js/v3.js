@@ -21,16 +21,24 @@
 
   /* ---------- Hero: dark + blurred start frame -> clear, then the nav ----------
      Matches the prototype: the page opens on the dark "Start here" frame and
-     holds there until the user starts scrolling; then it clears to the
-     mountains + headline, and the nav slides in after. */
+     holds there until the user starts scrolling; then it cuts to the next
+     frame (sharp, half as dark, scene and headline still low) and eases up
+     into the mountains + headline, and the nav slides in after. */
   var stage = document.querySelector('.hero3__stage');
-  var CLEAR = 1400;       // matches the CSS transitions
+  var CLEAR = 1200;       // matches --hero-intro in css/sections.css
   var revealed = false;
   function reveal() {
     if (revealed) return;
     revealed = true;
     window.removeEventListener('scroll', onFirstScroll);
-    if (stage) stage.classList.remove('is-loading');
+    if (stage) {
+      if (!noAnim) stage.classList.add('is-intro');
+      stage.classList.remove('is-loading');
+      if (!noAnim) {
+        void stage.offsetWidth; // commit the .is-intro frame so the ease starts from it
+        stage.classList.remove('is-intro');
+      }
+    }
     setTimeout(function () { document.body.classList.remove('hero-loading'); }, noAnim ? 0 : CLEAR * 0.55);
   }
   function onFirstScroll() { if (window.scrollY > 0) reveal(); }

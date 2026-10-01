@@ -70,8 +70,9 @@
        0.52-0.82  stage 4 -> 5: sky + mountains hold, headline and "We
                   believe" leave the top, forest rises 249, "Together" lands
                   over the forest, sheet lands at 806
-       0.82-1.00  hold: "Together" turns green
-     After the pin everything scrolls away together (stage 5 -> 6 -> final). */
+       0.82-1.00  hold on the white "Together"
+     After the pin everything scrolls away together (stage 5 -> 6 -> final);
+     "Together" turns green over the first stretch of that (stage 6). */
   function heroScroll() {
     var hero = document.querySelector('.hero3');
     if (!hero) return;
@@ -111,16 +112,33 @@
       .fromTo(together, { y: 0, opacity: 0 }, { y: d(-127), opacity: 1, duration: BD, ease: MOVE }, B)
       .fromTo(sheet, { y: 0 }, { y: d(-156), duration: BD, ease: MOVE }, B);
 
-    // 4 -> 5, then hold on "Together"
+    // 4 -> 5, then hold on "Together" (still white)
     var C = 0.52, CD = 0.30;
     tl.to(title, { y: d(-636), opacity: 0, duration: CD, ease: MOVE }, C)
       .to(believe, { y: d(-899), opacity: 0.3, duration: CD, ease: MOVE }, C)
       .to(forest, { y: d(-388), duration: CD, ease: MOVE }, C)
       .to(green, { y: d(-317), duration: CD, ease: MOVE }, C)
-      .to(together, { y: d(-593), duration: CD, ease: MOVE }, C)
+      .to(together, { y: d(-615), duration: CD, ease: MOVE }, C)
       .to(sheet, { y: d(-313), duration: CD, ease: MOVE }, C)
-      .fromTo(accent, { opacity: 0 }, { opacity: 1, duration: 0.08 }, 0.82)
-      .to({}, { duration: 0.10 }, 0.90); // keeps the timeline at 1.0 for the final hold
+      .to({}, { duration: 0.18 }, 0.82); // keeps the timeline at 1.0 for the final hold
+
+    // 5 -> 6 is the first 231 design px of normal scroll after the pin: the
+    // sheet travels with the page, "Together" lags it by 16 (Figma stage 6)
+    // and turns green on the way. Animates the inner copy so the pin's
+    // timeline keeps sole ownership of the wrapper's transform.
+    var copy = together.querySelectorAll('.hero3__together');
+    gsap.timeline({
+      defaults: { ease: 'none', immediateRender: false },
+      scrollTrigger: {
+        trigger: hero,
+        start: 'bottom bottom',
+        end: function () { return '+=' + 231 * u(); },
+        scrub: 0.8,
+        invalidateOnRefresh: true
+      }
+    })
+      .fromTo(accent, { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0)
+      .fromTo(copy, { y: 0 }, { y: d(16), duration: 1 }, 0);
   }
 
   /* ---------- PHILOSOPHY: artworks travel up toward the headline ----------

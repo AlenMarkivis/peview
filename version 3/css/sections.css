@@ -12,6 +12,8 @@
   --hero-pin: 240vh;
   /* the arc on top of the white sheet: 36 of 1920 in the design */
   --hero-curve: clamp(14px, 1.875vw, 36px);
+  /* load-in after the first scroll: the prototype's "Ease out" timing */
+  --hero-intro: 1.2s cubic-bezier(0, 0, 0.58, 1);
 }
 
 /* ---------------- HERO ----------------
@@ -76,7 +78,6 @@
   background: #000;
   opacity: 0.2;
   mix-blend-mode: overlay;
-  transition: opacity 1.4s var(--ease-out);
 }
 /* Figma "Rectangle 376716008": #00a746 gradient, blend Color, 50% */
 .hero3__green {
@@ -106,7 +107,7 @@
   font-size: var(--fs-hero);
   line-height: 1;
   color: #fff;
-  transition: opacity 1.2s var(--ease-out);
+  transition: opacity var(--hero-intro), translate var(--hero-intro);
 }
 .hero3__believe {
   font-size: clamp(20px, 1.82vw, 35px);
@@ -126,26 +127,41 @@
   opacity: 0;
 }
 
-/* start state (Figma "Start here"): dark, blurred, no copy. The blur is a
-   backdrop-filter veil over the photo layers: a filter on the layers
-   themselves fades their edges to transparent, which showed a light rim. */
+/* start state (Figma "Start here"): dark, blurred, no copy, scene sitting
+   lower. Per the prototype, the first scroll cuts straight to its next frame
+   (blur gone, darkness down to about half, title already mostly in, all
+   still low) and that frame then eases into the stage-2 layout above.
+   js/v3.js holds .is-intro for one frame so that first cut is instant.
+   The offsets go on `top` and on the h1's `translate` because the GSAP
+   scrub owns `transform` on the layers and on the title's wrapper. The blur
+   is a backdrop-filter veil: a filter on the layers themselves fades their
+   edges to transparent, which showed a light rim. */
 .hero3__veil {
   position: absolute;
   inset: 0;
   pointer-events: none;
   visibility: hidden;
+  background: rgba(0, 0, 0, 0);
   -webkit-backdrop-filter: blur(0px);
   backdrop-filter: blur(0px);
-  transition: -webkit-backdrop-filter 1.4s var(--ease-out), backdrop-filter 1.4s var(--ease-out), visibility 0s linear 1.4s;
+  transition: background-color var(--hero-intro), visibility 0s linear 1.2s;
 }
+.hero3__layer--mtn,
+.hero3__layer--forest,
+.hero3__green { transition: top var(--hero-intro); }
 .hero3__stage.is-loading .hero3__veil {
   visibility: visible;
+  background: rgba(0, 0, 0, 0.53);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
-.hero3__stage.is-loading .hero3__tint { opacity: 0.53; mix-blend-mode: normal; }
-/* the h1 fades in; its wrapper's opacity belongs to the GSAP scrub */
-.hero3__stage.is-loading .hero3__title { opacity: 0; }
+.hero3__stage.is-intro .hero3__veil { visibility: visible; background: rgba(0, 0, 0, 0.25); }
+.hero3__stage:is(.is-loading, .is-intro) .hero3__layer--mtn { top: calc(268 * var(--u)); }
+.hero3__stage:is(.is-loading, .is-intro) .hero3__layer--forest { top: calc(718 * var(--u)); }
+.hero3__stage:is(.is-loading, .is-intro) .hero3__green { top: calc(729 * var(--u)); }
+.hero3__stage.is-loading .hero3__title { opacity: 0; translate: 0 calc(391 * var(--u)); }
+.hero3__stage.is-intro .hero3__title { opacity: 0.75; translate: 0 calc(391 * var(--u)); }
+.hero3__stage.is-intro :is(.hero3__veil, .hero3__layer, .hero3__green, .hero3__title) { transition: none; }
 .site-header { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s var(--ease-out); }
 body.hero-loading .site-header { opacity: 0; pointer-events: none; }
 
@@ -197,7 +213,7 @@ html.no-anim .hero3__txt--title { opacity: 0; }
 html.no-anim .hero3__txt--believe { opacity: 0; }
 html.no-anim .hero3__layer--forest { transform: translateY(calc(-388 * var(--u))); }
 html.no-anim .hero3__green { transform: translateY(calc(-317 * var(--u))); }
-html.no-anim .hero3__txt--together { opacity: 1; transform: translateY(calc(-593 * var(--u))); }
+html.no-anim .hero3__txt--together { opacity: 1; transform: translateY(calc(-615 * var(--u))); }
 html.no-anim .hero3__together--accent { opacity: 1; }
 html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
 
@@ -258,12 +274,11 @@ html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
 
 /* Column geometry (design px → % of the 522 column: 1567/3) */
 .phil3__item--hi-ai .phil3__media { width: 95.8%; margin-top: -45px; translate: -2.1% 0; }
-.phil3__item--hi-ai .phil3__label { margin-top: 30px; }
 
 /* the brain poster is square (Figma node is 453x680): the square is centred on
    the Figma brain so the label lands on the same line as the yin-yang label */
 .phil3__item--xfactors .phil3__media { width: 86.8%; margin-top: -29px; translate: 6.6% 0; }
-.phil3__item--xfactors .phil3__label { margin-top: 51px; translate: 3.4% 0; }
+.phil3__item--xfactors .phil3__label { margin-top: 31px; translate: 3.4% 0; }
 .phil3__item--xfactors .btn { translate: 3.4% 0; margin-top: 41px; }
 
 .phil3__item--orian .phil3__media { width: 76.2%; margin-top: 177px; }
