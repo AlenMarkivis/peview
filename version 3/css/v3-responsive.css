@@ -87,6 +87,10 @@
   /* ---- Partners ---- */
   .partners3__grid { grid-template-columns: 1fr; gap: 32px; }
   .partners3__title { max-width: 560px; }
+  .help3-card{
+
+    height: 100%;
+  }
 }
 
 @media (max-width: 768px) {

@@ -249,16 +249,16 @@ html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
 
 /* Column geometry (design px → % of the 522 column: 1567/3) */
 .phil3__item--hi-ai .phil3__media { width: 95.8%; margin-top: -45px; translate: -2.1% 0; }
-.phil3__item--hi-ai .phil3__label { margin-top: 60px; }
+.phil3__item--hi-ai .phil3__label { margin-top: 30px; }
 
 /* the brain poster is square (Figma node is 453x680): the square is centred on
    the Figma brain so the label lands on the same line as the yin-yang label */
 .phil3__item--xfactors .phil3__media { width: 86.8%; margin-top: -29px; translate: 6.6% 0; }
-.phil3__item--xfactors .phil3__label { margin-top: 81px; translate: 3.4% 0; }
+.phil3__item--xfactors .phil3__label { margin-top: 51px; translate: 3.4% 0; }
 .phil3__item--xfactors .btn { translate: 3.4% 0; margin-top: 41px; }
 
 .phil3__item--orian .phil3__media { width: 76.2%; margin-top: 177px; }
-.phil3__item--orian .phil3__label { margin-top: 72px; }
+.phil3__item--orian .phil3__label { margin-top: 42px; }
 .phil3__item--orian .btn { margin-top: 49px; }
 
 /* --- Still + clip (side orbs): the clip replaces the still on hover --- */
@@ -512,7 +512,7 @@ html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: 4px 22px 15px rgba(0, 0, 0, 0.25), -4px 22px 15px rgba(0, 0, 0, 0.25);
-      transform: scale(1.3);
+      transform: scale(1.2);
     z-index: 9;
 }
 .help3-card:hover .help3-card__title,
