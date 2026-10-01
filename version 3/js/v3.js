@@ -20,36 +20,54 @@
   }
 
   /* ---------- Hero: dark + blurred start frame -> clear, then the nav ----------
-     Matches the prototype: the page opens on the dark "Start here" frame,
-     clears to the mountains + headline, and the nav slides in after. */
+     Matches the prototype: the page opens on the dark "Start here" frame and
+     holds there until the user starts scrolling; then it clears to the
+     mountains + headline, and the nav slides in after. */
   var stage = document.querySelector('.hero3__stage');
-  var HOLD = 900;         // ms on the dark frame
   var CLEAR = 1400;       // matches the CSS transitions
+  var revealed = false;
   function reveal() {
+    if (revealed) return;
+    revealed = true;
+    window.removeEventListener('scroll', onFirstScroll);
     if (stage) stage.classList.remove('is-loading');
     setTimeout(function () { document.body.classList.remove('hero-loading'); }, noAnim ? 0 : CLEAR * 0.55);
   }
+  function onFirstScroll() { if (window.scrollY > 0) reveal(); }
   if (noAnim) reveal();
-  else if (document.readyState === 'complete') setTimeout(reveal, HOLD);
-  else window.addEventListener('load', function () { setTimeout(reveal, HOLD); });
-  setTimeout(reveal, 4500); // safety: never stay dark if load stalls
+  else {
+    window.addEventListener('scroll', onFirstScroll, { passive: true });
+    onFirstScroll(); // opened mid-page (anchor / restored scroll): no blur hold
+  }
+
+  /* ---------- Hero scale ----------
+     --u = live px per Figma design px: the "cover" scale of the 1920 x 1080
+     frame for the stage (the CSS fallback uses 100vw, which includes the
+     scrollbar). js/animations.js uses the same unit for its offsets. */
+  function heroU() {
+    return stage ? Math.max(stage.offsetWidth / 1920, stage.offsetHeight / 1080) : 1;
+  }
+  function setU() { if (stage) stage.style.setProperty('--u', heroU() + 'px'); }
+  setU();
+  window.v3HeroU = heroU;
 
   /* ---------- Hero sheet -> page hand-off ----------
-     The white sheet (curve + intro) ends the pin with its top at 806/1080 of
-     the viewport. .page-below must start exactly where the sheet ends, so its
-     top margin = sheet bottom - stage height. Recomputed on resize. */
+     The white sheet (curve + intro) ends the pin with its top at 806 design
+     px. .page-below must start exactly where the sheet ends, so its top
+     margin = sheet bottom - stage height. Recomputed on resize. */
   var sheet = document.querySelector('.hero3__sheet');
   var below = document.querySelector('.page-below');
   function syncSheet() {
     if (!sheet || !below || !stage) return;
     var H = stage.offsetHeight;
-    var top = H * 806 / 1080;
+    var top = 806 * heroU();
     below.style.marginTop = Math.max(0, Math.round(top + sheet.offsetHeight - H)) + 'px';
   }
   syncSheet();
   window.v3SyncSheet = syncSheet;
   var lastW = window.innerWidth, lastH = window.innerHeight;
   window.addEventListener('resize', function () {
+    setU();
     if (window.innerWidth === lastW && Math.abs(window.innerHeight - lastH) < 120) return;
     lastW = window.innerWidth; lastH = window.innerHeight;
     syncSheet();

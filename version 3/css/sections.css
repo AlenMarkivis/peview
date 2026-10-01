@@ -9,16 +9,18 @@
 
 :root {
   /* scroll distance the hero stage stays pinned while its sequence plays */
-  --hero-pin: 160vh;
+  --hero-pin: 240vh;
   /* the arc on top of the white sheet: 36 of 1920 in the design */
   --hero-curve: clamp(14px, 1.875vw, 36px);
 }
 
 /* ---------------- HERO ----------------
    Positions are the Figma "Scroll Test" stage-2 frame (1920 x 1080 viewport)
-   expressed in vh (1px = 0.0926vh) so the layers, the copy and the white
-   sheet stay registered at any viewport height. js/animations.js scrubs the
-   transforms; the stacking order below is the Figma layer order. */
+   in design px times --u, the "cover" scale of that frame for the live stage
+   (max of width/1920 and height/1080; js/v3.js sets it exactly). The photos
+   are cover-sized too, so the layers, the copy and the white sheet stay
+   registered at any viewport shape. js/animations.js scrubs the transforms;
+   the stacking order below is the Figma layer order. */
 .hero3 {
   position: relative;
   z-index: 0;
@@ -29,6 +31,7 @@
   top: 0;
   height: 100vh;
   color: #fff;
+  --u: max(calc(100vw / 1920), calc(100vh / 1080));
   /* the sheet hangs below the stage into .page-below's top margin */
   overflow: visible;
 }
@@ -37,7 +40,6 @@
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  transition: filter 1.4s var(--ease-out);
 }
 .hero3__stage > .hero3__scene:first-child { background: #0d6fc9; }
 .hero3__layer {
@@ -51,20 +53,20 @@
 }
 .hero3__layer--sky {
   top: 0;
-  height: 150vh;
+  height: calc(1620 * var(--u));
   background-image: url('../assets/images/hero-00-sky.jpg');
   background-position: 50% 0;
 }
 /* Figma 01 (1930 x 2057 at y -715); the export starts at image row 893. */
 .hero3__layer--mtn {
-  top: 16.48vh;
-  height: 107.87vh;
+  top: calc(178 * var(--u));
+  height: calc(1165 * var(--u));
   background-image: url('../assets/images/hero-01-mountains.png');
 }
 /* Figma 02 at y 628, 704 tall */
 .hero3__layer--forest {
-  top: 58.15vh;
-  height: 65.19vh;
+  top: calc(628 * var(--u));
+  height: calc(704 * var(--u));
   background-image: url('../assets/images/hero-02-forest.png');
 }
 /* Figma "Rectangle 376715513": black 20%, Overlay */
@@ -80,8 +82,8 @@
 .hero3__green {
   position: absolute;
   left: 0; right: 0;
-  top: 59.17vh;
-  height: 48.24vh;
+  top: calc(639 * var(--u));
+  height: calc(521 * var(--u));
   background: linear-gradient(0deg, rgba(0, 167, 70, 1) 0%, rgba(0, 167, 70, 0) 100%);
   mix-blend-mode: color;
   opacity: 0.5;
@@ -97,13 +99,14 @@
   pointer-events: none;
   will-change: transform, opacity;
 }
-.hero3__txt--title { top: 30.65vh; transition: opacity 1.2s var(--ease-out); }
-.hero3__txt--believe { top: 88.7vh; opacity: 0; }
-.hero3__txt--together { top: 104.44vh; opacity: 0; }
+.hero3__txt--title { top: calc(331 * var(--u)); }
+.hero3__txt--believe { top: calc(958 * var(--u)); opacity: 0; }
+.hero3__txt--together { top: calc(1128 * var(--u)); opacity: 0; }
 .hero3__title {
   font-size: var(--fs-hero);
   line-height: 1;
   color: #fff;
+  transition: opacity 1.2s var(--ease-out);
 }
 .hero3__believe {
   font-size: clamp(20px, 1.82vw, 35px);
@@ -123,10 +126,26 @@
   opacity: 0;
 }
 
-/* start state (Figma "Start here"): dark, blurred, no copy */
-.hero3__stage.is-loading .hero3__scene { filter: blur(16px); }
+/* start state (Figma "Start here"): dark, blurred, no copy. The blur is a
+   backdrop-filter veil over the photo layers: a filter on the layers
+   themselves fades their edges to transparent, which showed a light rim. */
+.hero3__veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  visibility: hidden;
+  -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
+  transition: -webkit-backdrop-filter 1.4s var(--ease-out), backdrop-filter 1.4s var(--ease-out), visibility 0s linear 1.4s;
+}
+.hero3__stage.is-loading .hero3__veil {
+  visibility: visible;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
 .hero3__stage.is-loading .hero3__tint { opacity: 0.53; mix-blend-mode: normal; }
-.hero3__stage.is-loading .hero3__txt--title { opacity: 0; }
+/* the h1 fades in; its wrapper's opacity belongs to the GSAP scrub */
+.hero3__stage.is-loading .hero3__title { opacity: 0; }
 .site-header { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s var(--ease-out); }
 body.hero-loading .site-header { opacity: 0; pointer-events: none; }
 
@@ -134,7 +153,7 @@ body.hero-loading .site-header { opacity: 0; pointer-events: none; }
 .hero3__sheet {
   position: absolute;
   left: 0; right: 0;
-  top: 103.61vh;
+  top: calc(1119 * var(--u));
   z-index: 5;
   color: var(--ink);
   will-change: transform;
@@ -164,14 +183,14 @@ body.hero-loading .site-header { opacity: 0; pointer-events: none; }
 /* Static final state: ?noanim, reduced motion, or GSAP missing (the
    transforms are the design's stage-5 offsets). */
 html.no-anim .hero3__layer--sky,
-html.no-anim .hero3__layer--mtn { transform: translateY(-34.17vh); }
+html.no-anim .hero3__layer--mtn { transform: translateY(calc(-369 * var(--u))); }
 html.no-anim .hero3__txt--title { opacity: 0; }
 html.no-anim .hero3__txt--believe { opacity: 0; }
-html.no-anim .hero3__layer--forest { transform: translateY(-35.93vh); }
-html.no-anim .hero3__green { transform: translateY(-29.35vh); }
-html.no-anim .hero3__txt--together { opacity: 1; transform: translateY(-54.91vh); }
+html.no-anim .hero3__layer--forest { transform: translateY(calc(-388 * var(--u))); }
+html.no-anim .hero3__green { transform: translateY(calc(-317 * var(--u))); }
+html.no-anim .hero3__txt--together { opacity: 1; transform: translateY(calc(-593 * var(--u))); }
 html.no-anim .hero3__together--accent { opacity: 1; }
-html.no-anim .hero3__sheet { transform: translateY(-28.98vh); }
+html.no-anim .hero3__sheet { transform: translateY(calc(-313 * var(--u))); }
 
 .page-below {
   position: relative;

@@ -58,15 +58,19 @@
 
   /* ---------- HERO: scroll-driven parallax sequence ----------
      Offsets are the Figma "Scroll Test" frames (1920 x 1080 viewport, design
-     px) and are converted to the live stage height, so layers, copy and the
-     white sheet stay registered at any size. Progress 0 -> 1 spans the pin.
-       0.00-0.18  stage 2 -> 3: "We believe" fades in; nothing moves yet
-       0.18-0.58  stage 3 -> 4: sky + mountains rise 369, headline only 257
+     px) times the hero scale --u (js/v3.js), so layers, copy and the white
+     sheet stay registered at any size. Each Figma frame is a hold where
+     nothing moves, so its line can be read before the next move. Progress
+     0 -> 1 spans the pin.
+       0.00-0.08  hold on the headline; "We believe" fades in behind the forest
+       0.08-0.38  stage 3 -> 4: sky + mountains rise 369, headline only 257
                   (so the ridge slides over it), "We believe" 470, forest 139,
                   sheet 156, "Together" starts rising from behind the sheet
-       0.58-1.00  stage 4 -> 5: sky + mountains hold, headline and "We
+       0.38-0.52  hold: "We believe" mid-screen
+       0.52-0.82  stage 4 -> 5: sky + mountains hold, headline and "We
                   believe" leave the top, forest rises 249, "Together" lands
-                  over the forest and turns green, sheet lands at 806
+                  over the forest, sheet lands at 806
+       0.82-1.00  hold: "Together" turns green
      After the pin everything scrolls away together (stage 5 -> 6 -> final). */
   function heroScroll() {
     var hero = document.querySelector('.hero3');
@@ -78,8 +82,10 @@
     var title = q('.hero3__txt--title'), believe = q('.hero3__txt--believe'), together = q('.hero3__txt--together');
     var accent = q('.hero3__together--accent'), sheet = q('.hero3__sheet');
 
-    // design px -> live px (stage height is the CSS 100vh)
-    var d = function (px) { return function () { return px / 1080 * stage.offsetHeight; }; };
+    // design px -> live px (same unit as the CSS --u)
+    var u = window.v3HeroU || function () { return Math.max(stage.offsetWidth / 1920, stage.offsetHeight / 1080); };
+    var d = function (px) { return function () { return px * u(); }; };
+    var MOVE = 'power1.inOut'; // eases into and out of each hold
 
     var tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -92,28 +98,29 @@
       }
     });
 
-    // 2 -> 3
-    tl.fromTo(believe, { opacity: 0 }, { opacity: 1, duration: 0.18 }, 0);
+    // stage 3: headline hold
+    tl.fromTo(believe, { opacity: 0 }, { opacity: 1, duration: 0.08 }, 0);
 
-    // 3 -> 4
-    var B = 0.18, BD = 0.40;
-    tl.fromTo([sky, mtn], { y: 0 }, { y: d(-369), duration: BD }, B)
-      .fromTo(title, { y: 0, opacity: 1 }, { y: d(-257), opacity: 0.37, duration: BD }, B)
-      .fromTo(believe, { y: 0 }, { y: d(-470), duration: BD }, B)
-      .fromTo(forest, { y: 0 }, { y: d(-139), duration: BD }, B)
-      .fromTo(green, { y: 0 }, { y: d(-149), duration: BD }, B)
-      .fromTo(together, { y: 0, opacity: 0 }, { y: d(-127), opacity: 1, duration: BD }, B)
-      .fromTo(sheet, { y: 0 }, { y: d(-156), duration: BD }, B);
+    // 3 -> 4, then hold on "We believe"
+    var B = 0.08, BD = 0.30;
+    tl.fromTo([sky, mtn], { y: 0 }, { y: d(-369), duration: BD, ease: MOVE }, B)
+      .fromTo(title, { y: 0, opacity: 1 }, { y: d(-257), opacity: 0.37, duration: BD, ease: MOVE }, B)
+      .fromTo(believe, { y: 0 }, { y: d(-470), duration: BD, ease: MOVE }, B)
+      .fromTo(forest, { y: 0 }, { y: d(-139), duration: BD, ease: MOVE }, B)
+      .fromTo(green, { y: 0 }, { y: d(-149), duration: BD, ease: MOVE }, B)
+      .fromTo(together, { y: 0, opacity: 0 }, { y: d(-127), opacity: 1, duration: BD, ease: MOVE }, B)
+      .fromTo(sheet, { y: 0 }, { y: d(-156), duration: BD, ease: MOVE }, B);
 
-    // 4 -> 5
-    var C = 0.58, CD = 0.42;
-    tl.to(title, { y: d(-636), opacity: 0, duration: CD }, C)
-      .to(believe, { y: d(-899), opacity: 0.3, duration: CD }, C)
-      .to(forest, { y: d(-388), duration: CD }, C)
-      .to(green, { y: d(-317), duration: CD }, C)
-      .to(together, { y: d(-593), duration: CD }, C)
-      .to(sheet, { y: d(-313), duration: CD }, C)
-      .fromTo(accent, { opacity: 0 }, { opacity: 1, duration: 0.14 }, 0.86);
+    // 4 -> 5, then hold on "Together"
+    var C = 0.52, CD = 0.30;
+    tl.to(title, { y: d(-636), opacity: 0, duration: CD, ease: MOVE }, C)
+      .to(believe, { y: d(-899), opacity: 0.3, duration: CD, ease: MOVE }, C)
+      .to(forest, { y: d(-388), duration: CD, ease: MOVE }, C)
+      .to(green, { y: d(-317), duration: CD, ease: MOVE }, C)
+      .to(together, { y: d(-593), duration: CD, ease: MOVE }, C)
+      .to(sheet, { y: d(-313), duration: CD, ease: MOVE }, C)
+      .fromTo(accent, { opacity: 0 }, { opacity: 1, duration: 0.08 }, 0.82)
+      .to({}, { duration: 0.10 }, 0.90); // keeps the timeline at 1.0 for the final hold
   }
 
   /* ---------- PHILOSOPHY: artworks travel up toward the headline ----------

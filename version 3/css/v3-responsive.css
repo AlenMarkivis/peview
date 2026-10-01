@@ -88,7 +88,7 @@
 @media (max-width: 768px) {
   /* ---- Hero: same layered scroll sequence, phone type sizes ---- */
   :root {
-    --hero-pin: 120vh;
+    --hero-pin: 180vh;
     --hero-curve: 14px;
   }
   .hero3__title {
